@@ -9,8 +9,8 @@ const Navbar = () => {
     const handleLogOut = () => {
         console.log('LogOut Successful');
         signOutUser()
-        .then(() => setUser(null)
-        ).catch(error => error)
+            .then(() => setUser(null)
+            ).catch(error => error)
     }
 
     return (
@@ -48,24 +48,24 @@ const Navbar = () => {
                             </div>
                         </div> */}
                     </div>
-                    <div>
-                        { user ?
-                            <div>
-                                <p>{ user?.displayName}</p>
-                              <button onClick={handleLogOut} className="btn btn-sm">LogOut</button>
-                            </div>
-                            :
-                            <Link to='/login' className="btn btn-sm">LogIn</Link>
-                        }
-                    </div>
-                    
+
+
                 </div>
-                <div className="dropdown dropdown-end">
+
+                <div className="dropdown dropdown-end flex gap-2">
+
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                            <img
-                                alt="Tailwind CSS Navbar component"
-                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                            {user ? <img
+                                src={user.photoURL}
+                                alt=""
+                                title={user.displayName} />
+                                :
+                                <div>
+                                    <img src="https://img.icons8.com/?size=100&id=7819&format=png&color=000000" alt="" />
+                                </div>
+                            }
+
                         </div>
                     </div>
                     <ul
@@ -73,7 +73,19 @@ const Navbar = () => {
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         <li><a>Profile</a></li>
                         <li><a>Settings</a></li>
-                        <li><a>Logout</a></li>
+                        <li><div>
+                            {user ?
+                                <div>
+                                    <button onClick={handleLogOut} className="btn btn-sm">LogOut</button>
+                                </div>
+                                :
+                                <div>
+                                    <Link to='/register' className="btn btn-sm mr-2">Register</Link>
+                                    <Link to='/login' className="btn btn-sm">LogIn</Link>
+                                </div>
+
+                            }
+                        </div></li>
                     </ul>
                 </div>
             </div>
