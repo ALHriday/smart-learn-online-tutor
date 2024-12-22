@@ -16,7 +16,7 @@ const Navbar = () => {
     return (
         <div className="navbar bg-base-100">
             <div className="flex-1">
-                <a className="btn btn-ghost text-xl">Smart Learn</a>
+                <Link className="btn btn-ghost text-xl" to='/'>Smart Learn</Link>
             </div>
             <div className="flex-none">
                 <div className="dropdown dropdown-end">

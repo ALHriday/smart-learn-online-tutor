@@ -13,11 +13,13 @@ import Register from './Auth/Register';
 import Banner from './components/Banner/Banner';
 import FindTutor from './components/FindTutor';
 import PrivateRoute from './Routes/PrivateRoute';
+import ErrorPage from './ErrorPage/ErrorPage';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home/>,
+    element: <Home />,
+    errorElement: <ErrorPage/>,
     children: [
       {
         path: '/',

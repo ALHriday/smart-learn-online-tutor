@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const Login = () => {
@@ -65,6 +65,7 @@ const Login = () => {
                             </div>
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Login</button>
+                                <p className="mt-2 text-slate-400 text-center">{`Don't have an account`} <Link className="btn-link" to='/register'>Register</Link></p>
                             </div>
                         </form>
                         <div className="mb-3 flex justify-center items-center"> 
