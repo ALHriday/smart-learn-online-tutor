@@ -10,10 +10,10 @@ import AuthProvider from './AuthProvider/AuthProvider';
 import Home from './components/Home/Home';
 import Login from './Auth/Login';
 import Register from './Auth/Register';
-import Banner from './components/Banner/Banner';
 import FindTutor from './components/FindTutor';
 import PrivateRoute from './Routes/PrivateRoute';
 import ErrorPage from './ErrorPage/ErrorPage';
+import App from './App';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Banner/>
+        element: <App/>
       },
       {
         path: '/login',
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         element: <Register/>
       },
       {
-        path: '/find_tutor',
+        path: '/find_tutors',
         element: <PrivateRoute><FindTutor/></PrivateRoute>
       }
     ]
