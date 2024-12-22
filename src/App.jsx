@@ -5,9 +5,9 @@ import './App.css'
 function App() {
 
   return (
-      <div>
+    <div>
       <Outlet></Outlet>
-      </div>
+    </div>
   )
 }
 

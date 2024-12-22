@@ -1,3 +1,4 @@
+
 import App from "../../App";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
@@ -7,7 +8,7 @@ const Home = () => {
         <div>
             <Navbar></Navbar>
             <App></App>
-           <Footer></Footer> 
+            <Footer></Footer>
         </div>
     );
 };

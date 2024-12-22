@@ -17,14 +17,11 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        console.log(name, photo);
-        
-
         createAccountWithEmailAndPass(email, password)
             .then(result => {
                 console.log(result.user);
                 updateProfile(auth.currentUser, { displayName: name, photoURL: photo });
-                
+
                 setUser(null);
                 form.email.value = '';
                 form.password.value = '';
