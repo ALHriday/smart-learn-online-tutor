@@ -1,13 +1,13 @@
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../Auth/firebase.init";
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import PropTypes from "prop-types";
 
 
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null);
 
-// eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -32,8 +32,7 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
     }
-
-
+    
     const togglePassword = (status) => {
         if (status.current.type === 'password') {
             status.current.type = 'text';
@@ -79,5 +78,9 @@ const AuthProvider = ({ children }) => {
         </AuthContext.Provider>
     )
 };
+
+AuthProvider.propTypes = {
+    children: PropTypes.object
+}
 
 export default AuthProvider;
