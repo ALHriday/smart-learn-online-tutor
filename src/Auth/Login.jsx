@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 const Login = () => {
-    const { signInWithGoogle, setUser, signInWithEmailAndPassWord } = useContext(AuthContext);
+    const { signInWithGoogle, setUser, signInWithEmailAndPassWord, errorMessage, setErrorMessage } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleGoogleSignIn = () => {
@@ -18,7 +18,6 @@ const Login = () => {
 
     const handleSignInUser = (e) => {
         e.preventDefault();
-        console.log('OK');
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
@@ -29,9 +28,10 @@ const Login = () => {
                 form.email.value = '';
                 form.password.value = '';
                 navigate('/');
+                setErrorMessage('');
                 alert('LogIn Successful');
             }
-        ).catch(error => error) 
+        ).catch(() => setErrorMessage('Invalid Email or Password')) 
     }
 
     return (
@@ -65,7 +65,9 @@ const Login = () => {
                             </div>
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Login</button>
+                                <p className="mt-1 text-center text-red-500">{ errorMessage }</p>
                                 <p className="mt-2 text-slate-400 text-center">{`Don't have an account`} <Link className="btn-link" to='/register'>Register</Link></p>
+                                
                             </div>
                         </form>
                         <div className="mb-3 flex justify-center items-center"> 

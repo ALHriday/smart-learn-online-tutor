@@ -6,7 +6,7 @@ import { auth } from "./firebase.init";
 
 const Register = () => {
 
-    const { createAccountWithEmailAndPass, setUser } = useContext(AuthContext);
+    const { createAccountWithEmailAndPass, setUser, passValidation, setPassValidation } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleUserWithEmailAndPassword = (e) => {
@@ -17,7 +17,12 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        createAccountWithEmailAndPass(email, password)
+        const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d).{8,}$/;
+
+        if (regex.test(password)) {
+            setPassValidation(" ");
+
+            createAccountWithEmailAndPass(email, password)
             .then(result => {
                 console.log(result.user);
                 updateProfile(auth.currentUser, { displayName: name, photoURL: photo });
@@ -28,8 +33,14 @@ const Register = () => {
                 navigate('/login');
                 alert('Account Created Successful');
             }
-        ).catch(error => console.log(error)
-        )
+            ).catch(error => console.log(error)
+            )
+
+        } else {
+            setPassValidation("Password Must Contain  1 UpperCase, 1 LowerCase, 1 Special Character and at least 8 digits.");
+        }
+
+       
     }
 
     return (
@@ -70,6 +81,7 @@ const Register = () => {
                         </div>
                         <div className="form-control mt-6">
                             <button className="btn btn-primary">Register</button>
+                            <p className="mt-2 text-red-500 text-center">{ passValidation }</p>
                             <p className="mt-2 text-slate-400 text-center">Already have an account <Link className="btn-link" to='/login'>LogIn</Link></p>
                         </div>
                     </form>
