@@ -1,11 +1,14 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 
 const Login = () => {
-    const { signInWithGoogle, setUser, signInWithEmailAndPassWord, errorMessage, setErrorMessage } = useContext(AuthContext);
+    const { signInWithGoogle, setUser, signInWithEmailAndPassWord, errorMessage, setErrorMessage, showPass, togglePassword } = useContext(AuthContext);
     const navigate = useNavigate();
+    const showPassRef = useRef();
 
     const handleGoogleSignIn = () => {
         signInWithGoogle()
@@ -54,14 +57,18 @@ const Login = () => {
                                 <input type="email" name="email"
                                  placeholder="email" className="input input-bordered" required />
                             </div>
-                            <div className="form-control">
+                            <div className="form-control relative">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" name="password" placeholder="password" className="input input-bordered" required />
+                                <input ref={showPassRef} type="password" name="password" placeholder="password" className="input input-bordered" required />
                                 <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>
+                                <p onClick={() => togglePassword(showPassRef)} className="absolute top-[45%] right-[5%]">
+                                {showPass ? <FaEye /> : <FaEyeSlash/>}
+                                
+                            </p>
                             </div>
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Login</button>

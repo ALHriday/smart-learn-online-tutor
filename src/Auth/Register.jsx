@@ -1,14 +1,18 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
 import { auth } from "./firebase.init";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
 
-    const { createAccountWithEmailAndPass, setUser, passValidation, setPassValidation } = useContext(AuthContext);
+    const { createAccountWithEmailAndPass, setUser, passValidation, setPassValidation, showPass, togglePassword } = useContext(AuthContext);
     const navigate = useNavigate();
+    const showPassRef = useRef();
 
+    
     const handleUserWithEmailAndPassword = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -73,11 +77,15 @@ const Register = () => {
                             </label>
                             <input type="email" name="email" placeholder="email" className="input input-bordered" required />
                         </div>
-                        <div className="form-control">
+                        <div className="form-control relative">
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="password" name="password" placeholder="password" className="input input-bordered" required />
+                            <input ref={showPassRef} type="password" name="password" placeholder="password" className="input input-bordered" required />
+                            <p onClick={() => togglePassword(showPassRef)} className="absolute bottom-[20%] right-[5%]">
+                                {showPass ? <FaEye /> : <FaEyeSlash/>}
+                                
+                            </p>
                         </div>
                         <div className="form-control mt-6">
                             <button className="btn btn-primary">Register</button>

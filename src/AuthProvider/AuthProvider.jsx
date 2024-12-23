@@ -13,6 +13,7 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
     const [passValidation, setPassValidation] = useState('');
+    const [showPass, setShowPass] = useState(false);
 
     const signInWithGoogle = () => {
         setLoading(true);
@@ -30,6 +31,18 @@ const AuthProvider = ({ children }) => {
     const signInWithEmailAndPassWord = (email, password) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
+    }
+
+
+    const togglePassword = (status) => {
+        if (status.current.type === 'password') {
+            status.current.type = 'text';
+            setShowPass(true);
+        } else {
+            status.current.type = 'password';
+            setShowPass(false);
+        }
+    
     }
 
 
@@ -53,6 +66,9 @@ const AuthProvider = ({ children }) => {
         setErrorMessage,
         passValidation,
         setPassValidation,
+        showPass,
+        setShowPass,
+        togglePassword
 
     }
 
