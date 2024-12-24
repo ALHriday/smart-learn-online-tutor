@@ -4,7 +4,7 @@ const Banner = () => {
         <div className="carousel w-full">
             <div id="slide1" className="carousel-item relative w-full">
                 <img
-                    src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp"
+                    src="https://images.pexels.com/photos/5905704/pexels-photo-5905704.jpeg?auto=compress&cs=tinysrgb&w=600"
                     className="w-full" />
                 <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
                     <a href="#slide4" className="btn btn-circle">❮</a>
@@ -13,7 +13,7 @@ const Banner = () => {
             </div>
             <div id="slide2" className="carousel-item relative w-full">
                 <img
-                    src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp"
+                    src="https://images.pexels.com/photos/4145354/pexels-photo-4145354.jpeg?auto=compress&cs=tinysrgb&w=600"
                     className="w-full" />
                 <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
                     <a href="#slide1" className="btn btn-circle">❮</a>
@@ -22,7 +22,7 @@ const Banner = () => {
             </div>
             <div id="slide3" className="carousel-item relative w-full">
                 <img
-                    src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp"
+                    src="https://images.pexels.com/photos/10494253/pexels-photo-10494253.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                     className="w-full" />
                 <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
                     <a href="#slide2" className="btn btn-circle">❮</a>
@@ -31,7 +31,7 @@ const Banner = () => {
             </div>
             <div id="slide4" className="carousel-item relative w-full">
                 <img
-                    src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
+                    src="https://images.pexels.com/photos/6671991/pexels-photo-6671991.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                     className="w-full" />
                 <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
                     <a href="#slide3" className="btn btn-circle">❮</a>
