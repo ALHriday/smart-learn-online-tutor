@@ -40,6 +40,7 @@ const AddTutorials = () => {
     return (
         <div className="w-1/2 mx-auto">
             <form onSubmit={handleAddTutors} className="card-body">
+                <h1 className="py-2 text-4xl text-center text-slate-400 font-bold">Add Tutorials</h1>
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Title</span>

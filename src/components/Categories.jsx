@@ -1,9 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import { Link } from "react-router-dom";
 
 
 const Categories = () => {
     const [data, setData] = useState();
-    const langRef = useRef();
+
+    const { handleCategory } = useContext(AuthContext);
 
     useEffect(() => {
         fetch('http://localhost:2100/tutors').then(res => res.json()
@@ -17,21 +20,25 @@ const Categories = () => {
 
 
     return (
-        <div className="w-11/12 mx-auto grid-cols-2 grid md:grid-cols-3 gap-2">
-            {lang && lang.map((language, idx) => <div className="flex justify-evenly items-center border-collapse border-2 py-4 " key={idx}>
-                <div className="w-6">
-                    <img src="https://img.icons8.com/?size=100&id=9m2yplxz2fr3&format=png&color=000000" alt="" />
-                </div>
+        <Link className="w-11/12 mx-auto" to='/find_tutors'>
+            <div className=" grid-cols-2 grid md:grid-cols-3 gap-2">
+                {lang && lang.map((language, idx) =>
+                    <div onClick={() => handleCategory(language)} className="flex justify-evenly items-center border-collapse border rounded-md py-6 shadow-md hover:bg-slate-900 hover:text-white cursor-pointer" key={idx}>
 
-                <div ref={langRef} className="text-xl font-bold">
-                    {language}
-                </div>
-                <div className="w-6">
-                    <img src="https://img.icons8.com/?size=100&id=49411&format=png&color=000000" alt="" />
-                </div>
-            </div>)}
+                        <div className="w-6">
+                            <img src="https://img.icons8.com/?size=100&id=9m2yplxz2fr3&format=png&color=000000" alt="" />
+                        </div>
 
-        </div>
+                        <div className="text-xl font-bold">
+                            {language}
+                        </div>
+                        <div className="w-6">
+                            <img src="https://img.icons8.com/?size=100&id=49411&format=png&color=000000" alt="" />
+                        </div>
+
+                    </div>)}
+            </div>
+        </Link>
     );
 };
 

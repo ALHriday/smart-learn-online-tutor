@@ -16,6 +16,8 @@ import ErrorPage from './ErrorPage/ErrorPage';
 import App from './App';
 import AddTutorials from './components/AddTutorials';
 import Categories from './components/Categories';
+import TutorDetails from './components/TutorDetails';
+import MyBookedTutor from './components/MyBookedTutor';
 
 const router = createBrowserRouter([
   {
@@ -37,7 +39,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/find_tutors',
-        loader: () => fetch('http://localhost:2100/tutors'),
+        // loader: () => fetch('http://localhost:2100/tutors'),
         element: <PrivateRoute><FindTutor/></PrivateRoute>
       },
       {
@@ -48,6 +50,15 @@ const router = createBrowserRouter([
       {
         path: '/add_tutorials',
         element: <PrivateRoute><AddTutorials/></PrivateRoute>
+      },
+      {
+        path: '/tutor_details/:id',
+        loader: ({params}) => fetch(`http://localhost:2100/tutors/${params.id}`),
+        element: <PrivateRoute><TutorDetails/></PrivateRoute>
+      },
+      {
+        path: '/my_booked_tutor',
+        element: <PrivateRoute><MyBookedTutor/></PrivateRoute>
       }
     ]
   },

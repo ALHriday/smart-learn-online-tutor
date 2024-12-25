@@ -14,6 +14,27 @@ const AuthProvider = ({ children }) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [passValidation, setPassValidation] = useState('');
     const [showPass, setShowPass] = useState(false);
+    const [tutorsData, setTutorData] = useState([]);
+    const [tutorCount, setTutorCount] = useState(0);
+    const [myBookedTutor, setMyBookedTutor] = useState([]);
+
+
+    useEffect(() => {
+        fetch(`http://localhost:2100/tutors`)
+            .then(res => res.json())
+            .then(data => {
+                setTutorData(data);
+                setTutorCount(data.length);
+            })
+    }, []);
+    useEffect(() => {
+        fetch(`http://localhost:2100/bookedTutor`)
+            .then(res => res.json())
+            .then(data => {
+                setMyBookedTutor(data)
+            })
+    }, []);
+    
 
     const signInWithGoogle = () => {
         setLoading(true);
@@ -43,6 +64,19 @@ const AuthProvider = ({ children }) => {
         }
     
     }
+    const handleCategory = (language) => {
+        if (language) {
+           fetch(`http://localhost:2100/tutors/category/${language}`)
+            .then(res => res.json())
+               .then(data => {
+                
+                setTutorData(data)
+            }       
+            ) 
+        }       
+    }
+
+
 
 
     useEffect(() => {
@@ -67,7 +101,14 @@ const AuthProvider = ({ children }) => {
         setPassValidation,
         showPass,
         setShowPass,
-        togglePassword
+        togglePassword,
+        tutorsData,
+        setTutorData,
+        handleCategory,
+        tutorCount,
+        myBookedTutor,
+        setMyBookedTutor
+        // handleBookedTutor
 
     }
 
