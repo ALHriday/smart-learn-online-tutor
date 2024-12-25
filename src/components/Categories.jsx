@@ -9,7 +9,7 @@ const Categories = () => {
     const { handleCategory } = useContext(AuthContext);
 
     useEffect(() => {
-        fetch('http://localhost:2100/tutors').then(res => res.json()
+        fetch('https://online-tutor-server-web.vercel.app/tutors').then(res => res.json()
         ).then(d => {
             setData(d);
         })

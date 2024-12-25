@@ -6,21 +6,20 @@ import { Link } from "react-router-dom";
 
 const MyTutorials = () => {
     const { tutorials, setTutorials, user } = useContext(AuthContext);
-    
+
     useEffect(() => {
-        fetch(`http://localhost:2100/tutorials/${user.email}`).then(res => res.json()).then(data => {
+        fetch(`https://online-tutor-server-web.vercel.app/tutorials/${user.email}`).then(res => res.json()).then(data => {
             setTutorials(data);
         })
     }, [user, setTutorials])
 
-    
+
     return (
         <div>
             <h1 className="text-4xl text-center py-4">My Tutorials</h1>
 
             <div className="overflow-x-auto">
                 <table className="table">
-                    {/* head */}
                     <thead>
                         <tr>
                             <th>Title & Image</th>
@@ -40,20 +39,16 @@ const MyTutorials = () => {
                                             <div className="mask mask-squircle h-12 w-12">
                                                 <img
                                                     src={data.image}
-                                                // alt="Avatar Tailwind CSS Component"
                                                 />
                                             </div>
                                         </div>
                                         <div>
                                             <div className="font-bold">{data.name}</div>
-                                            {/* <div className="text-sm opacity-50">United States</div> */}
                                         </div>
                                     </div>
                                 </td>
                                 <td>
                                     {data.language}
-                                    {/* <br /> */}
-                                    {/* <span className="badge badge-ghost badge-sm">Desktop Support Technician</span> */}
                                 </td>
                                 <td>{data.details}</td>
                                 <td>${data.price}</td>
@@ -82,9 +77,6 @@ const MyTutorials = () => {
                     </tfoot>
                 </table>
             </div>
-
-
-
         </div>
     );
 };

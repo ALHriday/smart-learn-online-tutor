@@ -19,9 +19,10 @@ const Navbar = () => {
                 <Link className="btn btn-ghost text-xl" to='/'>Smart Learn</Link>
             </div>
             <div className="flex-none">
-                <div className="dropdown flex gap-2 dropdown-end">
+                <div className="dropdown hidden lg:flex gap-2 dropdown-end">
                     <Link className="btn btn-sm" to='/'>Home</Link>
                     <Link className="btn btn-sm" to='/find_tutors'>Find Tutors</Link>
+                    <Link className="btn btn-sm" to='/add_tutorials'>Add Tutorials</Link>
                     <Link className="btn btn-sm" to='/my_booked_tutor'>My Booked Tutor</Link>
                     <Link className="btn btn-sm" to='/my_tutorials'>My Tutorials</Link>
 

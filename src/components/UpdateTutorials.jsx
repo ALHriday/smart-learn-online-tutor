@@ -17,7 +17,7 @@ const UpdateTutorials = () => {
 
         const tutorialsInfo = { name, language, image, price, details };
 
-        fetch(`http://localhost:2100/tutors/${_id}`, {
+        fetch(`https://online-tutor-server-web.vercel.app/tutors/${_id}`, {
             method: 'PUT',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(tutorialsInfo)
@@ -62,12 +62,6 @@ const UpdateTutorials = () => {
                         </label>
                         <input type="number" defaultValue={price} name="price" placeholder="" className="input input-bordered" required />
                     </div>
-                    {/* <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Review</span>
-                        </label>
-                        <input type="text" name="review" placeholder="" defaultValue={review} disabled className="input input-bordered" required />
-                    </div> */}
                     <div className="form-control relative">
                         <label className="label">
                             <span className="label-text">Details</span>

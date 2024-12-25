@@ -1,6 +1,4 @@
 import { useLoaderData } from "react-router-dom";
-// import { FaRegPlusSquare } from "react-icons/fa";
-// import { FaHeart } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
@@ -17,7 +15,7 @@ const TutorDetails = () => {
 
     const handleBookedTutor = () => {
 
-        fetch('http://localhost:2100/bookedTutor',
+        fetch('https://online-tutor-server-web.vercel.app/bookedTutor',
             {
                 method: 'POST',
                 headers: {

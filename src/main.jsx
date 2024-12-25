@@ -66,7 +66,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/update_tutorials/:_id',
-        loader: ({params}) => fetch(`http://localhost:2100/tutors/${params._id}`),
+        loader: ({params}) => fetch(`https://online-tutor-server-web.vercel.app/tutors/${params._id}`),
         element: <PrivateRoute><UpdateTutorials/></PrivateRoute>
       }
     ]
