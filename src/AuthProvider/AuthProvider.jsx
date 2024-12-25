@@ -17,10 +17,11 @@ const AuthProvider = ({ children }) => {
     const [tutorsData, setTutorData] = useState([]);
     const [tutorCount, setTutorCount] = useState(0);
     const [myBookedTutor, setMyBookedTutor] = useState([]);
+    const [tutorials, setTutorials] = useState([]);
 
 
     useEffect(() => {
-        fetch(`http://localhost:2100/tutors`)
+        fetch(`https://online-tutor-server-web.vercel.app/tutors`)
             .then(res => res.json())
             .then(data => {
                 setTutorData(data);
@@ -28,7 +29,7 @@ const AuthProvider = ({ children }) => {
             })
     }, []);
     useEffect(() => {
-        fetch(`http://localhost:2100/bookedTutor`)
+        fetch(`https://online-tutor-server-web.vercel.app/bookedTutor`)
             .then(res => res.json())
             .then(data => {
                 setMyBookedTutor(data)
@@ -66,7 +67,7 @@ const AuthProvider = ({ children }) => {
     }
     const handleCategory = (language) => {
         if (language) {
-           fetch(`http://localhost:2100/tutors/category/${language}`)
+           fetch(`https://online-tutor-server-web.vercel.app/tutors/category/${language}`)
             .then(res => res.json())
                .then(data => {
                 
@@ -75,8 +76,6 @@ const AuthProvider = ({ children }) => {
             ) 
         }       
     }
-
-
 
 
     useEffect(() => {
@@ -107,7 +106,9 @@ const AuthProvider = ({ children }) => {
         handleCategory,
         tutorCount,
         myBookedTutor,
-        setMyBookedTutor
+        setMyBookedTutor,
+        tutorials,
+        setTutorials
         // handleBookedTutor
 
     }

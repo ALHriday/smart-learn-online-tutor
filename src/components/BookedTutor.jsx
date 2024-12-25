@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 
 const BookedTutor = ({ tutor }) => {
 
-    const { name, image, language, review, price, details } = tutor;
-    console.log(image);
+    const { name, language, review, price, details } = tutor;
+
     return (
         <div className="border rounded-md flex flex-col text-center justify-center items-center gap-2 p-2 bg-slate-900 text-white">
             <h1>{ name}</h1>

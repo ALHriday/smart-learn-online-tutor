@@ -9,8 +9,8 @@ const TutorDetails = () => {
     const tutor = useLoaderData();
 
     const { name, image, language, review, price, details } = tutor;
+    
     const email = user.email;
-    console.log(email);
 
     const data = {name, image, language, review, price, details, email}
     

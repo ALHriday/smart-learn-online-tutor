@@ -23,6 +23,7 @@ const Navbar = () => {
                     <Link className="btn btn-sm" to='/'>Home</Link>
                     <Link className="btn btn-sm" to='/find_tutors'>Find Tutors</Link>
                     <Link className="btn btn-sm" to='/my_booked_tutor'>My Booked Tutor</Link>
+                    <Link className="btn btn-sm" to='/my_tutorials'>My Tutorials</Link>
 
                 </div>
                 <div className="dropdown mx-3 mt-1 dropdown-end">
@@ -73,6 +74,7 @@ const Navbar = () => {
                         <li><Link to='/find_tutors'>Find Tutors</Link></li>
                         <li><Link to='/add_tutorials'>Add Tutorials</Link></li>
                         <li><Link to='/my_booked_tutor'>My Booked Tutor</Link></li>
+                        <li><Link to='/my_tutorials'>My Tutorials</Link></li>
                         <li><div>
                             {user ?
                                 <div>

@@ -18,6 +18,8 @@ import AddTutorials from './components/AddTutorials';
 import Categories from './components/Categories';
 import TutorDetails from './components/TutorDetails';
 import MyBookedTutor from './components/MyBookedTutor';
+import MyTutorials from './components/MyTutorials';
+import UpdateTutorials from './components/UpdateTutorials';
 
 const router = createBrowserRouter([
   {
@@ -39,12 +41,10 @@ const router = createBrowserRouter([
       },
       {
         path: '/find_tutors',
-        // loader: () => fetch('http://localhost:2100/tutors'),
         element: <PrivateRoute><FindTutor/></PrivateRoute>
       },
       {
         path: '/find_tutors/category',
-        // loader: () => fetch('http://localhost:2100/tutors'),
         element: <Categories/>
       },
       {
@@ -53,12 +53,21 @@ const router = createBrowserRouter([
       },
       {
         path: '/tutor_details/:id',
-        loader: ({params}) => fetch(`http://localhost:2100/tutors/${params.id}`),
+        loader: ({params}) => fetch(`https://online-tutor-server-web.vercel.app/tutors/${params.id}`),
         element: <PrivateRoute><TutorDetails/></PrivateRoute>
       },
       {
         path: '/my_booked_tutor',
         element: <PrivateRoute><MyBookedTutor/></PrivateRoute>
+      },
+      {
+        path: '/my_tutorials',
+        element: <PrivateRoute><MyTutorials/></PrivateRoute>
+      },
+      {
+        path: '/update_tutorials/:_id',
+        loader: ({params}) => fetch(`http://localhost:2100/tutors/${params._id}`),
+        element: <PrivateRoute><UpdateTutorials/></PrivateRoute>
       }
     ]
   },

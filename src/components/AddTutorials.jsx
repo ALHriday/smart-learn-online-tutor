@@ -1,5 +1,13 @@
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const AddTutorials = () => {
+
+    const { user } = useContext(AuthContext);
+
+    const userName = user.displayName;
+    const userEmail = user.email;
+
     const handleAddTutors = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -10,11 +18,12 @@ const AddTutorials = () => {
         const price = form.price.value;
         const review = form.review.value;
         const details = form.details.value;
-        const data = { name, language, image, price, review, details };
+
+        const data = { name, language, image, price, review, details, userName, userEmail };
 
         // name, image, language, review, details, price
 
-        fetch('http://localhost:2100/tutors',
+        fetch('https://online-tutor-server-web.vercel.app/tutors',
             {
                 method: 'POST',
                 headers: {
@@ -23,8 +32,6 @@ const AddTutorials = () => {
                 body: JSON.stringify(data)
             }).then(res => res.json()).then(result => {
 
-                console.log(result);
-                
                 if (result.insertedId) {
                     form.name.value = '';
                     form.language.value = '';
@@ -32,13 +39,13 @@ const AddTutorials = () => {
                     form.review.value = '';
                     form.details.value = '';
                     form.price.value = '';
-                }
 
+                }
             })
 
     }
     return (
-        <div className="w-1/2 mx-auto">
+        <div className="md:w-1/2 p-4 md:p-0 mx-auto">
             <form onSubmit={handleAddTutors} className="card-body">
                 <h1 className="py-2 text-4xl text-center text-slate-400 font-bold">Add Tutorials</h1>
                 <div className="form-control">
@@ -69,7 +76,7 @@ const AddTutorials = () => {
                     <label className="label">
                         <span className="label-text">Review</span>
                     </label>
-                    <input type="text" name="review" placeholder="" className="input input-bordered" required />
+                    <input type="text" name="review" placeholder="" defaultValue={0} disabled className="input input-bordered" required />
                 </div>
                 <div className="form-control relative">
                     <label className="label">
