@@ -8,7 +8,7 @@ const Navbar = () => {
     const { user, signOutUser, setUser } = useContext(AuthContext);
 
     const handleLogOut = () => {
-        
+
         signOutUser()
             .then(() => {
                 setUser(null);
@@ -32,10 +32,12 @@ const Navbar = () => {
                 <div className="dropdown hidden lg:flex gap-2 dropdown-end">
                     <Link className="btn btn-sm" to='/'>Home</Link>
                     <Link className="btn btn-sm" to='/find_tutors'>Find Tutors</Link>
-                    <Link className="btn btn-sm" to='/add_tutorials'>Add Tutorials</Link>
-                    <Link className="btn btn-sm" to='/my_booked_tutor'>My Booked Tutor</Link>
-                    <Link className="btn btn-sm" to='/my_tutorials'>My Tutorials</Link>
-
+                    {user ?
+                        <div>
+                            <Link className="btn btn-sm" to='/add_tutorials'>Add Tutorials</Link>
+                            <Link className="btn btn-sm" to='/my_booked_tutor'>My Booked Tutor</Link>
+                            <Link className="btn btn-sm" to='/my_tutorials'>My Tutorials</Link>
+                        </div> : ''}
                 </div>
                 <div className="dropdown mx-3 mt-1 dropdown-end">
                     <label className="swap swap-rotate">

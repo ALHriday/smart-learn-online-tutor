@@ -20,6 +20,7 @@ import TutorDetails from './components/TutorDetails';
 import MyBookedTutor from './components/MyBookedTutor';
 import MyTutorials from './components/MyTutorials';
 import UpdateTutorials from './components/UpdateTutorials';
+import About from './components/About';
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
         path: '/update_tutorials/:_id',
         loader: ({params}) => fetch(`https://online-tutor-server-web.vercel.app/tutors/tutor/${params._id}`),
         element: <PrivateRoute><UpdateTutorials/></PrivateRoute>
+      },
+      {
+        path: '/about',
+        element: <About/>
       }
     ]
   },

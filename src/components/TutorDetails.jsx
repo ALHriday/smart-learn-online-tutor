@@ -2,17 +2,18 @@ import { useLoaderData } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { FaRegHeart } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const TutorDetails = () => {
     const { user, heartCount, setHeartCount } = useContext(AuthContext);
     const tutor = useLoaderData();
 
     const { name, image, language, review, price, details } = tutor;
-    
+
     const email = user.email;
 
-    const data = {name, image, language, review, price, details, email}
-    
+    const data = { name, image, language, review, price, details, email }
+
 
     const handleBookedTutor = () => {
 
@@ -25,7 +26,13 @@ const TutorDetails = () => {
                 body: JSON.stringify(data)
             }).then(res => res.json()).then(result => {
                 if (result.insertedId) {
-                    console.log(result);
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Tutor Booked Successful",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                 }
             })
     }
