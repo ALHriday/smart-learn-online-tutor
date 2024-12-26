@@ -16,7 +16,7 @@ const Navbar = () => {
     return (
         <div className="navbar bg-base-100">
             <div className="flex-1">
-                <Link className="btn btn-ghost text-xl" to='/'>Smart Learn</Link>
+                <Link className="btn btn-ghost text-2xl" to='/'>Smart Learn</Link>
             </div>
             <div className="flex-none">
                 <div className="dropdown hidden lg:flex gap-2 dropdown-end">

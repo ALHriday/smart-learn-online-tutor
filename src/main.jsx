@@ -41,7 +41,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/find_tutors',
-        element: <PrivateRoute><FindTutor/></PrivateRoute>
+        element: <FindTutor/>
       },
       {
         path: '/find_tutors/category',

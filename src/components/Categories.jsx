@@ -21,21 +21,20 @@ const Categories = () => {
 
     return (
         <Link className="w-11/12 mx-auto" to='/find_tutors'>
-            <div className=" grid-cols-2 grid md:grid-cols-3 gap-2">
+            <div className=" grid-cols-2 grid md:grid-cols-3 gap-1 md:gap-2">
                 {lang && lang.map((language, idx) =>
-                    <div onClick={() => handleCategory(language)} className="flex justify-evenly items-center border-collapse border rounded-md py-6 shadow-md hover:bg-slate-900 hover:text-white cursor-pointer" key={idx}>
+                    <div onClick={() => handleCategory(language)} className="flex justify-evenly items-center border-collapse border rounded-md py-4 md:py-6 shadow-md hover:bg-slate-900 hover:text-white cursor-pointer" key={idx}>
 
-                        <div className="w-6">
+                        <div className="w-5 md:w-6">
                             <img src="https://img.icons8.com/?size=100&id=9m2yplxz2fr3&format=png&color=000000" alt="" />
                         </div>
 
-                        <div className="text-xl font-bold">
-                            {language}
+                        <div className="text-sm md:text-xl font-bold">
+                            {language} Tutors
                         </div>
-                        <div className="w-6">
+                        <div className="w-5 md:w-6">
                             <img src="https://img.icons8.com/?size=100&id=49411&format=png&color=000000" alt="" />
                         </div>
-
                     </div>)}
             </div>
         </Link>
