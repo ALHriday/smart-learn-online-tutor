@@ -54,14 +54,7 @@ const TutorDetails = () => {
                         <p>{details}</p>
                     </div>
                     <div className="py-4 flex gap-3">
-                        {/* <button className="btn btn-secondary rounded-full">
-                            <FaRegPlusSquare />
-                        </button> */}
                         <button onClick={handleBookedTutor} className="btn btn-accent">Book Tutor</button>
-                        {/* <button className="btn btn-secondary  rounded-full">
-                            <FaHeart />
-                        </button> */}
-
                     </div>
 
                 </div>

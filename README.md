@@ -17,10 +17,10 @@ SmartLearn is an innovative online education platform designed to connect studen
 
 ## Some NPM Packages:
 
-=> Daisy UI
-=> Tailwind CSS
-=> Sweet-alert2
-=> React-Icons
-=> React-Router-Dom
-=> PropTypes
-=> Firebase-Auth
+=> Daisy UI ** 
+=> Tailwind CSS ** 
+=> Sweet-alert2 ** 
+=> React-Icons ** 
+=> React-Router-Dom **
+=> PropTypes ** 
+=> Firebase-Auth **

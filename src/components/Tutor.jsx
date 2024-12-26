@@ -30,8 +30,6 @@ const Tutor = ({ tutor }) => {
                         </div>
                     </div>
                 </div>
-                {/* <h3><span className="font-bold">{price }$</span> Per Hour</h3> */}
-                {/* <p>{ details}</p> */}
 
             </div>
         </div>

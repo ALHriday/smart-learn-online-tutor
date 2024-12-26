@@ -18,6 +18,7 @@ const AuthProvider = ({ children }) => {
     const [tutorCount, setTutorCount] = useState(0);
     const [myBookedTutor, setMyBookedTutor] = useState([]);
     const [tutorials, setTutorials] = useState([]);
+    const [langCount, setLangCount] = useState(0);
 
 
     useEffect(() => {
@@ -35,7 +36,7 @@ const AuthProvider = ({ children }) => {
                 setMyBookedTutor(data)
             })
     }, []);
-    
+
 
     const signInWithGoogle = () => {
         setLoading(true);
@@ -54,7 +55,7 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
     }
-    
+
     const togglePassword = (status) => {
         if (status.current.type === 'password') {
             status.current.type = 'text';
@@ -63,20 +64,24 @@ const AuthProvider = ({ children }) => {
             status.current.type = 'password';
             setShowPass(false);
         }
-    
+
     }
     const handleCategory = (language) => {
         if (language) {
-           fetch(`https://online-tutor-server-web.vercel.app/tutors/category/${language}`)
-            .then(res => res.json())
-               .then(data => {
-                
-                setTutorData(data)
-            }       
-            ) 
-        }       
+            fetch(`https://online-tutor-server-web.vercel.app/tutors/category/${language}`)
+                .then(res => res.json())
+                .then(data => {
+                    setTutorData(data)
+                }
+                )
+        }
     }
 
+    const languageCount = [...new Set(tutorsData.map(lang => lang.language))];
+
+    useEffect(() => {
+        setLangCount(languageCount.length)
+    }, [languageCount.length])
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
@@ -108,8 +113,8 @@ const AuthProvider = ({ children }) => {
         myBookedTutor,
         setMyBookedTutor,
         tutorials,
-        setTutorials
-        // handleBookedTutor
+        setTutorials,
+        langCount,
 
     }
 
