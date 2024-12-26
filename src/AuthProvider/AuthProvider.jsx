@@ -19,6 +19,7 @@ const AuthProvider = ({ children }) => {
     const [myBookedTutor, setMyBookedTutor] = useState([]);
     const [tutorials, setTutorials] = useState([]);
     const [langCount, setLangCount] = useState(0);
+    const [heartCount, setHeartCount] = useState(10);
 
 
     useEffect(() => {
@@ -29,6 +30,7 @@ const AuthProvider = ({ children }) => {
                 setTutorCount(data.length);
             })
     }, []);
+
     useEffect(() => {
         fetch(`https://online-tutor-server-web.vercel.app/bookedTutor`)
             .then(res => res.json())
@@ -68,7 +70,7 @@ const AuthProvider = ({ children }) => {
     }
     const handleCategory = (language) => {
         if (language) {
-            fetch(`https://online-tutor-server-web.vercel.app/tutors/category/${language}`)
+            fetch(`https://online-tutor-server-web.vercel.app/tutors/${language}`)
                 .then(res => res.json())
                 .then(data => {
                     setTutorData(data)
@@ -77,11 +79,11 @@ const AuthProvider = ({ children }) => {
         }
     }
 
-    const languageCount = [...new Set(tutorsData.map(lang => lang.language))];
 
     useEffect(() => {
-        setLangCount(languageCount.length)
-    }, [languageCount.length])
+        const languageCount = [...new Set(tutorsData.map(lang => lang.language))];
+        setLangCount(languageCount.length);
+    }, [tutorsData])
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
@@ -115,6 +117,8 @@ const AuthProvider = ({ children }) => {
         tutorials,
         setTutorials,
         langCount,
+        heartCount,
+        setHeartCount
 
     }
 

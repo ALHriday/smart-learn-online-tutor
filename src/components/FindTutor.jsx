@@ -10,7 +10,7 @@ const FindTutor = () => {
     const handleSearch = () => {
         const value = langValueRef.current.value;
         if (value) {
-            fetch(`https://online-tutor-server-web.vercel.app/tutors/category/${value}`)
+            fetch(`https://online-tutor-server-web.vercel.app/tutors/${value}`)
                 .then(res => res.json())
                 .then(data => {
                     setTutorData(data);

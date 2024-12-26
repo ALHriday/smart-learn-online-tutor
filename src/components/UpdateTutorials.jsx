@@ -1,8 +1,10 @@
 import { useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const UpdateTutorials = () => {
 
     const data = useLoaderData();
+
     const { _id, name, language, image, price, details } = data;
 
     const handleUpdateTutorials = (e) => {
@@ -24,6 +26,15 @@ const UpdateTutorials = () => {
         }).then(res => res.json()
         ).then(result => {
             if (result.modifiedCount > 0) {
+
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Updated",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+
                 form.name.value = '';
                 form.language.value = '';
                 form.image.value = '';

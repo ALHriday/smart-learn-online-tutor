@@ -4,7 +4,7 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Stats = () => {
 
-    const { tutorCount, langCount } = useContext(AuthContext);
+    const { tutorCount, langCount, heartCount } = useContext(AuthContext);
 
     return (
         <div className="stats shadow">
@@ -15,7 +15,7 @@ const Stats = () => {
             </div>
             <div className="stat place-items-center">
                 <div className="stat-title">Reviews</div>
-                <div className="stat-value">1,200</div>
+                <div className="stat-value">{ heartCount }</div>
                 <div className="stat-desc">↘︎ 90 (14%)</div>
             </div>
             <div className="stat place-items-center">
@@ -25,7 +25,7 @@ const Stats = () => {
             </div>          
             <div className="stat place-items-center">
                 <div className="stat-title">Users</div>
-                <div className="stat-value text-secondary">4,200</div>
+                <div className="stat-value text-secondary">200+</div>
                 <div className="stat-desc text-secondary">↗︎ 40 (2%)</div>
             </div>
         </div>

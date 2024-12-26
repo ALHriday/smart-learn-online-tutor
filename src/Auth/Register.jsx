@@ -5,6 +5,7 @@ import { updateProfile } from "firebase/auth";
 import { auth } from "./firebase.init";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Register = () => {
 
@@ -12,7 +13,7 @@ const Register = () => {
     const navigate = useNavigate();
     const showPassRef = useRef();
 
-    
+
     const handleUserWithEmailAndPassword = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -27,24 +28,31 @@ const Register = () => {
             setPassValidation(" ");
 
             createAccountWithEmailAndPass(email, password)
-            .then(result => {
-                console.log(result.user);
-                updateProfile(auth.currentUser, { displayName: name, photoURL: photo });
-
-                setUser(null);
-                form.email.value = '';
-                form.password.value = '';
-                navigate('/login');
-                alert('Account Created Successful');
-            }
-            ).catch(error => console.log(error)
-            )
+                .then(result => {               
+                    updateProfile(auth.currentUser, { displayName: name, photoURL: photo });
+                    
+                    if (result.user) {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Account Created Successful",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        setUser(null);
+                        form.email.value = '';
+                        form.password.value = '';
+                        navigate('/login');
+                    };
+                }
+                ).catch(error => console.log(error)
+                )
 
         } else {
             setPassValidation("Password Must Contain  1 UpperCase, 1 LowerCase, 1 Special Character and at least 8 digits.");
         }
 
-       
+
     }
 
     return (
@@ -83,13 +91,13 @@ const Register = () => {
                             </label>
                             <input ref={showPassRef} type="password" name="password" placeholder="password" className="input input-bordered" required />
                             <p onClick={() => togglePassword(showPassRef)} className="absolute bottom-[20%] right-[5%]">
-                                {showPass ? <FaEye /> : <FaEyeSlash/>}
-                                
+                                {showPass ? <FaEye /> : <FaEyeSlash />}
+
                             </p>
                         </div>
                         <div className="form-control mt-6">
                             <button className="btn btn-primary">Register</button>
-                            <p className="mt-2 text-red-500 text-center">{ passValidation }</p>
+                            <p className="mt-2 text-red-500 text-center">{passValidation}</p>
                             <p className="mt-2 text-slate-400 text-center">Already have an account <Link className="btn-link" to='/login'>LogIn</Link></p>
                         </div>
                     </form>

@@ -1,9 +1,45 @@
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 
 const BookedTutor = ({ tutor }) => {
 
-    const { name, language, image, price, details, review } = tutor;
+    const { myBookedTutor, setMyBookedTutor } = useContext(AuthContext);
+
+    const { _id, name, language, image, price, details, review } = tutor;
+
+    const handleDeleteBookedTutor = (id) => {
+    
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`https://online-tutor-server-web.vercel.app/bookedTutor/${id}`, {
+                        method: 'DELETE',
+                    }).then(res => res.json()).then(result => {
+                        
+                        if (result.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                            const remaining = myBookedTutor.filter(bookedTutor => bookedTutor._id !== id);
+                            setMyBookedTutor(remaining);
+                        }
+                    })
+                }
+            });
+        }
+    
 
     return (
 
@@ -13,7 +49,7 @@ const BookedTutor = ({ tutor }) => {
                     src={image}
                     alt="Tutor" />
                 <div>
-                    <div className="w-10 h-10 bg-red-600 absolute -top-2 -right-2 flex justify-center items-center font-bold text-xl rounded-full text-white">X</div>
+                    <div onClick={() => handleDeleteBookedTutor(_id)} className="w-10 h-10 bg-red-600 absolute -top-2 -right-2 flex justify-center items-center font-bold text-xl rounded-full text-white cursor-pointer">X</div>
                 </div>
             </div>
 

@@ -1,15 +1,25 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
 
     const { user, signOutUser, setUser } = useContext(AuthContext);
 
     const handleLogOut = () => {
-        console.log('LogOut Successful');
+        
         signOutUser()
-            .then(() => setUser(null)
+            .then(() => {
+                setUser(null);
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "LogOut Successful",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
             ).catch(error => error)
     }
 

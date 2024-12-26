@@ -1,9 +1,10 @@
 import { useLoaderData } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import { FaRegHeart } from "react-icons/fa";
 
 const TutorDetails = () => {
-    const { user } = useContext(AuthContext);
+    const { user, heartCount, setHeartCount } = useContext(AuthContext);
     const tutor = useLoaderData();
 
     const { name, image, language, review, price, details } = tutor;
@@ -53,8 +54,11 @@ const TutorDetails = () => {
                         <div className="font-bold">${price} per hour</div>
                         <p>{details}</p>
                     </div>
-                    <div className="py-4 flex gap-3">
+                    <div className="py-4 flex gap-4">
                         <button onClick={handleBookedTutor} className="btn btn-accent">Book Tutor</button>
+                        <div onClick={() => setHeartCount(heartCount + 1)} className="w-14 h-10 btn btn-neutral flex justify-center items-center rounded-md hover:btn-error">
+                            <FaRegHeart />
+                        </div>
                     </div>
 
                 </div>

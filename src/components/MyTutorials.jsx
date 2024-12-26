@@ -3,6 +3,7 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 import { MdDeleteForever } from "react-icons/md";
 import { FaPlusSquare } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyTutorials = () => {
     const { tutorials, setTutorials, user } = useContext(AuthContext);
@@ -11,8 +12,37 @@ const MyTutorials = () => {
         fetch(`https://online-tutor-server-web.vercel.app/tutorials/${user.email}`).then(res => res.json()).then(data => {
             setTutorials(data);
         })
-    }, [user, setTutorials])
+    }, [user, setTutorials]);
 
+    const handleDeleteTutorials = (id) => {
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`https://online-tutor-server-web.vercel.app/tutors/${id}`, {
+                    method: 'DELETE',
+                }).then(res => res.json()).then(result => {
+                    
+                    if (result.deletedCount > 0) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                        });
+                        const remaining = tutorials.filter(tutorial => tutorial._id !== id);
+                        setTutorials(remaining);
+                    }
+                })
+            }
+        });
+    }
 
     return (
         <div>
@@ -58,7 +88,7 @@ const MyTutorials = () => {
                                 <th>
                                     <div className="flex gap-2">
                                         <Link to={`/update_tutorials/${data._id}`} className="btn btn-sm btn-accent"><FaPlusSquare /></Link>
-                                        <button className="btn btn-sm btn-error"><MdDeleteForever /></button>
+                                        <button onClick={() => handleDeleteTutorials(data._id)} className="btn btn-sm btn-error"><MdDeleteForever /></button>
                                     </div>
                                 </th>
                             </tr>)}

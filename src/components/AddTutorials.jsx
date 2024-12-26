@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const AddTutorials = () => {
 
@@ -33,6 +34,16 @@ const AddTutorials = () => {
             }).then(res => res.json()).then(result => {
 
                 if (result.insertedId) {
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Tutorial Added Successful",
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+
+
                     form.name.value = '';
                     form.language.value = '';
                     form.image.value = '';
@@ -48,6 +59,7 @@ const AddTutorials = () => {
         <div className="md:w-1/2 p-4 md:p-0 mx-auto">
             <form onSubmit={handleAddTutors} className="card-body">
                 <h1 className="py-2 text-4xl text-center text-slate-400 font-bold">Add Tutorials</h1>
+
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Title</span>
@@ -72,18 +84,31 @@ const AddTutorials = () => {
                     </label>
                     <input type="number" name="price" placeholder="" className="input input-bordered" required />
                 </div>
-                <div className="form-control">
-                    <label className="label">
-                        <span className="label-text">Review</span>
-                    </label>
-                    <input type="text" name="review" placeholder="" defaultValue={0} disabled className="input input-bordered" required />
-                </div>
                 <div className="form-control relative">
                     <label className="label">
                         <span className="label-text">Details</span>
                     </label>
                     <input type="text" name="details" placeholder="" className="input input-bordered" required />
                 </div>
+                <div className="form-control">
+                    <label className="label">
+                        <span className="label-text">Review</span>
+                    </label>
+                    <input type="text" name="review" placeholder="" defaultValue={0} disabled className="input input-bordered" required />
+                </div>
+                <div className="form-control">
+                    <label className="label">
+                        <span className="label-text">User Name</span>
+                    </label>
+                    <input type="text" name="" defaultValue={userName} disabled placeholder="" className="input input-bordered" required />
+                </div>
+                <div className="form-control">
+                    <label className="label">
+                        <span className="label-text">User Email</span>
+                    </label>
+                    <input type="text" name="" placeholder="" defaultValue={userEmail} disabled className="input input-bordered" required />
+                </div>
+
                 <div className="form-control mt-6">
                     <button className="btn btn-primary">Add Tutorials</button>
                 </div>
