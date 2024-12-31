@@ -20,6 +20,7 @@ const AuthProvider = ({ children }) => {
     const [tutorials, setTutorials] = useState([]);
     const [langCount, setLangCount] = useState(0);
     const [heartCount, setHeartCount] = useState(10);
+    
 
 
     useEffect(() => {
@@ -28,14 +29,6 @@ const AuthProvider = ({ children }) => {
             .then(data => {
                 setTutorData(data);
                 setTutorCount(data.length);
-            })
-    }, []);
-
-    useEffect(() => {
-        fetch(`https://online-tutor-server-web.vercel.app/bookedTutor`)
-            .then(res => res.json())
-            .then(data => {
-                setMyBookedTutor(data)
             })
     }, []);
 

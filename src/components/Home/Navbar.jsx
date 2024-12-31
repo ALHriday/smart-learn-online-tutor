@@ -33,7 +33,7 @@ const Navbar = () => {
                     <Link className="btn btn-sm" to='/'>Home</Link>
                     <Link className="btn btn-sm" to='/find_tutors'>Find Tutors</Link>
                     {user ?
-                        <div>
+                        <div className="flex gap-2">
                             <Link className="btn btn-sm" to='/add_tutorials'>Add Tutorials</Link>
                             <Link className="btn btn-sm" to='/my_booked_tutor'>My Booked Tutor</Link>
                             <Link className="btn btn-sm" to='/my_tutorials'>My Tutorials</Link>
