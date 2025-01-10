@@ -16,20 +16,20 @@ function App() {
         <h1 className='text-2xl'>Learn Languages, Anytime, Anywhere.</h1>
       </div>
 
-      <div className='py-12 px-4 flex justify-center items-center'>
+      <div className='py-6 px-4 flex justify-center items-center'>
         <Stats></Stats>
       </div>
 
-      <div className='py-12 px-4 flex justify-center items-center'>
+      <div className='py-6 px-4 flex justify-center items-center'>
         <Categories></Categories>
       </div>
 
       <div className='text-center p-4'>
-        <h1 className='py-4 text-2xl'>Discover the Language of Possibilities</h1>
+        <h1 className='py-6 text-2xl'>Discover the Language of Possibilities</h1>
         Discover the joy of language learning with SmartLearn. We combine expert guidance, innovative tools, and flexible scheduling to create a personalized experience that ensures your success.
       </div>
 
-      <div className='py-8 px-4 flex justify-center items-center'>
+      <div className='py-6 px-4 flex justify-center items-center'>
         <FAQ></FAQ>
       </div>
 

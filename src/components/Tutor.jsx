@@ -6,24 +6,27 @@ const Tutor = ({ tutor }) => {
     const { _id, name, image, language, review, price } = tutor;
 
     return (
-        <div className="bg-base-100 shadow-xl grid grid-cols-5">
-            <div className="flex justify-center items-center p-2 col-span-2">
-                <img className="rounded-md w-full h-full"
+        <div className="bg-base-100 shadow-xl grid grid-cols-5 rounded-md">
+            <div className="h-36 sm:h-40 max-h-52 flex justify-center items-center p-2 col-span-2">
+                <img className="rounded-md w-full h-full object-cover"
                     src={image}
                 />
             </div>
-            <div className="col-span-3 p-2 flex flex-col gap-2">
-                <div className="font-bold text-xl">{name}<div className="badge badge-secondary ml-1">{review}</div></div>
-
-                <div className="flex flex-col gap-1">
-                    <div className=" flex gap-1">
-                        <div className="w-6 h-6">
-                            <img src="https://img.icons8.com/?size=100&id=9m2yplxz2fr3&format=png&color=000000" alt="" />
-                        </div>
-                        <div>{language}</div>
+            <div className="col-span-3 p-2 flex flex-col justify-between">
+                <div className="font-bold text-sm sm:text-xl">   {name}
+                    <div className="badge badge-secondary ml-1">{review}
                     </div>
+                </div>
+                <div className=" flex gap-1">
+                    <div className="w-6 h-6">
+                        <img src="https://img.icons8.com/?size=100&id=9m2yplxz2fr3&format=png&color=000000" alt="" />
+                    </div>
+                    <div>{language}</div>
+                </div>
 
-                    <div className="text-md">
+
+                <div className="flex flex-col gap-1 justify-between">
+                    <div className="text-md flex justify-between items-center">
                         <div className="font-bold">${price}</div>
                         <div className="card-actions">
                             <Link to={`/tutor_details/${_id}`} className="btn btn-accent btn-sm mt-2">Details</Link>

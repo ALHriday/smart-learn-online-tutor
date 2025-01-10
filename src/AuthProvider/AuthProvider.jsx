@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { auth } from "../Auth/firebase.init";
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 
 
@@ -20,7 +21,8 @@ const AuthProvider = ({ children }) => {
     const [tutorials, setTutorials] = useState([]);
     const [langCount, setLangCount] = useState(0);
     const [heartCount, setHeartCount] = useState(10);
-    
+    const [search, setSearch] = useState('');
+
 
 
     useEffect(() => {
@@ -59,18 +61,13 @@ const AuthProvider = ({ children }) => {
             status.current.type = 'password';
             setShowPass(false);
         }
+    }
 
-    }
-    const handleCategory = (language) => {
-        if (language) {
-            fetch(`https://online-tutor-server-web.vercel.app/tutors/${language}`)
-                .then(res => res.json())
-                .then(data => {
-                    setTutorData(data)
-                }
-                )
-        }
-    }
+    useEffect(() => {
+        axios.get(`https://online-tutor-server-web.vercel.app/tutors?language=${search}`).then(res => {
+                    setTutorData(res.data)
+                })
+    }, [search])
 
 
     useEffect(() => {
@@ -103,7 +100,6 @@ const AuthProvider = ({ children }) => {
         togglePassword,
         tutorsData,
         setTutorData,
-        handleCategory,
         tutorCount,
         myBookedTutor,
         setMyBookedTutor,
@@ -111,8 +107,9 @@ const AuthProvider = ({ children }) => {
         setTutorials,
         langCount,
         heartCount,
-        setHeartCount
-
+        setHeartCount,
+        search,
+        setSearch
     }
 
 

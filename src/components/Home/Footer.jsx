@@ -2,9 +2,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
-        <div>
-
-
+        <div className="mt-8">
             <footer className="footer bg-neutral text-neutral-content p-10">
                 <nav>
                     <h6 className="footer-title">Services</h6>

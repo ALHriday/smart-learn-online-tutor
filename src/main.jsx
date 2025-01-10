@@ -26,54 +26,53 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-    errorElement: <ErrorPage/>,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: '/',
-        element: <App/>
+        element: <App />
       },
       {
         path: '/login',
-        element: <Login/>
+        element: <Login />
       },
       {
         path: '/register',
-        element: <Register/>
+        element: <Register />
       },
       {
         path: '/find_tutors',
-        element: <FindTutor/>
+        element: <FindTutor />
       },
       {
         path: '/find_tutors/category',
-        element: <Categories/>
+        element: <Categories />
       },
       {
         path: '/add_tutorials',
-        element: <PrivateRoute><AddTutorials/></PrivateRoute>
+        element: <PrivateRoute><AddTutorials /></PrivateRoute>
       },
       {
         path: '/tutor_details/:id',
-        loader: ({params}) => fetch(`https://online-tutor-server-web.vercel.app/tutors/tutor/${params.id}`),
-        element: <PrivateRoute><TutorDetails/></PrivateRoute>
+        loader: ({ params }) => fetch(`https://online-tutor-server-web.vercel.app/tutors/tutor/${params.id}`),
+        element: <PrivateRoute><TutorDetails /></PrivateRoute>
       },
       {
         path: '/my_booked_tutor',
-        // loader: () => fetch(`http://localhost:2100/addedTutor`),
-        element: <PrivateRoute><MyBookedTutor/></PrivateRoute>
+        element: <PrivateRoute><MyBookedTutor /></PrivateRoute>
       },
       {
         path: '/my_tutorials',
-        element: <PrivateRoute><MyTutorials/></PrivateRoute>
+        element: <PrivateRoute><MyTutorials /></PrivateRoute>
       },
       {
         path: '/update_tutorials/:_id',
-        loader: ({params}) => fetch(`https://online-tutor-server-web.vercel.app/tutors/tutor/${params._id}`),
-        element: <PrivateRoute><UpdateTutorials/></PrivateRoute>
+        loader: ({ params }) => fetch(`https://online-tutor-server-web.vercel.app/tutors/tutor/${params._id}`),
+        element: <PrivateRoute><UpdateTutorials /></PrivateRoute>
       },
       {
         path: '/about',
-        element: <About/>
+        element: <About />
       }
     ]
   },
@@ -81,8 +80,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router}></RouterProvider>
-    </AuthProvider>
+    <div className='max-w-7xl mx-auto'>
+      <AuthProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </AuthProvider>
+    </div>
   </StrictMode>,
 )

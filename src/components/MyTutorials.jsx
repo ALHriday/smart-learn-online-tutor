@@ -66,7 +66,7 @@ const MyTutorials = () => {
                                 <td>
                                     <div className="flex items-center gap-3">
                                         <div className="avatar">
-                                            <div className="mask mask-squircle h-12 w-12">
+                                            <div className="rounded-full h-12 w-12">
                                                 <img
                                                     src={data.image}
                                                 />
