@@ -55,7 +55,7 @@ const router = createBrowserRouter([
       {
         path: '/tutor_details/:id',
         loader: ({ params }) => fetch(`https://online-tutor-server-web.vercel.app/tutors/tutor/${params.id}`),
-        element: <PrivateRoute><TutorDetails /></PrivateRoute>
+        element: <TutorDetails />
       },
       {
         path: '/my_booked_tutor',
@@ -82,7 +82,8 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <div className='max-w-7xl mx-auto'>
       <AuthProvider>
-        <RouterProvider router={router}></RouterProvider>
+        <RouterProvider router={router}>
+        </RouterProvider>
       </AuthProvider>
     </div>
   </StrictMode>,

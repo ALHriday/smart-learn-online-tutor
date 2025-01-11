@@ -3,19 +3,25 @@ import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { FaRegHeart } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { ToastContainer } from "react-toastify";
+// import { toast } from "react-toastify";
 
 const TutorDetails = () => {
-    const { user, heartCount, setHeartCount } = useContext(AuthContext);
+    const { user, heartCount, setHeartCount, notify} = useContext(AuthContext);
     const tutor = useLoaderData();
 
     const { name, image, language, review, price, details } = tutor;
 
-    const email = user.email;
+    const email = user?.email;
 
     const data = { name, image, language, review, price, details, email }
 
 
     const handleBookedTutor = () => {
+
+        if (!user) {         
+            return notify('Please LogIn');
+        }
 
         fetch('https://online-tutor-server-web.vercel.app/bookedTutor',
             {
@@ -63,6 +69,7 @@ const TutorDetails = () => {
                     </div>
                     <div className="py-4 flex gap-4">
                         <button onClick={handleBookedTutor} className="btn btn-accent">Book Tutor</button>
+                        <ToastContainer></ToastContainer>
                         <div onClick={() => setHeartCount(heartCount + 1)} className="w-14 h-10 btn btn-neutral flex justify-center items-center rounded-md hover:btn-error">
                             <FaRegHeart />
                         </div>

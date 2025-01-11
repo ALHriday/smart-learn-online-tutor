@@ -9,9 +9,27 @@ import Swal from "sweetalert2";
 
 const Register = () => {
 
-    const { createAccountWithEmailAndPass, setUser, passValidation, setPassValidation, showPass, togglePassword } = useContext(AuthContext);
+    const { createAccountWithEmailAndPass, setUser, passValidation, setPassValidation, showPass, togglePassword, signInWithGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
     const showPassRef = useRef();
+
+    const handleGoogleSignIn = () => {
+            signInWithGoogle()
+                .then(result => {
+                    if (result.user) {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "LogIn Successful",
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                        setUser(result.user)
+                        navigate('/')
+                    }
+                }
+                ).catch(error => error)
+        }
 
 
     const handleUserWithEmailAndPassword = (e) => {
@@ -28,9 +46,9 @@ const Register = () => {
             setPassValidation(" ");
 
             createAccountWithEmailAndPass(email, password)
-                .then(result => {               
+                .then(result => {
                     updateProfile(auth.currentUser, { displayName: name, photoURL: photo });
-                    
+
                     if (result.user) {
                         Swal.fire({
                             position: "top-end",
@@ -61,8 +79,9 @@ const Register = () => {
                 <div className="text-center lg:text-left">
                     <h1 className="text-5xl font-bold">Register now!</h1>
                     <p className="py-6">
-                    Register now to join and unlock exclusive benefits!
+                        Register now to join and unlock exclusive benefits!
                     </p>
+                   
                 </div>
                 <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
                     <form onSubmit={handleUserWithEmailAndPassword} className="card-body">
@@ -100,6 +119,11 @@ const Register = () => {
                             <p className="mt-2 text-slate-400 text-center">Already have an account <Link className="btn-link" to='/login'>LogIn</Link></p>
                         </div>
                     </form>
+                    <div className="mb-4 flex justify-center items-center">
+                        <button className="flex justify-center items-center gap-1 btn-link text-center text-sm" onClick={handleGoogleSignIn}><div className="w-7">
+                            <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" alt="" />
+                        </div>SignInWithGoogle</button>
+                    </div>
                 </div>
             </div>
         </div>

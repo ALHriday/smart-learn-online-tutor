@@ -3,6 +3,7 @@ import { auth } from "../Auth/firebase.init";
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 
 
@@ -63,6 +64,8 @@ const AuthProvider = ({ children }) => {
         }
     }
 
+    const notify = (status) => toast(status);
+
     useEffect(() => {
         axios.get(`https://online-tutor-server-web.vercel.app/tutors?language=${search}`).then(res => {
                     setTutorData(res.data)
@@ -109,7 +112,8 @@ const AuthProvider = ({ children }) => {
         heartCount,
         setHeartCount,
         search,
-        setSearch
+        setSearch,
+        notify
     }
 
 
