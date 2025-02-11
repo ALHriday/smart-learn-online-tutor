@@ -1,4 +1,4 @@
-
+import { motion } from 'motion/react'
 import './App.css'
 import Banner from './components/Banner/Banner'
 import Categories from './components/Categories'
@@ -6,36 +6,53 @@ import FAQ from './components/FAQ'
 import SmartLearnWorks from './components/SmartLearnWorks'
 import Stats from './components/Stats'
 
+
 function App() {
 
   return (
     <div className='min-h-screen'>
 
-      <Banner/>
+      <Banner />
 
-      <div className='text-center p-4'>
-        <h1 className='text-2xl'>Learn Languages, Anytime, Anywhere.</h1>
+      <div className='text-center p-4 overflow-hidden'>
+        <motion.div whileInView={{ scale: 1.1, fontSize: '26px'}} initial={{ fontSize: '20px'}}>
+          <h1>Learn Languages, Anytime, Anywhere.</h1>
+        </motion.div>
       </div>
 
       <div className='py-6 px-4 flex justify-center items-center'>
-        <Stats/>
+        <Stats />
       </div>
 
       <div className='py-6 px-4 flex justify-center items-center'>
-        <Categories/>
+        <Categories />
       </div>
 
       <div className='text-center p-4'>
-        <h1 className='py-6 text-2xl'>Discover the Language of Possibilities</h1>
-        Discover the joy of language learning with SmartLearn. We combine expert guidance, innovative tools, and flexible scheduling to create a personalized experience that ensures your success.
+        <motion.div
+          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: -50 }}
+          transition={{ duration: 1.0 }}
+        ><h1 className='py-6 text-2xl'>Discover the Language of Possibilities</h1>
+        </motion.div>
+
+        <motion.div
+          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 50 }}
+          transition={{ duration: 1.1 }}
+        >Discover the joy of language learning with SmartLearn. We combine expert guidance, innovative tools, and flexible scheduling to create a personalized experience that ensures your success.
+        </motion.div>
+
       </div>
 
       <div className='py-6'>
-        <SmartLearnWorks/>
+        <SmartLearnWorks />
       </div>
 
       <div className='py-6 px-4 flex justify-center items-center'>
-        <FAQ/>
+        <FAQ />
       </div>
 
     </div>
