@@ -19,9 +19,8 @@ const SmartLearnWorks = () => {
                     <h1 className="text-3xl font-bold btn text-white btn-warning">Step 1</h1>
                     <h1 className="text-3xl font-bold">Find your Tutor : </h1>
 
-                    {data && data.map(tutor =>
-
-                        <div key={tutor._id}>
+                    {data && data.map((tutor, i) =>
+                        <div key={i}>
                             <div className="grid grid-cols-2 justify-between items-center shadow-sm rounded-md border-2 gap-2">
                                 <div className="rounded-md col-span-1">
                                     <img className="w-full h-full rounded-md object-cover" src={tutor.image} alt="" />
@@ -39,7 +38,7 @@ const SmartLearnWorks = () => {
                 <div className="flex flex-col gap-3 p-4 border-2 rounded-md">
                     <h1 className="text-3xl font-bold btn text-white btn-secondary">Step 2</h1>
                     <h1 className="text-3xl font-bold">Booked Tutor : </h1>
-                    <p className="text-lg max-h-96 overflow-auto text-wrap">
+                    <p className="text-lg max-h-96 overflow-auto text-wrap scroll-smooth">
                        To book a tutor on my website, you will need to follow these steps:
                         <br />
                         1. Visit the tutors section of my website.

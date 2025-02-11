@@ -42,8 +42,8 @@ const Navbar = () => {
                 <div className="dropdown mx-3 mt-1 dropdown-end">
                     <label className="swap swap-rotate">
                         {/* this hidden checkbox controls the state */}
-                        <input type="checkbox" className="theme-controller" value="light" />
-
+                        <input type="checkbox" className="theme-controller" value='dark' />
+                        {/* value={ theme } */}
                         {/* sun icon */}
                         <svg
                             className="swap-off h-8 w-8 fill-current"

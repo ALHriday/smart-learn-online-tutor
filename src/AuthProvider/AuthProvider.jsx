@@ -74,7 +74,7 @@ const AuthProvider = ({ children }) => {
 
 
     useEffect(() => {
-        const languageCount = [...new Set(tutorsData.map(lang => lang.language))];
+        const languageCount = [...new Set(tutorsData && tutorsData.map(lang => lang.language))];
         setLangCount(languageCount.length);
     }, [tutorsData])
 
