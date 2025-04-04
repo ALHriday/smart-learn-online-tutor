@@ -24,7 +24,7 @@ const Navbar = () => {
     return (
         <div className="navbar bg-base-100">
             <div className="flex-1">
-                <Link className="btn btn-ghost text-2xl" to='/'>Smart Learn</Link>
+                <Link className="text-2xl font-bold" to='/'>Smart Learn</Link>
             </div>
             <div className="flex-none">
                 <div className="dropdown hidden lg:flex gap-2 dropdown-end">
@@ -41,7 +41,7 @@ const Navbar = () => {
                     <div onClick={handleToggle}>
                         <label className="swap swap-rotate">
                             <input type="checkbox" 
-                            className="theme-controller" value={toggle || ''}/>
+                            className="theme-controller" value={toggle}/>
                             <svg
                                 className="swap-off h-8 w-8 fill-current"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -68,12 +68,12 @@ const Navbar = () => {
                         <div className="w-10 rounded-full">
                             {user ? <img loading="lazy"
                                 src={user?.photoURL}
-                                alt=""
+                                alt={user?.displayName}
                                 title={user?.displayName}
                             />
                                 :
                                 <div>
-                                    <img src="https://img.icons8.com/?size=100&id=7819&format=png&color=000000" alt="" />
+                                    <img className={toggle === 'dark' ? 'bg-slate-300' : 'bg-white'} src="https://img.icons8.com/?size=100&id=7819&format=png&color=000000" alt="" />
                                 </div>
                             }
 
