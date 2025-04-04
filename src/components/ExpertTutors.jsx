@@ -5,13 +5,13 @@ import Marquee from "react-fast-marquee";
 const ExpertTutors = () => {
     const { expertTutor } = useContext(AuthContext);
 
-    const tutors = expertTutor && expertTutor.slice(16, expertTutor.length);
+    const tutors = expertTutor && expertTutor.slice(15, expertTutor.length);
 
     return (
         <Marquee pauseOnHover={true} direction="left">
             <div className="p-4 flex justify-center items-center gap-8 overflow-hidden cursor-pointer">
                 {tutors.map(tutor =>
-                    <div key={tutor._id} className="w-[200px] flex flex-col justify-center items-center gap-2">
+                    <div key={tutor._id} className="w-[220px] flex flex-col justify-center items-center gap-2">
                         <div className="w-[200px] h-[200px] rounded-full">
                             <img className="w-full h-full rounded-full object-cover" src={tutor?.image} alt="" />
                         </div>

@@ -14,7 +14,7 @@ const SmartLearnWorks = () => {
 
     return (
         <div className="p-4 overflow-hidden">
-            <h1 className="text-4xl font-bold py-4">How Smart Learn Works : </h1>
+            <h1 className="text-4xl text-center font-bold py-4">How Smart Learn Works </h1>
             <div className="py-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-4 overflow-hidden">
 
                 <div className="flex flex-col gap-3 p-4 border-2 rounded-md">

@@ -1,11 +1,17 @@
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const FAQ = () => {
+    const { toggle } = useContext(AuthContext);
+
     return (
-        
         <div className="join join-vertical w-full">
             <div className="text-4xl font-bold my-4 flex gap-4">FAQ <div className="w-12 h-12 animate-bounce">
-            <img className="w-full h-full" src="https://img.icons8.com/?size=100&id=6651&format=png&color=000000" alt="" />
+                {toggle === "dark" ? <img className="w-full h-full" src="https://img.icons8.com/?size=100&id=6651&format=png&color=ffffff" alt="" />
+                :
+                <img className="w-full h-full" src="https://img.icons8.com/?size=100&id=6651&format=png&color=000000" alt="" />}
             </div></div>
+            
             <div className="collapse collapse-arrow join-item border-base-300 border">
                 <input type="radio" name="my-accordion-4" defaultChecked />
                 <div className="collapse-title text-xl font-medium">1. What is SmartLearn?</div>

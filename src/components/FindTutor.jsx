@@ -8,7 +8,7 @@ const FindTutor = () => {
     const { tutorsData, search, setSearch } = useContext(AuthContext);  
 
     let filterData = tutorsData && tutorsData.filter(d => {
-        return d.name.toLowerCase().includes(search) || d.language.toLowerCase().includes(search);
+        return d.name.toLowerCase().includes(search.toLowerCase()) || d.language.toLowerCase().includes(search.toLowerCase());
     })
 
     return (

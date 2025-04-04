@@ -22,7 +22,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-base-100 sticky top-0 z-50">
             <div className="flex-1">
                 <Link className="text-2xl font-bold" to='/'>Smart Learn</Link>
             </div>
