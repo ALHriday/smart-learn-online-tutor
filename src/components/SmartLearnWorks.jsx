@@ -15,7 +15,7 @@ const SmartLearnWorks = () => {
     return (
         <div className="p-4 overflow-hidden">
             <h1 className="text-4xl font-bold py-4">How Smart Learn Works : </h1>
-            <div className="py-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-4 overflow-auto">
+            <div className="py-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-4 overflow-hidden">
 
                 <div className="flex flex-col gap-3 p-4 border-2 rounded-md">
                     <h1 className="text-3xl font-bold btn text-white btn-warning">Step 1</h1>
@@ -25,8 +25,8 @@ const SmartLearnWorks = () => {
                         <div key={i}>
                             <motion.div
                                 whileInView={{ opacity: 1, y: 0 }}
-                                initial={{ opacity: 0, y: 100 }}
-                                animate={{ opacity: 1, y: 100 }}
+                                initial={{ opacity: 0, y: 200 }}
+                                animate={{ opacity: 0, y: 100 }}
                                 transition={{ duration: 0.7 }}>
                                 <div className="grid grid-cols-2 justify-between items-center shadow-sm rounded-md border-2 gap-2">
                                     <div className="rounded-md col-span-1">

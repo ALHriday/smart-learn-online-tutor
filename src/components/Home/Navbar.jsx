@@ -66,7 +66,7 @@ const Navbar = () => {
 
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                            {user ? <img loading="lazy"
+                            {user ? <img 
                                 src={user?.photoURL}
                                 alt={user?.displayName}
                                 title={user?.displayName}

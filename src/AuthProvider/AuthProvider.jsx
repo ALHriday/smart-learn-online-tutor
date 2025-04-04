@@ -39,9 +39,10 @@ const AuthProvider = ({ children }) => {
     }, [toggle]);
 
     // https://online-tutor-server-web.vercel.app/tutors
+    // http://localhost:2100/tutors
 
     useEffect(() => {
-        axios.get(`http://localhost:2100/tutors`)
+        axios.get(`https://online-tutor-server-web.vercel.app/tutors`)
             .then(data => {
                 setTutorData(data.data);
                 setTutorCount(data.data.length);
