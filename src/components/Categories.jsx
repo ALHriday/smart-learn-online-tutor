@@ -27,7 +27,7 @@ const Categories = () => {
                     <motion.div
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}>          
-                    <div onClick={() => setSearch(language)} className="flex justify-evenly items-center border-collapse border rounded-md py-4 md:py-6 shadow-md hover:bg-slate-900 hover:text-white cursor-pointer">
+                    <div onClick={() => setSearch(language.toLowerCase())} className="flex justify-evenly items-center border-collapse border rounded-md py-4 md:py-6 shadow-md hover:bg-slate-900 hover:text-white cursor-pointer">
 
                         <div className="w-5 md:w-6">
                             <img src="https://img.icons8.com/?size=100&id=9m2yplxz2fr3&format=png&color=000000" alt="" />

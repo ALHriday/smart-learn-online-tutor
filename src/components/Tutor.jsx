@@ -1,3 +1,4 @@
+import { lazy } from 'react';
 import { motion } from 'motion/react'
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -13,6 +14,8 @@ const Tutor = ({ tutor }) => {
                 <div className="h-36 sm:h-40 max-h-52 flex justify-center items-center p-2 col-span-2">
                     <img className="rounded-md w-full h-full object-cover"
                         src={image}
+                        // loading='lazy'
+                        onLoad={lazy}
                     />
                 </div>
                 <div className="col-span-3 p-2 flex flex-col justify-between">

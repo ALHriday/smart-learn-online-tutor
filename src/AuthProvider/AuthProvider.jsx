@@ -6,7 +6,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 
-
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null);
 
@@ -24,14 +23,28 @@ const AuthProvider = ({ children }) => {
     const [heartCount, setHeartCount] = useState(10);
     const [search, setSearch] = useState('');
 
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    const [toggle, setToggle] = useState(savedTheme);
 
+    const handleToggle = () => {
+        const newTheme = toggle === 'light' ? 'dark' : 'light';
+        setToggle(newTheme);
+        localStorage.setItem('theme', toggle);
+    }
+    
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', toggle);
+        const theme = localStorage.getItem('theme');
+        setToggle(theme);
+    }, [toggle]);
+
+    // https://online-tutor-server-web.vercel.app/tutors
 
     useEffect(() => {
-        fetch(`https://online-tutor-server-web.vercel.app/tutors`)
-            .then(res => res.json())
+        axios.get(`http://localhost:2100/tutors`)
             .then(data => {
-                setTutorData(data);
-                setTutorCount(data.length);
+                setTutorData(data.data);
+                setTutorCount(data.data.length);
             })
     }, []);
 
@@ -66,11 +79,11 @@ const AuthProvider = ({ children }) => {
 
     const notify = (status) => toast(status);
 
-    useEffect(() => {
-        axios.get(`https://online-tutor-server-web.vercel.app/tutors?language=${search}`).then(res => {
-                    setTutorData(res.data)
-                })
-    }, [search])
+    // useEffect(() => {
+    //     axios.get(`https://online-tutor-server-web.vercel.app/tutors?language=${search}`).then(res => {
+    //                 setTutorData(res.data)
+    //             })
+    // }, [search])
 
 
     useEffect(() => {
@@ -113,7 +126,9 @@ const AuthProvider = ({ children }) => {
         setHeartCount,
         search,
         setSearch,
-        notify
+        notify,
+        toggle,
+        handleToggle
     }
 
 
