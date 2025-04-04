@@ -22,6 +22,7 @@ const AuthProvider = ({ children }) => {
     const [langCount, setLangCount] = useState(0);
     const [heartCount, setHeartCount] = useState(10);
     const [search, setSearch] = useState('');
+    const [expertTutor, setExpertTutor] = useState([]);
 
     const savedTheme = localStorage.getItem('theme') || 'light';
     const [toggle, setToggle] = useState(savedTheme);
@@ -31,7 +32,7 @@ const AuthProvider = ({ children }) => {
         setToggle(newTheme);
         localStorage.setItem('theme', toggle);
     }
-    
+
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', toggle);
         const theme = localStorage.getItem('theme');
@@ -80,11 +81,11 @@ const AuthProvider = ({ children }) => {
 
     const notify = (status) => toast(status);
 
-    // useEffect(() => {
-    //     axios.get(`https://online-tutor-server-web.vercel.app/tutors?language=${search}`).then(res => {
-    //                 setTutorData(res.data)
-    //             })
-    // }, [search])
+    useEffect(() => {
+        axios.get(`https://online-tutor-server-web.vercel.app/tutors`).then(res => {
+            setExpertTutor(res.data);
+        })
+    }, [])
 
 
     useEffect(() => {
@@ -129,7 +130,8 @@ const AuthProvider = ({ children }) => {
         setSearch,
         notify,
         toggle,
-        handleToggle
+        handleToggle,
+        expertTutor
     }
 
 

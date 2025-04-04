@@ -5,6 +5,7 @@ import Categories from './components/Categories'
 import FAQ from './components/FAQ'
 import SmartLearnWorks from './components/SmartLearnWorks'
 import Stats from './components/Stats'
+import ExpertTutors from './components/ExpertTutors'
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
       <Banner />
 
       <div className='text-center p-4 overflow-hidden'>
-        <motion.div whileInView={{ scale: 1.1, fontSize: '26px'}} initial={{ fontSize: '20px'}}>
+        <motion.div whileInView={{ scale: 1.1, fontSize: '26px' }} initial={{ fontSize: '20px' }}>
           <h1>Learn Languages, Anytime, Anywhere.</h1>
         </motion.div>
       </div>
@@ -28,7 +29,7 @@ function App() {
         <Categories />
       </div>
 
-      <div className='text-center p-4'>
+      <div className='text-center p-4 my-4'>
         <motion.div
           whileInView={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: -50 }}
@@ -44,6 +45,14 @@ function App() {
           transition={{ duration: 1.1 }}
         >Discover the joy of language learning with SmartLearn. We combine expert guidance, innovative tools, and flexible scheduling to create a personalized experience that ensures your success.
         </motion.div>
+
+      </div>
+
+      <div className='py-6 px-4'>
+        <div className='overflow-hidden'>
+          <h1 className='text-4xl font-bold my-4 text-center'>Expert Tutors at Your Service</h1>
+          <ExpertTutors />
+        </div>
 
       </div>
 
