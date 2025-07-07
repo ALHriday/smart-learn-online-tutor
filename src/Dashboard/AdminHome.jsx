@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 const AdminHome = () => {
     const { appliedUser } = useContext(AuthContext);
@@ -16,7 +17,11 @@ const AdminHome = () => {
             const updateApplication = { status, role };
 
             axios.put(`${tutorApplication}/${id}`, updateApplication)
-            .then(result => console.log(result.data))
+            .then(result => {
+                if(result.data.insertedId){
+                    toast('Updated');
+                }
+            })
         }
 
         if (applicationStatus === 'rejected') {
@@ -25,8 +30,11 @@ const AdminHome = () => {
             const updateApplication = { status, role };
 
             axios.put(`${tutorApplication}/${id}`, updateApplication)
-            .then(result => console.log(result.data)
-            )
+            .then(result => {
+                if(result.data.insertedId){
+                    toast('Updated');
+                }
+            })
         }
 
         if (applicationStatus === 'delete') {
@@ -35,8 +43,11 @@ const AdminHome = () => {
             const updateApplication = { status, role };
 
             axios.put(`${tutorApplication}/${id}`, updateApplication)
-            .then(result => console.log(result.data)
-            )
+            .then(result => {
+                if(result.data.insertedId){
+                    toast('Updated');
+                }
+            })
         }
         if (applicationStatus === 'reChance') {
             const status = 'pending';
@@ -44,13 +55,17 @@ const AdminHome = () => {
             const updateApplication = { status, role };
 
             axios.put(`${tutorApplication}/${id}`, updateApplication)
-            .then(result => console.log(result.data)
-            )
+            .then(result => {
+                if(result.data.insertedId){
+                    toast('Updated');
+                }
+            })
         }
     }
 
     return (
         <div>
+            <ToastContainer/>
             <div className="overflow-x-auto">
                 <table className="table table-xs">
                     <thead>
