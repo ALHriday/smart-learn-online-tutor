@@ -56,10 +56,10 @@ const AddTutorials = () => {
 
     }
     return (
-        <div className="md:w-1/2 p-4 md:p-0 mx-auto">
-            <form onSubmit={handleAddTutors} className="card-body">
-                <h1 className="py-2 text-4xl text-center text-slate-400 font-bold">Add Tutorials</h1>
-
+        <div className="grid grid-cols-1 gap-2">
+            <h1 className="py-2 text-4xl text-center text-slate-400 font-bold">Add Tutorials</h1>
+            <form onSubmit={handleAddTutors} className="grid grid-cols-1 gap-2 md:grid-cols-2">
+                
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Title</span>
@@ -109,7 +109,7 @@ const AddTutorials = () => {
                     <input type="text" name="" placeholder="" defaultValue={userEmail} disabled className="input input-bordered" required />
                 </div>
 
-                <div className="form-control mt-6">
+                <div className="form-control mt-6 md:col-span-2">
                     <button className="btn btn-primary">Add Tutorials</button>
                 </div>
             </form>

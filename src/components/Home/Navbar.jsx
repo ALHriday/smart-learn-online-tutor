@@ -4,8 +4,8 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 
 const Navbar = () => {
-    const { user, signOutUser, setUser, toggle, handleToggle } = useContext(AuthContext);
-    
+    const { user, signOutUser, setUser, toggle, handleToggle, privateUser } = useContext(AuthContext);
+
     const handleLogOut = () => {
         signOutUser()
             .then(() => {
@@ -30,18 +30,19 @@ const Navbar = () => {
                 <div className="dropdown hidden lg:flex gap-2 dropdown-end">
                     <Link className="btn btn-sm" to='/'>Home</Link>
                     <Link className="btn btn-sm" to='/find_tutors'>Find Tutors</Link>
+                    <Link className="btn btn-sm" to='/become_tutor'>Become a Tutor</Link>
                     {user &&
                         <div className="flex gap-2">
-                            <Link className="btn btn-sm" to='/add_tutorials'>Add Tutorials</Link>
                             <Link className="btn btn-sm" to='/my_booked_tutor'>My Booked Tutor</Link>
-                            <Link className="btn btn-sm" to='/my_tutorials'>My Tutorials</Link>
                         </div>}
+                    {privateUser?.role &&
+                        <Link className="btn btn-sm" to='/dashboard'>Dashboard</Link>}
                 </div>
                 <div className="dropdown mx-3 mt-1 dropdown-end">
                     <div onClick={handleToggle}>
                         <label className="swap swap-rotate">
-                            <input type="checkbox" 
-                            className="theme-controller" value={toggle}/>
+                            <input type="checkbox"
+                                className="theme-controller" value={toggle} />
                             <svg
                                 className="swap-off h-8 w-8 fill-current"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -62,11 +63,24 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                <div className="dropdown dropdown-end flex gap-2">
+                <div className="dropdown dropdown-end flex lg:justify-center lg:items-center gap-2">
+                    <div className="hidden lg:block">
+                        {user ?
+                            <div>
+                                <button onClick={handleLogOut} className="btn btn-sm">LogOut</button>
+                            </div>
+                            :
+                            <div>
+                                {/* <Link to='/register' className="btn btn-sm mr-2">Register</Link> */}
+                                <Link to='/login' className="btn btn-sm">LogIn</Link>
+                            </div>
 
+                        }
+                    </div>
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+
                         <div className="w-10 rounded-full">
-                            {user ? <img 
+                            {user ? <img
                                 src={user?.photoURL}
                                 alt={user?.displayName}
                                 title={user?.displayName}
@@ -78,19 +92,20 @@ const Navbar = () => {
                             }
 
                         </div>
+
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow lg:hidden">
                         <li><Link to='/'>Home</Link></li>
                         <li><Link to='/find_tutors'>Find Tutors</Link></li>
+                        <li><Link to='/become_tutor'>Become a Tutor</Link></li>
                         {user &&
-                            <>
-                                <li><Link to='/add_tutorials'>Add Tutorials</Link></li>
-                                <li><Link to='/my_booked_tutor'>My Booked Tutor</Link></li>
-                                <li><Link to='/my_tutorials'>My Tutorials</Link></li>
-                            </>
+                            <li><Link to='/my_booked_tutor'>My Booked Tutor</Link></li>
                         }
+                        {privateUser?.role &&
+                            <li><Link to='/dashboard'>Dashboard</Link></li>}
+
                         <li><div>
                             {user ?
                                 <div>

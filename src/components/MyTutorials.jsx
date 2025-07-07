@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 const MyTutorials = () => {
     const { tutorials, setTutorials, user } = useContext(AuthContext);
 
+
     useEffect(() => {
         fetch(`https://online-tutor-server-web.vercel.app/tutorials/${user.email}`).then(res => res.json()).then(data => {
             setTutorials(data);
@@ -29,7 +30,7 @@ const MyTutorials = () => {
                 fetch(`https://online-tutor-server-web.vercel.app/tutors/${id}`, {
                     method: 'DELETE',
                 }).then(res => res.json()).then(result => {
-                    
+
                     if (result.deletedCount > 0) {
                         Swal.fire({
                             title: "Deleted!",
@@ -106,6 +107,7 @@ const MyTutorials = () => {
                         </tr>
                     </tfoot>
                 </table>
+
             </div>
         </div>
     );

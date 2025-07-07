@@ -23,12 +23,21 @@ const AuthProvider = ({ children }) => {
     const [heartCount, setHeartCount] = useState(10);
     const [search, setSearch] = useState('');
     const [expertTutor, setExpertTutor] = useState([]);
+    const [appliedUser, setAppliedUser] = useState([]);
+    const [privateUser, setPrivateUser] = useState([]);
+    
+
+    useEffect(() => {
+        const privateUserInfo = appliedUser.find(aUser => aUser?.userEmail.toLowerCase() === user?.email.toLowerCase());
+        setPrivateUser(privateUserInfo);
+    }, [appliedUser, user?.email])
+
 
     const savedTheme = localStorage.getItem('theme') || 'light';
     const [toggle, setToggle] = useState(savedTheme);
 
     const handleToggle = () => {
-        const newTheme = toggle === 'light' ? 'dark' : 'light';
+        const newTheme = toggle === 'dark' ? 'light' : 'dark';
         setToggle(newTheme);
         localStorage.setItem('theme', toggle);
     }
@@ -39,8 +48,11 @@ const AuthProvider = ({ children }) => {
         setToggle(theme);
     }, [toggle]);
 
-    // https://online-tutor-server-web.vercel.app/tutors
-    // http://localhost:2100/tutors
+    useEffect(() => {
+        axios.get('https://online-tutor-server-web.vercel.app/tutorApplication')
+            .then(res => setAppliedUser(res.data));
+    }, []);
+
 
     useEffect(() => {
         axios.get(`https://online-tutor-server-web.vercel.app/tutors`)
@@ -131,7 +143,9 @@ const AuthProvider = ({ children }) => {
         notify,
         toggle,
         handleToggle,
-        expertTutor
+        expertTutor,
+        appliedUser,
+        privateUser
     }
 
 

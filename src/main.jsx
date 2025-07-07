@@ -23,6 +23,9 @@ import MyBookedTutor from './components/MyBookedTutor';
 import MyTutorials from './components/MyTutorials';
 import UpdateTutorials from './components/UpdateTutorials';
 import About from './components/About';
+import Dashboard from './Dashboard/Dashboard';
+import DashboardHome from './Dashboard/DashboardHome';
+import BecomeTutor from './components/BecomeTutor/BecomeTutor';
 
 const router = createBrowserRouter([
   {
@@ -51,8 +54,8 @@ const router = createBrowserRouter([
         element: <Categories />
       },
       {
-        path: '/add_tutorials',
-        element: <PrivateRoute><AddTutorials /></PrivateRoute>
+        path: '/become_tutor',
+        element: <BecomeTutor />
       },
       {
         path: '/tutor_details/:id',
@@ -63,10 +66,7 @@ const router = createBrowserRouter([
         path: '/my_booked_tutor',
         element: <PrivateRoute><MyBookedTutor /></PrivateRoute>
       },
-      {
-        path: '/my_tutorials',
-        element: <PrivateRoute><MyTutorials /></PrivateRoute>
-      },
+      
       {
         path: '/update_tutorials/:_id',
         loader: ({ params }) => fetch(`https://online-tutor-server-web.vercel.app/tutors/tutor/${params._id}`),
@@ -78,6 +78,25 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path: "/dashboard",
+    element: <Dashboard/>,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '/dashboard',
+        element: <DashboardHome />
+      },
+      {
+        path: '/dashboard/add_tutorials',
+        element: <PrivateRoute><AddTutorials /></PrivateRoute>
+      },
+      {
+        path: '/dashboard/my_tutorials',
+        element: <PrivateRoute><MyTutorials /></PrivateRoute>
+      },
+    ]
+  }
 ]);
 
 createRoot(document.getElementById('root')).render(
