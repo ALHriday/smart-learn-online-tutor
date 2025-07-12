@@ -20,12 +20,12 @@ const AuthProvider = ({ children }) => {
     const [myBookedTutor, setMyBookedTutor] = useState([]);
     const [tutorials, setTutorials] = useState([]);
     const [langCount, setLangCount] = useState(0);
-    const [heartCount, setHeartCount] = useState(10);
+    const [likesCount, setLikesCount] = useState([]);
     const [search, setSearch] = useState('');
     const [expertTutor, setExpertTutor] = useState([]);
     const [appliedUser, setAppliedUser] = useState([]);
     const [privateUser, setPrivateUser] = useState([]);
-    
+
 
     useEffect(() => {
         const privateUserInfo = appliedUser.find(aUser => aUser?.userEmail.toLowerCase() === user?.email.toLowerCase());
@@ -136,8 +136,8 @@ const AuthProvider = ({ children }) => {
         tutorials,
         setTutorials,
         langCount,
-        heartCount,
-        setHeartCount,
+        likesCount, 
+        setLikesCount,
         search,
         setSearch,
         notify,

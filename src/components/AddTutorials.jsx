@@ -19,8 +19,9 @@ const AddTutorials = () => {
         const price = form.price.value;
         const review = form.review.value;
         const details = form.details.value;
+        const likes = [];
 
-        const data = { name, language, image, price, review, details, userName, userEmail };
+        const data = { name, language, image, price, review, likes, details, userName, userEmail };
 
         // name, image, language, review, details, price
 

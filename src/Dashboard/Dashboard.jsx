@@ -26,8 +26,9 @@ const Dashboard = () => {
             </div>
             
             <div className="w-[calc(100%-260px)] min-h-screen p-4">
-                <h1 className="text-2xl font-bold my-4 border-b-2">Hi, {privateUser?.userName.toUpperCase()}. <br /> Welcome to Dashboad. </h1>
-                <Outlet></Outlet>
+                <h1 className="text-2xl font-bold my-4 border-b-2">Hi, {privateUser?.userName ? privateUser?.userName.toUpperCase() : ''}. <br /> Welcome to Dashboad. </h1>
+                {privateUser?.role && <Outlet></Outlet>}
+                
             </div>
         </div>
     );

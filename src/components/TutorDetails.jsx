@@ -1,18 +1,23 @@
 import { useLoaderData } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { ToastContainer } from "react-toastify";
-// import { toast } from "react-toastify";
+import axios from "axios";
+
 
 const TutorDetails = () => {
-    const { user, heartCount, setHeartCount, notify } = useContext(AuthContext);
+    const { user, notify } = useContext(AuthContext);
     const tutor = useLoaderData();
 
-    const { name, image, language, review, price, details } = tutor;
+    const {_id, likes, name, image, language, review, price, details } = tutor;
+
     const email = user?.email;
-    const data = { name, image, language, review, price, details, email }
+    const data = { name, image, language, review, price, details, email };
+
+    const userId = user?.uid; 
+    const alreadyLiked = likes?.find(like => like === userId);
 
 
     const handleBookedTutor = () => {
@@ -37,6 +42,27 @@ const TutorDetails = () => {
                     });
                 }
             })
+    }
+
+    const handleLikeTutor = (id) => {
+         if (!user) {
+            return notify('Please LogIn');
+        }
+
+        if (likes.includes(userId)) {
+            
+            const removeLike = likes.filter(like => like !== userId);    
+            const updateLikes = { likes: removeLike };
+
+            axios.put(`https://online-tutor-server-web.vercel.app/tutors/likes/${id}`, updateLikes)
+                .then(res => res.data)
+        } else {
+            likes.push(userId);
+            const updateLikes = { likes };
+
+            axios.put(`https://online-tutor-server-web.vercel.app/tutors/likes/${id}`, updateLikes)
+                .then(res => res.data)
+        }
     }
 
     return (
@@ -65,14 +91,15 @@ const TutorDetails = () => {
                 </div>
                 <div className="py-4 flex justify-center items-center sm:items-start gap-1">
                     <div>
-                    <button onClick={handleBookedTutor} className="btn btn-accent">Book Tutor</button>
+                        <button onClick={handleBookedTutor} className="btn btn-accent">Book Tutor</button>
                     </div>
                     <ToastContainer></ToastContainer>
-                    <div onClick={() => setHeartCount(heartCount + 1)} className="w-14 h-10 btn btn-neutral flex justify-center items-center rounded-md hover:btn-error">
-                        <FaRegHeart />
-                    </div>
+                    {likes &&
+                        <div onClick={()=> handleLikeTutor(_id)} className= {alreadyLiked ? "btn-error w-16 h-10 btn btn-neutral flex justify-center items-center rounded-md hover:btn-error" : "w-16 h-10 btn btn-neutral flex justify-center items-center rounded-md"}>
+                            {likes && likes.length}  {alreadyLiked ? <FaHeart /> : <FaRegHeart />}
+                        </div>
+                    }
                 </div>
-
             </div>
         </div>
     );
