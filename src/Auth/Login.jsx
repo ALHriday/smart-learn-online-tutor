@@ -93,8 +93,8 @@ const Login = () => {
 
                             </div>
                         </form>
-                        <div className="mb-3 flex justify-center items-center">
-                            <button className="flex justify-center items-center gap-1 btn-link text-center text-sm" onClick={handleGoogleSignIn}><div className="w-7">
+                        <div onClick={handleGoogleSignIn} className="mb-3 flex justify-center items-center btn btn-primary mx-8">
+                            <button className="flex justify-center items-center gap-1 text-center text-sm"><div className="w-7">
                                 <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" alt="" />
                             </div>SignInWithGoogle</button>
                         </div>

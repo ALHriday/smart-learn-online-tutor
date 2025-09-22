@@ -5,10 +5,12 @@ import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { ToastContainer } from "react-toastify";
 import axios from "axios";
+import AxiosPublic from "../Hooks/AxiosPublic";
 
 
 const TutorDetails = () => {
     const { user, notify } = useContext(AuthContext);
+    const { refetch } = AxiosPublic('/tutors/likes');
     const tutor = useLoaderData();
 
     const {_id, likes, name, image, language, review, price, details } = tutor;
@@ -18,12 +20,14 @@ const TutorDetails = () => {
 
     const userId = user?.uid; 
     const alreadyLiked = likes?.find(like => like === userId);
-
+    
 
     const handleBookedTutor = () => {
         if (!user) {
             return notify('Please LogIn');
         }
+
+
         fetch('https://online-tutor-server-web.vercel.app/bookedTutor',
             {
                 method: 'POST',
@@ -55,13 +59,13 @@ const TutorDetails = () => {
             const updateLikes = { likes: removeLike };
 
             axios.put(`https://online-tutor-server-web.vercel.app/tutors/likes/${id}`, updateLikes)
-                .then(res => res.data)
+                .then(res => res.data && refetch());
         } else {
             likes.push(userId);
             const updateLikes = { likes };
 
             axios.put(`https://online-tutor-server-web.vercel.app/tutors/likes/${id}`, updateLikes)
-                .then(res => res.data)
+                .then(res => res.data && refetch());
         }
     }
 

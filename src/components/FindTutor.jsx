@@ -1,14 +1,16 @@
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import AxiosPublic from "../Hooks/AxiosPublic";
 import Tutor from "./Tutor";
 import { useContext, useRef } from "react";
 
 const FindTutor = () => {
+    const {data} = AxiosPublic('/tutors');
 
     const langValueRef = useRef();
-    const { tutorsData, search, setSearch } = useContext(AuthContext);
+    const { search, setSearch } = useContext(AuthContext);
 
 
-    let filterData = tutorsData.filter(d => {
+    let filterData = data?.filter(d => {
         if (d !== null && d !== undefined) {
             return d.name.toLowerCase().includes(search.toLowerCase()) || d.language.toLowerCase().includes(search.toLowerCase());
         }

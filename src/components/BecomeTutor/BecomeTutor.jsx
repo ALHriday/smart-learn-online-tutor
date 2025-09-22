@@ -82,7 +82,7 @@ const BecomeTutor = () => {
                 </div>
 
                 <div className="flex justify-end p-4">
-                    <button className="btn btn-accent">Apply</button>
+                    <button className="btn btn-secondary">Apply</button>
                 </div>
             </form>
         </section>

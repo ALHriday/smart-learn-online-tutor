@@ -7,11 +7,9 @@ import Swal from "sweetalert2";
 const BookedTutor = ({ tutor }) => {
 
     const { myBookedTutor, setMyBookedTutor } = useContext(AuthContext);
-
-    const { _id, name, language, image, price, details, review } = tutor;
+    const { _id, name, language, image, price, details, review } = tutor; 
 
     const handleDeleteBookedTutor = (id) => {
-
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -43,8 +41,8 @@ const BookedTutor = ({ tutor }) => {
 
     return (
 
-        <div className="card grid grid-cols-5 justify-center items-center bg-base-100 shadow-xl relative">
-            <div className="p-4 rounded-md col-span-5 md:col-span-2">
+        <div className="card grid grid-cols-5 justify-center items-center bg-base-100 shadow-md relative">
+            <div className="max-h-[260px] m-4 overflow-hidden rounded-md col-span-5 md:col-span-2">
                 <div className="">
                     <img className="rounded-md w-full h-full object-cover"
                         src={image}
@@ -55,7 +53,7 @@ const BookedTutor = ({ tutor }) => {
                 </div>
             </div>
 
-            <div className="card-body col-span-5 md:col-span-3">
+            <div className="card-body !rounded-sm !p-4 col-span-5 sm:col-span-3">
                 <h2 className="card-title">Title: {name}
                     <div className="badge badge-secondary ml-1 ">{review}</div></h2>
                 <p>Language: {language}</p>

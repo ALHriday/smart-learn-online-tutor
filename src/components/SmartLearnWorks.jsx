@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 const SmartLearnWorks = () => {
 
     const { tutorsData } = useContext(AuthContext);
-    const [data, setData] = useState();
+    const [data, setData] = useState([]);
 
     useEffect(() => {
         const tutor = [...tutorsData].slice(0, 3);
@@ -13,13 +13,13 @@ const SmartLearnWorks = () => {
     }, [tutorsData])
 
     return (
-        <div className="p-4 overflow-hidden">
-            <h1 className="text-4xl text-center font-bold py-4">How Smart Learn Works </h1>
+        <div className="px-4 overflow-hidden">
+            <h1 className="text-3xl sm:text-4xl text-center font-bold py-4">How Smart Learn Works </h1>
             <div className="py-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-4 overflow-hidden">
 
                 <div className="flex flex-col gap-3 p-4 border-2 rounded-md">
-                    <h1 className="text-3xl font-bold btn text-white btn-warning">Step 1</h1>
-                    <h1 className="text-3xl font-bold">Find your Tutor : </h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold btn text-white btn-warning">Step 1</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold">Find your Tutor : </h1>
 
                     {data && data.map((tutor, i) =>
                         <div key={i}>
@@ -49,8 +49,8 @@ const SmartLearnWorks = () => {
                     transition={{ duration: 0.9 }}>
 
                     <div className="flex flex-col gap-3 p-4 border-2 rounded-md">
-                        <h1 className="text-3xl font-bold btn text-white btn-secondary">Step 2</h1>
-                        <h1 className="text-3xl font-bold">Booked Tutor : </h1>
+                        <h1 className="text-2xl sm:text-3xl font-bold btn text-white btn-secondary">Step 2</h1>
+                        <h1 className="text-2xl sm:text-3xl font-bold">Booked Tutor : </h1>
                         <p className="text-lg max-h-96 overflow-auto text-wrap scroll-smooth">
                             To book a tutor on my website, you will need to follow these steps:
                             <br />
@@ -75,10 +75,10 @@ const SmartLearnWorks = () => {
 
 
                 <div className="flex flex-col gap-3 p-4 border-2 rounded-md">
-                    <h1 className="text-3xl font-bold btn text-white btn-accent">Step 3</h1>
-                    <h1 className="text-3xl font-bold">Join with Tutor : </h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold btn text-white btn-accent">Step 3</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold">Join with Tutor : </h1>
 
-                    <p className="text-4xl font-bold">
+                    <p className="text-3xl sm:text-4xl font-bold">
                         <span className="text-secondary">Focus</span>, <span className="text-accent">Speak</span>, <span className="text-info">Read</span> and <span className="text-primary">Write</span>.
                     </p>
                     <motion.div

@@ -15,9 +15,14 @@ function App() {
 
       <Banner />
 
-      <div className='text-center p-4 overflow-hidden'>
+      <div className='text-center p-4 overflow-hidden font-bold sm:hidden'>
         <motion.div whileInView={{ scale: 1.1, fontSize: '26px' }} initial={{ fontSize: '20px' }}>
-          <h1>Learn Languages, Anytime, Anywhere.</h1>
+          <h1 className='px-4'>Learn Languages, Anytime, Anywhere.</h1>
+        </motion.div>
+      </div>
+      <div className='text-center p-4 overflow-hidden font-bold hidden sm:block'>
+        <motion.div whileInView={{ scale: 1.1, fontSize: '30px' }} initial={{ fontSize: '26px' }}>
+          <h1 className='px-4'>Learn Languages, Anytime, Anywhere.</h1>
         </motion.div>
       </div>
 
@@ -35,7 +40,7 @@ function App() {
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: -50 }}
           transition={{ duration: 1.0 }}
-        ><h1 className='py-6 text-2xl'>Discover the Language of Possibilities</h1>
+        ><h1 className='py-6 text-3xl sm:text-4xl font-bold'>Discover the Language of Possibilities</h1>
         </motion.div>
 
         <motion.div
@@ -50,7 +55,7 @@ function App() {
 
       <div className='py-6 px-4'>
         <div className='overflow-hidden'>
-          <h1 className='text-4xl font-bold my-4 text-center'>Expert Tutors at Your Service</h1>
+          <h1 className='text-3xl sm:text-4xl font-bold my-4 text-center'>Expert Tutors at Your Service</h1>
           <ExpertTutors />
         </div>
 

@@ -89,7 +89,7 @@ const UpdateTutorials = () => {
                         <input type="text" defaultValue={details} name="details" placeholder="" className="input input-bordered" required />
                     </div>
                     <div className="form-control mt-6">
-                        <button className="btn btn-primary">Update Tutorials</button>
+                        <button className="btn btn-secondary">Update Tutorials</button>
                     </div>
                 </form>
             </div>

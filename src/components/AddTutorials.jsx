@@ -111,7 +111,7 @@ const AddTutorials = () => {
                 </div>
 
                 <div className="form-control mt-6 md:col-span-2">
-                    <button className="btn btn-primary">Add Tutorials</button>
+                    <button className="btn btn-secondary">Add Tutorials</button>
                 </div>
             </form>
         </div>

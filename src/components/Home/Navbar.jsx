@@ -23,8 +23,8 @@ const Navbar = () => {
 
     return (
         <div className="navbar bg-base-100 sticky top-0 z-50">
-            <div className="flex-1">
-                <Link className="text-2xl font-bold" to='/'>Smart Learn</Link>
+            <div className="flex-1 justify-start items-center text-3xl font-bold">
+                <Link to='/'> <span className=" bg-clip-text text-transparent bg-gradient-to-r from-secondary to-accent">Smart</span> <span className="bg-clip-text text-transparent bg-gradient-to-l from-secondary to-accent">Learn</span></Link>
             </div>
             <div className="flex-none">
                 <div className="dropdown hidden lg:flex gap-2 dropdown-end">

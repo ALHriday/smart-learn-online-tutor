@@ -5,13 +5,13 @@ import TutorHome from "./TutorHome";
 
 const DashboardHome = () => {
     const { privateUser } = useContext(AuthContext);
-    
+
     return (
         <div>
-            {privateUser?.role === 'admin' ? 
-            <AdminHome/> : ''}
-            {privateUser?.role === 'tutor' ? 
-            <TutorHome/> : ''}
+            {privateUser?.role === 'admin' ?
+                <AdminHome /> : ''}
+            {privateUser?.role === 'tutor' ?
+                <TutorHome /> : ''}
         </div>
     );
 };

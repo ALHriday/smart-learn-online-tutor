@@ -25,7 +25,7 @@ const Categories = () => {
                 {lang && lang.map((language, idx) =>
                     <div key={idx}>
                     <motion.div
-                    whileHover={{ scale: 1.1 }}
+                    whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.95 }}>          
                     <div onClick={() => setSearch(language.toLowerCase())} className="flex justify-evenly items-center border-collapse border rounded-md py-4 md:py-6 shadow-md hover:bg-slate-900 hover:text-white cursor-pointer">
 

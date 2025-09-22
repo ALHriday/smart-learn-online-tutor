@@ -9,8 +9,8 @@ const Tutor = ({ tutor }) => {
 
     return (
         <motion.div
-            whileHover={{ scale: 1.1 }}>
-            <div className="bg-base-100 shadow-xl grid grid-cols-5 rounded-md mx-2 cursor-pointer">
+            whileHover={{ scale: 1.02 }}>
+            <div className="bg-base-100 shadow-md grid grid-cols-5 rounded-md mx-2 cursor-pointer">
                 <div className="h-36 sm:h-40 max-h-52 flex justify-center items-center p-2 col-span-2">
                     <img className="rounded-md w-full h-full object-cover"
                         src={image}
@@ -34,7 +34,7 @@ const Tutor = ({ tutor }) => {
                         <div className="text-md flex justify-between items-center">
                             <div className="font-bold">${price}</div>
                             <div className="card-actions">
-                                <Link to={`/tutor_details/${_id}`} className="btn btn-accent btn-sm mt-2">Details</Link>
+                                <Link to={`/tutor_details/${_id}`} className="btn btn-secondary btn-sm mt-2">Details</Link>
                             </div>
                         </div>
                     </div>

@@ -17,7 +17,7 @@ const ExpertTutors = () => {
                         </div>
                         <div className="text-center overflow-hidden h-[160px]">
                             <h1 className="font-bold">{tutor?.name}</h1>
-                            {/* <p>{tutor?.details.length < 55 ? tutor?.details.slice(0, 55).concat('...') : tutor?.details}</p> */}
+                            <p>{tutor?.details.length < 55 ? tutor?.details.slice(0, 55).concat('...') : tutor?.details}</p>
                         </div>
                     </div>
                 )}

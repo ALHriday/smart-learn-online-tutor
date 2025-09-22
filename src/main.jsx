@@ -7,6 +7,13 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
+
 
 import AuthProvider from './AuthProvider/AuthProvider';
 import Home from './components/Home/Home';
@@ -26,6 +33,8 @@ import About from './components/About';
 import Dashboard from './Dashboard/Dashboard';
 import DashboardHome from './Dashboard/DashboardHome';
 import BecomeTutor from './components/BecomeTutor/BecomeTutor';
+import Application from './Dashboard/Application';
+
 
 const router = createBrowserRouter([
   {
@@ -66,7 +75,7 @@ const router = createBrowserRouter([
         path: '/my_booked_tutor',
         element: <PrivateRoute><MyBookedTutor /></PrivateRoute>
       },
-      
+
       {
         path: '/update_tutorials/:_id',
         loader: ({ params }) => fetch(`https://online-tutor-server-web.vercel.app/tutors/tutor/${params._id}`),
@@ -80,12 +89,16 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard/>,
+    element: <PrivateRoute><Dashboard /></PrivateRoute>,
     errorElement: <ErrorPage />,
     children: [
       {
         path: '/dashboard',
-        element: <DashboardHome />
+        element: <PrivateRoute><DashboardHome /></PrivateRoute>
+      },
+      {
+        path: '/dashboard/application',
+        element: <PrivateRoute><Application /></PrivateRoute>
       },
       {
         path: '/dashboard/add_tutorials',
@@ -102,10 +115,12 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <div className='max-w-7xl mx-auto scroll-smooth'>
-      <AuthProvider>
-        <RouterProvider router={router}>
-        </RouterProvider>
-      </AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <RouterProvider router={router}>
+          </RouterProvider>
+        </AuthProvider>
+      </QueryClientProvider>
     </div>
   </StrictMode>,
 )

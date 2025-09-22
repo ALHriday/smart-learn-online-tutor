@@ -8,7 +8,9 @@ import {
     Legend,
     Title,
 } from 'chart.js';
+import { useContext } from 'react';
 import { Line } from 'react-chartjs-2';
+import { AuthContext } from '../AuthProvider/AuthProvider';
 
 ChartJS.register(
     LineElement,
@@ -20,14 +22,17 @@ ChartJS.register(
     Title
 );
 
-const TutorHome = () => {
+const Statistics = () => {
+
+    const { tutorsData } = useContext(AuthContext);
+    const totalTutor = tutorsData?.length
 
     const data = {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
         datasets: [
             {
-                label: 'Sales',
-                data: [300, 500, 100, 400, 700],
+                label: 'Tutors',
+                data: [totalTutor / 5, totalTutor / 4, totalTutor / 3, totalTutor / 2, totalTutor],
                 borderColor: 'rgba(75,192,192,1)',
                 tension: 0.4,
                 fill: false,
@@ -43,7 +48,7 @@ const TutorHome = () => {
             },
             title: {
                 display: true,
-                text: 'Monthly Sales',
+                text: 'Monthly Tutors',
             },
         },
     };
@@ -51,10 +56,10 @@ const TutorHome = () => {
     return (
         <div>
             <div className='overflow-hidden'>
-                <Line data={data} options={options} />;
+                <Line data={data} options={options} />
             </div>
         </div>
     );
 };
 
-export default TutorHome;
+export default Statistics;

@@ -63,33 +63,33 @@ const MyTutorials = () => {
                     </thead>
                     <tbody>
                         {tutorials && tutorials.map(data =>
-                            <tr key={data._id}>
+                            <tr key={data?._id}>
                                 <td>
                                     <div className="flex items-center gap-3">
                                         <div className="avatar">
                                             <div className="rounded-full h-12 w-12">
                                                 <img
-                                                    src={data.image}
+                                                    src={data?.image}
                                                 />
                                             </div>
                                         </div>
                                         <div>
-                                            <div className="font-bold">{data.name}</div>
+                                            <div className="font-bold">{data?.name}</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    {data.language}
+                                    {data?.language}
                                 </td>
-                                <td>{data.details}</td>
-                                <td>${data.price}</td>
+                                <td>{data?.details}</td>
+                                <td>${data?.price}</td>
                                 <td>
-                                    <button className="btn btn-ghost btn-xs">{data.review}</button>
+                                    <button className="btn btn-ghost btn-xs">{data?.review}</button>
                                 </td>
                                 <th>
                                     <div className="flex gap-2">
-                                        <Link to={`/update_tutorials/${data._id}`} className="btn btn-sm btn-accent"><FaPlusSquare /></Link>
-                                        <button onClick={() => handleDeleteTutorials(data._id)} className="btn btn-sm btn-error"><MdDeleteForever /></button>
+                                        <Link to={`/update_tutorials/${data?._id}`} className="btn btn-sm btn-accent"><FaPlusSquare /></Link>
+                                        <button onClick={() => handleDeleteTutorials(data?._id)} className="btn btn-sm btn-error"><MdDeleteForever /></button>
                                     </div>
                                 </th>
                             </tr>)}
@@ -107,7 +107,8 @@ const MyTutorials = () => {
                         </tr>
                     </tfoot>
                 </table>
-
+                {!tutorials.length && <div className="flex justify-center items-center text-2xl font-bold">No Tutorials Available!</div>
+                }
             </div>
         </div>
     );

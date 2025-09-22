@@ -136,7 +136,7 @@ const AuthProvider = ({ children }) => {
         tutorials,
         setTutorials,
         langCount,
-        likesCount, 
+        likesCount,
         setLikesCount,
         search,
         setSearch,
