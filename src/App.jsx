@@ -39,7 +39,7 @@ function App() {
           whileInView={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: -50 }}
-          transition={{ duration: 1.0 }}
+          transition={{ duration: 0.5 }}
         ><h1 className='py-6 text-3xl sm:text-4xl font-bold'>Discover the Language of Possibilities</h1>
         </motion.div>
 
@@ -47,7 +47,7 @@ function App() {
           whileInView={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 50 }}
-          transition={{ duration: 1.1 }}
+          transition={{ duration: 0.6 }}
         >Discover the joy of language learning with SmartLearn. We combine expert guidance, innovative tools, and flexible scheduling to create a personalized experience that ensures your success.
         </motion.div>
 

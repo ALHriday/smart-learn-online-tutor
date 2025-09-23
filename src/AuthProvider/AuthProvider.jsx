@@ -33,6 +33,7 @@ const AuthProvider = ({ children }) => {
     }, [appliedUser, user?.email])
 
 
+
     const savedTheme = localStorage.getItem('theme') || 'light';
     const [toggle, setToggle] = useState(savedTheme);
 

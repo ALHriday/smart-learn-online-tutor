@@ -27,13 +27,13 @@ const SmartLearnWorks = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 initial={{ opacity: 0, y: 200 }}
                                 animate={{ opacity: 0, y: 100 }}
-                                transition={{ duration: 0.7 }}>
+                                transition={{ duration: 0.3 }}>
                                 <div className="grid grid-cols-2 justify-between items-center shadow-sm rounded-md border-2 gap-2">
                                     <div className="rounded-md col-span-1">
-                                        <img className="w-full h-full rounded-md object-cover" src={tutor.image} alt="" />
+                                        <img className="w-full h-full rounded-md object-cover" src={tutor?.image} alt="" />
                                     </div>
                                     <div className="col-span-1 flex justify-center items-center">
-                                        <h1 className="font-bold">{tutor.language}</h1>
+                                        <h1 className="font-bold">{tutor?.language}</h1>
                                     </div>
                                 </div>
                             </motion.div>
@@ -46,12 +46,12 @@ const SmartLearnWorks = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     initial={{ opacity: 0, y: -100 }}
                     animate={{ opacity: 1, y: -100 }}
-                    transition={{ duration: 0.9 }}>
+                    transition={{ duration: 0.4 }}>
 
                     <div className="flex flex-col gap-3 p-4 border-2 rounded-md">
                         <h1 className="text-2xl sm:text-3xl font-bold btn text-white btn-secondary">Step 2</h1>
                         <h1 className="text-2xl sm:text-3xl font-bold">Booked Tutor : </h1>
-                        <p className="text-lg max-h-96 overflow-auto text-wrap scroll-smooth">
+                        <p className="text-lg max-h-96 text-wrap overflow-auto">
                             To book a tutor on my website, you will need to follow these steps:
                             <br />
                             1. Visit the tutors section of my website.
@@ -85,7 +85,7 @@ const SmartLearnWorks = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         initial={{ opacity: 0, y: -150 }}
                         animate={{ opacity: 1, y: -150 }}
-                        transition={{ duration: 0.9 }}>
+                        transition={{ duration: 0.4 }}>
                         <div className="rounded-md">
                             <img className="w-full h-full rounded-md" src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                         </div>
