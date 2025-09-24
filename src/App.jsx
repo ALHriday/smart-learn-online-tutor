@@ -15,13 +15,13 @@ function App() {
 
       <Banner />
 
-      <div className='text-center p-4 overflow-hidden font-bold sm:hidden'>
-        <motion.div whileInView={{ scale: 1.1, fontSize: '26px' }} initial={{ fontSize: '20px' }}>
+      <div className='h-[120px] text-center p-4 overflow-hidden font-bold sm:hidden'>
+        <motion.div whileInView={{ scale: 1.0, fontSize: '30px' }} initial={{ fontSize: '20px' }}>
           <h1 className='px-4'>Learn Languages, Anytime, Anywhere.</h1>
         </motion.div>
       </div>
-      <div className='text-center p-4 overflow-hidden font-bold hidden sm:block'>
-        <motion.div whileInView={{ scale: 1.1, fontSize: '30px' }} initial={{ fontSize: '26px' }}>
+      <div className='h-[60px] text-center p-4 overflow-hidden font-bold hidden sm:block'>
+        <motion.div whileInView={{ scale: 1.0, fontSize: '30px' }} initial={{ fontSize: '26px' }}>
           <h1 className='px-4'>Learn Languages, Anytime, Anywhere.</h1>
         </motion.div>
       </div>
@@ -34,7 +34,7 @@ function App() {
         <Categories />
       </div>
 
-      <div className='text-center p-4 my-4'>
+      <div className='min-h-[200px] overflow-hidden text-center p-4 my-4'>
         <motion.div
           whileInView={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: -50 }}

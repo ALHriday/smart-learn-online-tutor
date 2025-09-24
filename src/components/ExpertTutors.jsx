@@ -1,16 +1,13 @@
-import { useContext } from "react";
-import { AuthContext } from "../AuthProvider/AuthProvider";
 import Marquee from "react-fast-marquee";
+import AxiosPublic from "../Hooks/AxiosPublic";
 
 const ExpertTutors = () => {
-    const { expertTutor } = useContext(AuthContext);
-
-    const tutors = expertTutor ? expertTutor.slice(15, expertTutor.length) : '';
+    const { data } = AxiosPublic(`/tutors?limit=10&skip=10`);
 
     return (
         <Marquee pauseOnHover={true} direction="left">
             <div className="p-4 flex justify-center items-center gap-8 overflow-hidden cursor-pointer">
-                {tutors?.map(tutor =>
+                {data?.map(tutor =>
                     <div key={tutor._id} className="w-[180px]  flex flex-col justify-center items-center gap-2 overflow-hidden">
                         <div className="w-[160px] h-[160px] rounded-full flex justify-center items-center">
                             <img className="w-full h-full rounded-full object-cover" src={tutor?.image} alt="" />

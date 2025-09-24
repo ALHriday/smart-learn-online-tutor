@@ -7,7 +7,8 @@ import Swal from "sweetalert2";
 const BookedTutor = ({ tutor }) => {
 
     const { myBookedTutor, setMyBookedTutor } = useContext(AuthContext);
-    const { _id, name, language, image, price, details, review } = tutor; 
+    const { _id, name, language, image, price, details, review } = tutor;
+
 
     const handleDeleteBookedTutor = (id) => {
         Swal.fire({

@@ -7,7 +7,7 @@ const AxiosPublic = (path) => {
     const { data = [], refetch } = useQuery({
         queryKey: ['fetchURL'],
         queryFn: async () => {
-            const fetchURL = await axios.get(url + path).then(res => res.data).catch(error => error) || {};
+            const fetchURL = await axios.get(`${url}${path})`).then(res => res.data || {}).catch(error => error);
             return fetchURL;
         }
     })

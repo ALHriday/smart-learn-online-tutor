@@ -60,7 +60,7 @@ const AddTutorials = () => {
         <div className="grid grid-cols-1 gap-2">
             <h1 className="py-2 text-4xl text-center text-slate-400 font-bold">Add Tutorials</h1>
             <form onSubmit={handleAddTutors} className="grid grid-cols-1 gap-2 md:grid-cols-2">
-                
+
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Title</span>

@@ -15,16 +15,16 @@ const AuthProvider = ({ children }) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [passValidation, setPassValidation] = useState('');
     const [showPass, setShowPass] = useState(false);
-    const [tutorsData, setTutorData] = useState([]);
-    const [tutorCount, setTutorCount] = useState(0);
+    const [tutorData, setTutorData] = useState([]);
+    const [showData, setShowData] = useState([]);
     const [myBookedTutor, setMyBookedTutor] = useState([]);
     const [tutorials, setTutorials] = useState([]);
-    const [langCount, setLangCount] = useState(0);
     const [likesCount, setLikesCount] = useState([]);
     const [search, setSearch] = useState('');
-    const [expertTutor, setExpertTutor] = useState([]);
     const [appliedUser, setAppliedUser] = useState([]);
     const [privateUser, setPrivateUser] = useState([]);
+    const [skip, setSkip] = useState(0);
+    const [stats, setStats] = useState([]);
 
 
     useEffect(() => {
@@ -32,7 +32,24 @@ const AuthProvider = ({ children }) => {
         setPrivateUser(privateUserInfo);
     }, [appliedUser, user?.email])
 
+    useEffect(() => {
+        axios.get('https://online-tutor-server-web.vercel.app/stats').then(res => setStats(res.data)).catch(error => error)
+    }, [])
 
+    useEffect(() => {
+        axios.get(`https://online-tutor-server-web.vercel.app/tutors?limit=10&skip=10`).then(res => {
+            const d = res.data.slice(3, 6);
+            setShowData(d);
+        }).catch(error => error);
+    }, [])
+
+    useEffect(() => {
+        axios.get(`https://online-tutor-server-web.vercel.app/tutors?search=${search}&limit=10&skip=${skip}`).then(res => setTutorData(res.data)).catch(error => error);
+    }, [search, skip])
+
+    // useEffect(()=>{
+    //     axios.get(`https://online-tutor-server-web.vercel.app/tutor/likes`).then(res => (res.data)).catch(error => error);
+    // }, [])
 
     const savedTheme = localStorage.getItem('theme') || 'light';
     const [toggle, setToggle] = useState(savedTheme);
@@ -52,15 +69,6 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         axios.get('https://online-tutor-server-web.vercel.app/tutorApplication')
             .then(res => setAppliedUser(res.data));
-    }, []);
-
-
-    useEffect(() => {
-        axios.get(`https://online-tutor-server-web.vercel.app/tutors`)
-            .then(data => {
-                setTutorData(data.data);
-                setTutorCount(data.data.length);
-            })
     }, []);
 
 
@@ -95,16 +103,10 @@ const AuthProvider = ({ children }) => {
     const notify = (status) => toast(status);
 
     useEffect(() => {
-        axios.get(`https://online-tutor-server-web.vercel.app/tutors`).then(res => {
-            setExpertTutor(res.data);
-        })
-    }, [])
+        axios.get(`https://online-tutor-server-web.vercel.app/addedTutor/${user?.email}`)
+            .then(res => setMyBookedTutor(res.data)).catch(error => error)
+    }, [user?.email, setMyBookedTutor]);
 
-
-    useEffect(() => {
-        const languageCount = [...new Set(tutorsData && tutorsData.map(lang => lang.language))];
-        setLangCount(languageCount.length);
-    }, [tutorsData])
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
@@ -129,14 +131,13 @@ const AuthProvider = ({ children }) => {
         showPass,
         setShowPass,
         togglePassword,
-        tutorsData,
+        tutorData,
         setTutorData,
-        tutorCount,
+        showData,
         myBookedTutor,
         setMyBookedTutor,
         tutorials,
         setTutorials,
-        langCount,
         likesCount,
         setLikesCount,
         search,
@@ -144,9 +145,11 @@ const AuthProvider = ({ children }) => {
         notify,
         toggle,
         handleToggle,
-        expertTutor,
         appliedUser,
-        privateUser
+        privateUser,
+        skip,
+        setSkip,
+        stats
     }
 
 

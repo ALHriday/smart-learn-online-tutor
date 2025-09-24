@@ -1,16 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../AuthProvider/AuthProvider";
+
 import { motion } from "motion/react";
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const SmartLearnWorks = () => {
-
-    const { tutorsData } = useContext(AuthContext);
-    const [data, setData] = useState([]);
-
-    useEffect(() => {
-        const tutor = [...tutorsData].slice(0, 3);
-        setData(tutor);
-    }, [tutorsData])
+    const { showData } = useContext(AuthContext);
 
     return (
         <div className="px-4 overflow-hidden">
@@ -21,7 +15,7 @@ const SmartLearnWorks = () => {
                     <h1 className="text-2xl sm:text-3xl font-bold btn text-white btn-warning">Step 1</h1>
                     <h1 className="text-2xl sm:text-3xl font-bold">Find your Tutor : </h1>
 
-                    {data && data.map((tutor, i) =>
+                    {showData && showData.map((tutor, i) =>
                         <div key={i}>
                             <motion.div
                                 whileInView={{ opacity: 1, y: 0 }}

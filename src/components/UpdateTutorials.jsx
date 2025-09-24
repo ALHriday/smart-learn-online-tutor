@@ -7,10 +7,10 @@ import ErrorPage from "../ErrorPage/ErrorPage";
 const UpdateTutorials = () => {
 
     const data = useLoaderData();
-    const {privateUser} = useContext(AuthContext);
+    const { privateUser } = useContext(AuthContext);
 
-    if(!privateUser.role){
-        return <ErrorPage/>
+    if (!privateUser.role) {
+        return <ErrorPage />
     }
 
 

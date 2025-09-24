@@ -24,8 +24,9 @@ ChartJS.register(
 
 const Statistics = () => {
 
-    const { tutorsData } = useContext(AuthContext);
-    const totalTutor = tutorsData?.length
+    const { stats } = useContext(AuthContext);
+    const totalTutor = stats?.tutorLen;
+
 
     const data = {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
