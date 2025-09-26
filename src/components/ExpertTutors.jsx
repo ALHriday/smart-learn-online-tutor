@@ -7,10 +7,13 @@ const ExpertTutors = () => {
     return (
         <Marquee pauseOnHover={true} direction="left">
             <div className="p-4 flex justify-center items-center gap-8 overflow-hidden cursor-pointer">
-                {data?.map(tutor =>
-                    <div key={tutor._id} className="w-[180px]  flex flex-col justify-center items-center gap-2 overflow-hidden">
+                {data?.map((tutor, idx) =>
+                    <div key={idx} className="w-[180px]  flex flex-col justify-center items-center gap-2 overflow-hidden">
                         <div className="w-[160px] h-[160px] rounded-full flex justify-center items-center">
-                            <img className="w-full h-full rounded-full object-cover" src={tutor?.image} alt="" />
+                            <img className="w-full h-full rounded-full object-cover" src={tutor?.image} alt={tutor?.details}
+                                // eslint-disable-next-line react/no-unknown-property
+                                fetchpriority="high"
+                            />
                         </div>
                         <div className="text-center overflow-hidden h-[160px]">
                             <h1 className="font-bold">{tutor?.name}</h1>

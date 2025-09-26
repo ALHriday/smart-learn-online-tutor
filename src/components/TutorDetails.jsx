@@ -3,11 +3,11 @@ import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import Swal from "sweetalert2";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 
 const TutorDetails = () => {
-    const { user, notify, myBookedTutor } = useContext(AuthContext);
+    const { user, myBookedTutor, setMyBookedTutor } = useContext(AuthContext);
     const tutor = useLoaderData();
 
     const { _id, likes, name, image, language, review, price, details } = tutor;
@@ -22,37 +22,38 @@ const TutorDetails = () => {
     const handleBookedTutor = () => {
         const data = { name, image, language, review, price, details, email };
         if (!user) {
-            return notify('Please LogIn');
+            return toast('Please LogIn');
         }
         const existing = myBookedTutor.find(d => d.name === name && d.email === email);
 
         if (existing) {
-            return alert('Tutor Already Booked!')
+            return toast('Tutor Already Booked!');
+        } else {
+            fetch('https://online-tutor-server-web.vercel.app/bookedTutor',
+                {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }).then(res => res.json()).then(result => {
+                    if (result.insertedId) {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Tutor Booked Successful",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        setMyBookedTutor([...myBookedTutor, data]);
+                    }
+                })
         }
-
-        fetch('https://online-tutor-server-web.vercel.app/bookedTutor',
-            {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }).then(res => res.json()).then(result => {
-                if (result.insertedId) {
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "Tutor Booked Successful",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
-            })
     }
 
     const handleLikeTutor = (id) => {
         if (!user) {
-            return notify('Please LogIn');
+            return toast('Please LogIn');
         }
 
         if (likes.includes(userId)) {
@@ -76,6 +77,10 @@ const TutorDetails = () => {
             <div className="p-2 w-full h-[260px] sm:h-full overflow-hidden">
                 <img className="rounded-md object-cover w-full h-full"
                     src={image}
+                    alt={details}
+                    loading="lazy"
+                    // eslint-disable-next-line react/no-unknown-property
+                    fetchpriority="low"
                 />
             </div>
             <div className="p-2 flex flex-col justify-center items-center sm:items-start gap-2">

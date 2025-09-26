@@ -10,7 +10,6 @@ const Dashboard = () => {
             <div className="w-[300px] flex flex-col min-h-screen gap-1 shadow-md">
                 <div className="flex flex-col justify-between min-h-screen">
                     <div className="flex flex-col">
-                        {/* <h1 className="text-4xl font-bold p-4 shadow-sm rounded-md">SmartLearn</h1> */}
                         <div className="text-4xl font-bold p-4 shadow-sm rounded-md">
                             <Link to='/'> <span className=" bg-clip-text text-transparent bg-gradient-to-r from-secondary to-accent">Smart</span> <span className="bg-clip-text text-transparent bg-gradient-to-l from-secondary to-accent">Learn</span></Link>
                         </div>

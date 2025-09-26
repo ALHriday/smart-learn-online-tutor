@@ -10,7 +10,7 @@ const MyTutorials = () => {
 
 
     useEffect(() => {
-        fetch(`https://online-tutor-server-web.vercel.app/tutorials/${user.email}`).then(res => res.json()).then(data => {
+        fetch(`https://online-tutor-server-web.vercel.app/tutorials/${user?.email}`).then(res => res.json()).then(data => {
             setTutorials(data);
         })
     }, [user, setTutorials]);

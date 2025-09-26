@@ -1,4 +1,4 @@
-import Statistics from "./Statistics";
+import Statistics from './Statistics'
 
 const AdminHome = () => {
     return (

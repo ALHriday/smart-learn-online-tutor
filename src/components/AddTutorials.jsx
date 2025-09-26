@@ -1,10 +1,15 @@
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
+import { Navigate } from "react-router-dom";
 
 const AddTutorials = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, privateUser } = useContext(AuthContext);
+
+    if (!privateUser?.role) {
+        return <Navigate to='/' replace />
+    }
 
     const userName = user.displayName;
     const userEmail = user.email;

@@ -1,15 +1,14 @@
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-// import Tutor from "./Tutor";
 import { useContext, useRef } from "react";
-import { motion } from "motion/react";
+
 
 const FindTutor = () => {
     const { setSearch, setSkip, stats, tutorData } = useContext(AuthContext);
 
     const langValueRef = useRef();
 
-    const pages = Math.ceil(stats?.tutorLen) / 10 + 1;
+    const pages = Math.ceil(stats?.tutorLen) / 10 + 1 || 0;
 
     const handlePagination = (page) => {
         const perPage = 10;
@@ -23,7 +22,7 @@ const FindTutor = () => {
                 <div className="flex justify-between items-center p-4">
                     <form onChange={(e) => setSearch(e.target.value)} className="w-full flex gap-2 justify-center items-center">
                         <label className="input input-bordered flex items-center gap-2">
-                            <input ref={langValueRef} type="text" className="grow w-full" placeholder="Search by name or language" />
+                            <input ref={langValueRef} type="text" className="grow w-full" placeholder="Search by language" />
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 16 16"
@@ -42,48 +41,42 @@ const FindTutor = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-4">
-                {/* <>
-                    {tutorData && tutorData.map(tutor => <Tutor tutor={tutor} key={tutor._id}></Tutor>)}
-                </> */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-4 min-h-[500px]">
 
                 {tutorData && tutorData.map(tutor =>
-                    // <div key={tutor._id}>
-                    <motion.div key={tutor?._id}
-                        whileHover={{ scale: 1.02 }}>
-                        <div className="bg-base-100 shadow-md grid grid-cols-5 rounded-md mx-2 cursor-pointer">
-                            <div className="h-36 sm:h-40 max-h-52 flex justify-center items-center p-2 col-span-2">
-                                <img className="rounded-md w-full h-full object-cover"
-                                    src={tutor?.image}
-                                // loading='lazy'
-                                // onLoad={lazy}
-                                />
-                            </div>
-                            <div className="col-span-3 p-2 flex flex-col justify-between">
-                                <div className="font-bold text-sm sm:text-xl">   {tutor?.name}
-                                    <div className="badge badge-secondary ml-1">{tutor?.review}
-                                    </div>
-                                </div>
-                                <div className=" flex gap-1">
-                                    <div className="w-6 h-6">
-                                        <img src="https://img.icons8.com/?size=100&id=9m2yplxz2fr3&format=png&color=000000" alt="" />
-                                    </div>
-                                    <div>{tutor?.language}</div>
-                                </div>
-
-                                <div className="flex flex-col gap-1 justify-between">
-                                    <div className="text-md flex justify-between items-center">
-                                        <div className="font-bold">${tutor?.price}</div>
-                                        <div className="card-actions">
-                                            <Link to={`/tutor_details/${tutor?._id}`} className="btn btn-secondary btn-sm mt-2">Details</Link>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
+                    <div key={tutor?._id} className="bg-base-100 shadow-md grid grid-cols-5 rounded-md mx-2 cursor-pointer hover:scale-105 transition ease-in">
+                        <div className="h-36 sm:h-40 max-h-52 flex justify-center items-center p-2 col-span-2">
+                            <img className="rounded-md w-full h-full object-cover"
+                                src={tutor?.image}
+                                alt={tutor?.details}
+                                loading="lazy"
+                                // eslint-disable-next-line react/no-unknown-property
+                                fetchpriority="low"
+                            />
                         </div>
-                    </motion.div>
-                    // </div>
+                        <div className="col-span-3 p-2 flex flex-col justify-between">
+                            <div className="font-bold text-sm sm:text-xl">   {tutor?.name}
+                                <div className="badge badge-secondary ml-1">{tutor?.review}
+                                </div>
+                            </div>
+                            <div className=" flex gap-1">
+                                <div className="w-6 h-6">
+                                    <img src="https://img.icons8.com/?size=100&id=9m2yplxz2fr3&format=png&color=000000" alt="" />
+                                </div>
+                                <div>{tutor?.language}</div>
+                            </div>
+
+                            <div className="flex flex-col gap-1 justify-between">
+                                <div className="text-md flex justify-between items-center">
+                                    <div className="font-bold">${tutor?.price}</div>
+                                    <div className="card-actions">
+                                        <Link to={`/tutor_details/${tutor?._id}`} className="btn btn-secondary btn-sm mt-2">Details</Link>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 )}
 
             </div>

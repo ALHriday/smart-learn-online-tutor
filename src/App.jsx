@@ -1,12 +1,11 @@
 import { motion } from 'motion/react'
 import './App.css'
 import Banner from './components/Banner/Banner'
-import Categories from './components/Categories'
 import FAQ from './components/FAQ'
 import SmartLearnWorks from './components/SmartLearnWorks'
 import Stats from './components/Stats'
+import Categories from './components/Categories'
 import ExpertTutors from './components/ExpertTutors'
-
 
 function App() {
 
@@ -37,17 +36,17 @@ function App() {
       <div className='min-h-[200px] overflow-hidden text-center p-4 my-4'>
         <motion.div
           whileInView={{ opacity: 1, y: 0 }}
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: -50 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: -30 }}
+          transition={{ duration: 0.3 }}
         ><h1 className='py-6 text-3xl sm:text-4xl font-bold'>Discover the Language of Possibilities</h1>
         </motion.div>
 
         <motion.div
           whileInView={{ opacity: 1, y: 0 }}
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 50 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 30 }}
+          transition={{ duration: 0.4 }}
         >Discover the joy of language learning with SmartLearn. We combine expert guidance, innovative tools, and flexible scheduling to create a personalized experience that ensures your success.
         </motion.div>
 

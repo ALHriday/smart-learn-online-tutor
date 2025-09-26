@@ -41,6 +41,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <Home />,
     errorElement: <ErrorPage />,
+    hydrateFallbackElement: <div className='text-center'>Loading...</div>,
     children: [
       {
         path: '/',

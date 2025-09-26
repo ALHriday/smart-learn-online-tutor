@@ -47,7 +47,11 @@ const BookedTutor = ({ tutor }) => {
                 <div className="">
                     <img className="rounded-md w-full h-full object-cover"
                         src={image}
-                        alt="Tutor" />
+                        alt={details}
+                        loading="lazy"
+                        // eslint-disable-next-line react/no-unknown-property
+                        fetchpriority="low"
+                    />
                 </div>
                 <div>
                     <div onClick={() => handleDeleteBookedTutor(_id)} className="w-10 h-10 bg-red-600 absolute -top-2 -right-2 flex justify-center items-center font-bold text-xl rounded-full text-white cursor-pointer">X</div>

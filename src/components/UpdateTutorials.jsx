@@ -1,16 +1,15 @@
 import { useContext } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Navigate, useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import ErrorPage from "../ErrorPage/ErrorPage";
 
 const UpdateTutorials = () => {
 
     const data = useLoaderData();
     const { privateUser } = useContext(AuthContext);
 
-    if (!privateUser.role) {
-        return <ErrorPage />
+    if (!privateUser?.role) {
+        return <Navigate to='/' replace />
     }
 
 

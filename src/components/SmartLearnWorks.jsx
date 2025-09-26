@@ -6,6 +6,7 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 const SmartLearnWorks = () => {
     const { showData } = useContext(AuthContext);
 
+
     return (
         <div className="px-4 overflow-hidden">
             <h1 className="text-3xl sm:text-4xl text-center font-bold py-4">How Smart Learn Works </h1>
@@ -24,7 +25,10 @@ const SmartLearnWorks = () => {
                                 transition={{ duration: 0.3 }}>
                                 <div className="grid grid-cols-2 justify-between items-center shadow-sm rounded-md border-2 gap-2">
                                     <div className="rounded-md col-span-1">
-                                        <img className="w-full h-full rounded-md object-cover" src={tutor?.image} alt="" />
+
+                                        <img className="w-full h-full rounded-md object-cover" src={tutor?.image} alt={tutor?.details}
+                                            // eslint-disable-next-line react/no-unknown-property
+                                            fetchpriority="high" />
                                     </div>
                                     <div className="col-span-1 flex justify-center items-center">
                                         <h1 className="font-bold">{tutor?.language}</h1>
@@ -81,7 +85,10 @@ const SmartLearnWorks = () => {
                         animate={{ opacity: 1, y: -150 }}
                         transition={{ duration: 0.4 }}>
                         <div className="rounded-md">
-                            <img className="w-full h-full rounded-md" src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                            <img className="w-full h-full rounded-md" src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Juan"
+                                // eslint-disable-next-line react/no-unknown-property
+                                fetchpriority="high"
+                            />
                         </div>
                     </motion.div>
                 </div>

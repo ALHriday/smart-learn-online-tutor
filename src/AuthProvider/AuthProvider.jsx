@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         axios.get(`https://online-tutor-server-web.vercel.app/tutors?limit=10&skip=10`).then(res => {
-            const d = res.data.slice(3, 6);
+            const d = res.data.slice(4, 7);
             setShowData(d);
         }).catch(error => error);
     }, [])
@@ -47,9 +47,6 @@ const AuthProvider = ({ children }) => {
         axios.get(`https://online-tutor-server-web.vercel.app/tutors?search=${search}&limit=10&skip=${skip}`).then(res => setTutorData(res.data)).catch(error => error);
     }, [search, skip])
 
-    // useEffect(()=>{
-    //     axios.get(`https://online-tutor-server-web.vercel.app/tutor/likes`).then(res => (res.data)).catch(error => error);
-    // }, [])
 
     const savedTheme = localStorage.getItem('theme') || 'light';
     const [toggle, setToggle] = useState(savedTheme);

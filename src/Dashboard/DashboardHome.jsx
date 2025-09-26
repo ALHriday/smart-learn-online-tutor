@@ -8,10 +8,8 @@ const DashboardHome = () => {
 
     return (
         <div>
-            {privateUser?.role === 'admin' ?
-                <AdminHome /> : ''}
-            {privateUser?.role === 'tutor' ?
-                <TutorHome /> : ''}
+            {privateUser?.role === 'admin' && <AdminHome />}
+            {privateUser?.role === 'tutor' && <TutorHome />}
         </div>
     );
 };

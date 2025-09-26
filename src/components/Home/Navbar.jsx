@@ -84,6 +84,8 @@ const Navbar = () => {
                                 src={user?.photoURL}
                                 alt={user?.displayName}
                                 title={user?.displayName}
+                                // eslint-disable-next-line react/no-unknown-property
+                                fetchpriority='high'
                             />
                                 :
                                 <div>
