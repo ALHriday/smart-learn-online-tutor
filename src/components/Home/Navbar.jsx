@@ -42,7 +42,7 @@ const Navbar = () => {
                     <div onClick={handleToggle}>
                         <label className="swap swap-rotate">
                             <input type="checkbox"
-                                className="theme-controller" value={toggle} />
+                                className="theme-controller" value={toggle || ''} />
                             <svg
                                 className="swap-off h-8 w-8 fill-current"
                                 xmlns="http://www.w3.org/2000/svg"

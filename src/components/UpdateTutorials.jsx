@@ -27,7 +27,7 @@ const UpdateTutorials = () => {
 
         const tutorialsInfo = { name, language, image, price, details };
 
-        fetch(`https://online-tutor-server-web.vercel.app/tutors/${_id}`, {
+        fetch(`http://localhost:2100/tutors/${_id}`, {
             method: 'PUT',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(tutorialsInfo)

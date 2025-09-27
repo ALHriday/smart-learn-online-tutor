@@ -14,8 +14,8 @@ function App() {
 
       <Banner />
 
-      <div className='h-[120px] text-center p-4 overflow-hidden font-bold sm:hidden'>
-        <motion.div whileInView={{ scale: 1.0, fontSize: '30px' }} initial={{ fontSize: '20px' }}>
+      <div className='h-[100px] sm:h-[120px] text-center p-4 overflow-hidden font-bold sm:hidden'>
+        <motion.div whileInView={{ scale: 1.0, fontSize: '26px' }} initial={{ fontSize: '20px' }}>
           <h1 className='px-4'>Learn Languages, Anytime, Anywhere.</h1>
         </motion.div>
       </div>

@@ -41,17 +41,17 @@ const FindTutor = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-4 min-h-[500px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-4">
 
                 {tutorData && tutorData.map(tutor =>
-                    <div key={tutor?._id} className="bg-base-100 shadow-md grid grid-cols-5 rounded-md mx-2 cursor-pointer hover:scale-105 transition ease-in">
+                    <div key={tutor?._id} className="bg-base-100 shadow-md grid grid-cols-5 rounded-md mx-2 cursor-pointer hover:scale-105 transition ease-in max-h-[224px]">
                         <div className="h-36 sm:h-40 max-h-52 flex justify-center items-center p-2 col-span-2">
                             <img className="rounded-md w-full h-full object-cover"
                                 src={tutor?.image}
                                 alt={tutor?.details}
-                                loading="lazy"
+                                // loading="lazy"
                                 // eslint-disable-next-line react/no-unknown-property
-                                fetchpriority="low"
+                                fetchpriority="high"
                             />
                         </div>
                         <div className="col-span-3 p-2 flex flex-col justify-between">

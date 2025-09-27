@@ -30,7 +30,7 @@ const AddTutorials = () => {
 
         // name, image, language, review, details, price
 
-        fetch('https://online-tutor-server-web.vercel.app/tutors',
+        fetch('http://localhost:2100/tutors',
             {
                 method: 'POST',
                 headers: {

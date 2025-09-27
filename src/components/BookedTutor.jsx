@@ -21,7 +21,7 @@ const BookedTutor = ({ tutor }) => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://online-tutor-server-web.vercel.app/bookedTutor/${id}`, {
+                fetch(`http://localhost:2100/bookedTutor/${id}`, {
                     method: 'DELETE',
                 }).then(res => res.json()).then(result => {
 
@@ -42,15 +42,14 @@ const BookedTutor = ({ tutor }) => {
 
     return (
 
-        <div className="card grid grid-cols-5 justify-center items-center bg-base-100 shadow-md relative">
-            <div className="max-h-[260px] m-4 overflow-hidden rounded-md col-span-5 md:col-span-2">
-                <div className="">
+        <div className="md:w-9/12 mx-auto grid grid-cols-7 gap-4  justify-center items-center bg-base-100 shadow-md relative p-4 rounded-lg">
+            <div className="max-h-[260px] overflow-hidden rounded-md sm:col-span-2 col-span-7">
+                <div className="sm:w-[160px] sm:h-[160px]">
                     <img className="rounded-md w-full h-full object-cover"
                         src={image}
                         alt={details}
-                        loading="lazy"
                         // eslint-disable-next-line react/no-unknown-property
-                        fetchpriority="low"
+                        fetchpriority="high"
                     />
                 </div>
                 <div>
@@ -58,14 +57,17 @@ const BookedTutor = ({ tutor }) => {
                 </div>
             </div>
 
-            <div className="card-body !rounded-sm !p-4 col-span-5 sm:col-span-3">
-                <h2 className="card-title">Title: {name}
-                    <div className="badge badge-secondary ml-1 ">{review}</div></h2>
-                <p>Language: {language}</p>
-                <p>${price} per hour</p>
-                <div>Description:
-                    <p>{details}</p>
+            <div className="col-span-7 sm:col-span-5 flex flex-col justify-between items-start">
+                <div className="flex flex-wrap gap-1">
+                    <h2 className="font-bold">{name}</h2>
+                    <p className="badge badge-secondary ml-1">{review}</p>
                 </div>
+
+                <p className="font-bold">{language}</p>
+                <p><span className="font-bold">${price}</span> per hour</p>
+                <p className="flex flex-wrap">
+                    {details}
+                </p>
             </div>
 
         </div>
