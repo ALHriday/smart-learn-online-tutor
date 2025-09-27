@@ -21,7 +21,7 @@ const BookedTutor = ({ tutor }) => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:2100/bookedTutor/${id}`, {
+                fetch(`https://online-tutor-server-web.vercel.app/bookedTutor/${id}`, {
                     method: 'DELETE',
                 }).then(res => res.json()).then(result => {
 

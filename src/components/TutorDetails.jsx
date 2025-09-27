@@ -29,7 +29,7 @@ const TutorDetails = () => {
         if (existing) {
             return toast('Tutor Already Booked!');
         } else {
-            fetch('http://localhost:2100/bookedTutor',
+            fetch('https://online-tutor-server-web.vercel.app/bookedTutor',
                 {
                     method: 'POST',
                     headers: {
@@ -61,13 +61,13 @@ const TutorDetails = () => {
             const removeLike = likes.filter(like => like !== userId);
             const updateLikes = { likes: removeLike };
 
-            axios.put(`http://localhost:2100/tutors/likes/${id}`, updateLikes)
+            axios.put(`https://online-tutor-server-web.vercel.app/tutors/likes/${id}`, updateLikes)
                 .then(res => res.data);
         } else {
             likes.push(userId);
             const updateLikes = { likes };
 
-            axios.put(`http://localhost:2100/tutors/likes/${id}`, updateLikes)
+            axios.put(`https://online-tutor-server-web.vercel.app/tutors/likes/${id}`, updateLikes)
                 .then(res => res.data);
         }
     }

@@ -25,7 +25,7 @@ const BecomeTutor = () => {
 
         const application = { userName, userEmail, country, experience, teaching_level, short_bio, language, qualification, status: 'pending', role: '' };
 
-        axios.post('http://localhost:2100/tutorApplication', application).then(res => {
+        axios.post('https://online-tutor-server-web.vercel.app/tutorApplication', application).then(res => {
             if (res.data.insertedId) {
                 toast('Application Successful.');
             }

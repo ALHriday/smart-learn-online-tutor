@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios';
 
-const url = `http://localhost:2100`;
+const url = `https://online-tutor-server-web.vercel.app`;
 
 const AxiosPublic = (path) => {
     const { data = [], refetch } = useQuery({

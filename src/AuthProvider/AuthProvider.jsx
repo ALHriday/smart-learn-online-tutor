@@ -49,22 +49,22 @@ const AuthProvider = ({ children }) => {
     }, [appliedUser, user?.email])
 
     useEffect(() => {
-        axios.get('http://localhost:2100/stats').then(res => setStats(res.data)).catch(error => error)
+        axios.get('https://online-tutor-server-web.vercel.app/stats').then(res => setStats(res.data)).catch(error => error)
     }, [])
 
     useEffect(() => {
-        axios.get(`http://localhost:2100/tutors?limit=10&skip=10`).then(res => {
+        axios.get(`https://online-tutor-server-web.vercel.app/tutors?limit=10&skip=10`).then(res => {
             const d = res.data.slice(4, 7);
             setShowData(d);
         }).catch(error => error);
     }, [])
 
     useEffect(() => {
-        axios.get(`http://localhost:2100/tutors?search=${search}&limit=10&skip=${skip}`).then(res => setTutorData(res.data)).catch(error => error);
+        axios.get(`https://online-tutor-server-web.vercel.app/tutors?search=${search}&limit=10&skip=${skip}`).then(res => setTutorData(res.data)).catch(error => error);
     }, [search, skip])
 
     useEffect(() => {
-        axios.get('http://localhost:2100/tutorApplication')
+        axios.get('https://online-tutor-server-web.vercel.app/tutorApplication')
             .then(res => setAppliedUser(res.data));
     }, []);
 
@@ -100,7 +100,7 @@ const AuthProvider = ({ children }) => {
     const notify = (status) => toast(status);
 
     useEffect(() => {
-        axios.get(`http://localhost:2100/addedTutor/${user?.email}`)
+        axios.get(`https://online-tutor-server-web.vercel.app/addedTutor/${user?.email}`)
             .then(res => setMyBookedTutor(res.data)).catch(error => error)
     }, [user?.email, setMyBookedTutor]);
 

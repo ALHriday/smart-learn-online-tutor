@@ -10,7 +10,7 @@ const MyTutorials = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:2100/tutorials/${user?.email}`).then(res => res.json()).then(data => {
+        fetch(`https://online-tutor-server-web.vercel.app/tutorials/${user?.email}`).then(res => res.json()).then(data => {
             setTutorials(data);
         })
     }, [user, setTutorials]);
@@ -27,7 +27,7 @@ const MyTutorials = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:2100/tutors/${id}`, {
+                fetch(`https://online-tutor-server-web.vercel.app/tutors/${id}`, {
                     method: 'DELETE',
                 }).then(res => res.json()).then(result => {
 

@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 const Application = () => {
     const { appliedUser } = useContext(AuthContext);
-    const tutorApplication = 'http://localhost:2100/tutorApplication';
+    const tutorApplication = 'https://online-tutor-server-web.vercel.app/tutorApplication';
 
 
     const changeAppliedUserStatus = (id, applicationStatus) => {
