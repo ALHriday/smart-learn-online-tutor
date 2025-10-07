@@ -5,10 +5,22 @@ import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
+import { useState } from "react";
+
+import { Rating, ThinStar } from '@smastrom/react-rating'
+import '@smastrom/react-rating/style.css'
+
+const myStyles = {
+    itemShapes: ThinStar,
+    activeFillColor: '#FF00D3',
+    inactiveFillColor: '#808090'
+}
 
 const TutorDetails = () => {
     const { user, myBookedTutor, setMyBookedTutor } = useContext(AuthContext);
     const tutor = useLoaderData();
+    const [rating, setRating] = useState(0);
+
 
     const { _id, likes, name, image, language, review, price, details } = tutor;
 
@@ -18,13 +30,13 @@ const TutorDetails = () => {
     const userId = user?.uid;
     const alreadyLiked = likes?.find(like => like === userId);
 
+    const existing = (myBookedTutor || []).find(d => d.name === name && d.email === email);
 
     const handleBookedTutor = () => {
         const data = { name, image, language, review, price, details, email };
         if (!user) {
             return toast('Please LogIn');
         }
-        const existing = myBookedTutor.find(d => d.name === name && d.email === email);
 
         if (existing) {
             return toast('Tutor Already Booked!');
@@ -73,7 +85,7 @@ const TutorDetails = () => {
     }
 
     return (
-        <div className="sm:w-10/12 lg:w-2/3 w-11/12 sm:h-[280px] p-4 my-4 sm:p-0 mx-auto bg-base-100 shadow-md rounded-xl grid grid-cols-1 sm:grid-cols-2 justify-center gap-2 lg:gap-4 overflow-hidden">
+        <div className="sm:w-10/12 lg:w-2/3 w-11/12 sm:h-[300px] p-4 my-4 sm:p-0 mx-auto bg-base-100 shadow-md rounded-xl grid grid-cols-1 sm:grid-cols-2 justify-center gap-2 overflow-hidden">
             <div className="p-2 w-full h-[260px] sm:h-full overflow-hidden">
                 <img className="rounded-md object-cover w-full h-full"
                     src={image}
@@ -99,16 +111,21 @@ const TutorDetails = () => {
                         <p>{details}</p>
                     </div>
                 </div>
+                <div>
+                    <Rating className="h-8" style={{ maxWidth: 250 }} value={rating} onChange={setRating} itemStyles={myStyles} />
+                </div>
                 <div className="py-4 flex justify-center items-center sm:items-start gap-1">
                     <div>
-                        <button onClick={handleBookedTutor} className="btn btn-accent">Book Tutor</button>
+                        <button onClick={handleBookedTutor} className={`${existing ? 'bg-teal-500 text-white' : ''} btn btn-accent text-base-content bg-base-100`}>{existing ? "Tutor Booked" : "Book Tutor"} </button>
                     </div>
                     <ToastContainer></ToastContainer>
+
                     {likes &&
-                        <div onClick={() => handleLikeTutor(_id)} className={alreadyLiked ? "btn-error w-16 h-10 btn btn-neutral flex justify-center items-center rounded-md hover:btn-error" : "w-16 h-10 btn btn-neutral flex justify-center items-center rounded-md"}>
+                        <div onClick={() => handleLikeTutor(_id)} className={`${alreadyLiked ? 'bg-red-500 text-white' : 'bg-base-100 btn-error'} text-base-content min-w-16 max-w-20 h-10 btn flex justify-center items-center rounded-md`}>
                             {likes && likes.length}  {alreadyLiked ? <FaHeart /> : <FaRegHeart />}
                         </div>
                     }
+
                 </div>
             </div>
         </div>

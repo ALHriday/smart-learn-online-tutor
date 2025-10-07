@@ -25,6 +25,7 @@ const AuthProvider = ({ children }) => {
     const [privateUser, setPrivateUser] = useState([]);
     const [skip, setSkip] = useState(0);
     const [stats, setStats] = useState([]);
+    const [slide, setSlide] = useState(0);
 
 
 
@@ -146,7 +147,9 @@ const AuthProvider = ({ children }) => {
         privateUser,
         skip,
         setSkip,
-        stats
+        stats,
+        slide,
+        setSlide
     }
 
 

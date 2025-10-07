@@ -4,17 +4,27 @@ import { useContext, useRef } from "react";
 
 
 const FindTutor = () => {
-    const { setSearch, setSkip, stats, tutorData } = useContext(AuthContext);
-
+    const { setSearch, setSkip, stats, tutorData, skip, slide, setSlide } = useContext(AuthContext);
     const langValueRef = useRef();
 
-    const pages = Math.ceil(stats?.tutorLen) / 10 + 1 || 0;
+    const pages = Math.ceil(stats?.tutorLen / 10) || 0;
+    const perPage = 10;
+    const pageNum = skip / perPage;
 
     const handlePagination = (page) => {
-        const perPage = 10;
         const skipPage = page * perPage;
         setSkip(skipPage);
     }
+
+    const handlePrev = () => {
+        slide === 0 ? setSlide(pages - 1) : setSlide(slide - 1);
+        setSkip(slide * perPage);
+    }
+    const handleNext = () => {
+        slide === pages - 1 ? setSlide(0) : setSlide(slide + 1);
+        setSkip(slide * perPage);
+    }
+
 
     return (
         <div>
@@ -36,20 +46,19 @@ const FindTutor = () => {
                         </label>
                     </form>
                     <div className="w-[120px]">
-                        <button onClick={() => setSearch('')} className="btn">All Tutors</button>
+                        <button onClick={() => setSkip(0)} className="btn">All Tutors</button>
                     </div>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 p-4 h-auto sm:h-[900px] lg:h-[800px] place-content-start overflow-auto">
 
                 {tutorData && tutorData.map(tutor =>
-                    <div key={tutor?._id} className="bg-base-100 shadow-md grid grid-cols-5 rounded-md mx-2 cursor-pointer hover:scale-105 transition ease-in max-h-[224px]">
+                    <div key={tutor?._id} className="bg-base-100 shadow-md grid grid-cols-5 rounded-md mx-2 cursor-pointer hover:scale-105 transition ease-in h-36 sm:h-40 max-h-52">
                         <div className="h-36 sm:h-40 max-h-52 flex justify-center items-center p-2 col-span-2">
                             <img className="rounded-md w-full h-full object-cover"
                                 src={tutor?.image}
                                 alt={tutor?.details}
-                                // loading="lazy"
                                 // eslint-disable-next-line react/no-unknown-property
                                 fetchpriority="high"
                             />
@@ -80,9 +89,13 @@ const FindTutor = () => {
                 )}
 
             </div>
-            <div className="w-[200px] mx-auto p-4 flex overflow-auto gap-2">
-                {Array.from({ length: pages }, (_, i) => <button onClick={() => handlePagination(i)} className="btn btn-md" key={i}>{i + 1}</button>)}
-            </div>
+            {pages &&
+                <div className="p-4 flex justify-center items-center gap-2">
+                    <button onClick={handlePrev} className="btn">Prev</button>
+                    {Array.from({ length: pages }, (_, i) => <button onClick={() => handlePagination(i)} className={` ${pageNum === i ? 'btn-accent' : ''} btn btn-md`} key={i}>{i + 1}</button>)}
+                    <button onClick={handleNext} className="btn">Next</button>
+                </div>
+            }
         </div>
 
     )
