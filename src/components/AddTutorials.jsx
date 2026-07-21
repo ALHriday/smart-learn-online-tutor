@@ -2,10 +2,12 @@ import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 import { Navigate } from "react-router-dom";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const AddTutorials = () => {
 
     const { user, privateUser } = useContext(AuthContext);
+    const axiosPublic = useAxiosPublic();
 
     if (!privateUser?.role) {
         return <Navigate to='/' replace />
@@ -28,19 +30,10 @@ const AddTutorials = () => {
 
         const data = { name, language, image, price, review, likes, details, userName, userEmail };
 
-        // name, image, language, review, details, price
-
-        fetch('https://online-tutor-server-web.vercel.app/tutors',
-            {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }).then(res => res.json()).then(result => {
-
-                if (result.insertedId) {
-
+        axiosPublic.post('/tutors', data)
+            .then(res => {
+                res.data
+                if (res.data.insertedId) {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
@@ -49,17 +42,15 @@ const AddTutorials = () => {
                         timer: 2000
                     });
 
-
                     form.name.value = '';
                     form.language.value = '';
                     form.image.value = '';
                     form.review.value = '';
                     form.details.value = '';
                     form.price.value = '';
-
                 }
-            })
 
+            })
     }
     return (
         <div className="grid grid-cols-1 gap-2">

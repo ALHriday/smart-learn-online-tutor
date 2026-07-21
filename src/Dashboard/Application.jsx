@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const Application = () => {
     const { appliedUser } = useContext(AuthContext);
-    const tutorApplication = 'https://online-tutor-server-web.vercel.app/tutorApplication';
+    const axiosPublic = useAxiosPublic();
 
 
     const changeAppliedUserStatus = (id, applicationStatus) => {
@@ -15,7 +15,7 @@ const Application = () => {
             const role = 'tutor';
             const updateApplication = { status, role };
 
-            axios.put(`${tutorApplication}/${id}`, updateApplication)
+            axiosPublic.put(`/tutorApplication/${id}`, updateApplication)
                 .then(result => {
                     if (result.data.insertedId) {
                         toast('Updated');
@@ -28,7 +28,7 @@ const Application = () => {
             const role = '';
             const updateApplication = { status, role };
 
-            axios.put(`${tutorApplication}/${id}`, updateApplication)
+            axiosPublic.put(`/tutorApplication/${id}`, updateApplication)
                 .then(result => {
                     if (result.data.insertedId) {
                         toast('Updated');
@@ -41,7 +41,7 @@ const Application = () => {
             const role = '';
             const updateApplication = { status, role };
 
-            axios.put(`${tutorApplication}/${id}`, updateApplication)
+            axiosPublic.put(`/tutorApplication/${id}`, updateApplication)
                 .then(result => {
                     if (result.data.insertedId) {
                         toast('Updated');
@@ -53,7 +53,7 @@ const Application = () => {
             const role = '';
             const updateApplication = { status, role };
 
-            axios.put(`${tutorApplication}/${id}`, updateApplication)
+            axiosPublic.put(`/tutorApplication/${id}`, updateApplication)
                 .then(result => {
                     if (result.data.insertedId) {
                         toast('Updated');

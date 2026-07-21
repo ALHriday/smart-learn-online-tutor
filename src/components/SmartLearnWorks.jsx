@@ -6,9 +6,8 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 const SmartLearnWorks = () => {
     const { showData } = useContext(AuthContext);
 
-
     return (
-        <div className="px-4 overflow-hidden">
+        <div className="px-4 overflow-hidden min-h-[780px] max-h-[2100px]">
             <h1 className="text-3xl sm:text-4xl text-center font-bold py-4">How Smart Learn Works </h1>
             <div className="py-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-4 overflow-hidden">
 
@@ -22,9 +21,10 @@ const SmartLearnWorks = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 initial={{ opacity: 0, y: 200 }}
                                 animate={{ opacity: 0, y: 100 }}
-                                transition={{ duration: 0.3 }}>
+                                transition={{ duration: 0.3 }}
+                                viewport={{ once: true, amount: 0.5 }}>
                                 <div className="grid grid-cols-2 justify-between items-center shadow-sm rounded-md border-2 gap-2">
-                                    <div className="rounded-md col-span-1">
+                                    <div className="rounded-md col-span-1 h-32 overflow-hidden">
 
                                         <img className="w-full h-full rounded-md object-cover" src={tutor?.image} alt={tutor?.details}
                                             // eslint-disable-next-line react/no-unknown-property
@@ -44,12 +44,13 @@ const SmartLearnWorks = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     initial={{ opacity: 0, y: -100 }}
                     animate={{ opacity: 1, y: -100 }}
-                    transition={{ duration: 0.4 }}>
+                    transition={{ duration: 0.4 }}
+                    viewport={{ once: true, amount: 0.5 }}>
 
                     <div className="flex flex-col gap-3 p-4 border-2 rounded-md">
                         <h1 className="text-2xl sm:text-3xl font-bold btn text-white btn-secondary">Step 2</h1>
                         <h1 className="text-2xl sm:text-3xl font-bold">Booked Tutor : </h1>
-                        <p className="text-lg max-h-96 text-wrap overflow-auto">
+                        <p className="text-md lg:text-lg max-h-96 text-wrap overflow-auto no-scrollbar">
                             To book a tutor on my website, you will need to follow these steps:
                             <br />
                             1. Visit the tutors section of my website.
@@ -83,7 +84,8 @@ const SmartLearnWorks = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         initial={{ opacity: 0, y: -150 }}
                         animate={{ opacity: 1, y: -150 }}
-                        transition={{ duration: 0.4 }}>
+                        transition={{ duration: 0.4 }}
+                        viewport={{ once: true, amount: 0.5 }}>
                         <div className="rounded-md">
                             <img className="w-full h-full rounded-md" src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Juan"
                                 // eslint-disable-next-line react/no-unknown-property

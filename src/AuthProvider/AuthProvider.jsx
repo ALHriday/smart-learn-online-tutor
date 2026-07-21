@@ -2,9 +2,8 @@ import { createContext, useEffect, useState } from "react";
 import { auth } from "../Auth/firebase.init";
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import PropTypes from "prop-types";
-import axios from "axios";
 import { toast } from "react-toastify";
-
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null);
@@ -23,11 +22,12 @@ const AuthProvider = ({ children }) => {
     const [search, setSearch] = useState('');
     const [appliedUser, setAppliedUser] = useState([]);
     const [privateUser, setPrivateUser] = useState([]);
-    const [skip, setSkip] = useState(0);
     const [stats, setStats] = useState([]);
-    const [slide, setSlide] = useState(0);
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(12);
 
 
+    const axiosPublic = useAxiosPublic();
 
     const savedTheme = localStorage.getItem('theme') || 'light';
     const [toggle, setToggle] = useState(savedTheme);
@@ -45,29 +45,34 @@ const AuthProvider = ({ children }) => {
     }, [toggle]);
 
     useEffect(() => {
-        const privateUserInfo = appliedUser.find(aUser => aUser?.userEmail.toLowerCase() === user?.email.toLowerCase());
-        setPrivateUser(privateUserInfo);
+        if (user?.email) {
+            const privateUserInfo = appliedUser.find(aUser => aUser?.userEmail.toLowerCase() === user?.email.toLowerCase());
+            setPrivateUser(privateUserInfo);
+        }
     }, [appliedUser, user?.email])
 
     useEffect(() => {
-        axios.get('https://online-tutor-server-web.vercel.app/stats').then(res => setStats(res.data)).catch(error => error)
-    }, [])
+        axiosPublic.get('/stats').then(res => {
+            setStats(res.data);
+            setLoading(false);
+        }).catch(error => error)
+    }, [axiosPublic])
 
     useEffect(() => {
-        axios.get(`https://online-tutor-server-web.vercel.app/tutors?limit=10&skip=10`).then(res => {
-            const d = res.data.slice(4, 7);
+        axiosPublic.get(`/tutors?limit=15&page=1`).then(res => {
+            const d = res.data.slice(11, 14);
             setShowData(d);
         }).catch(error => error);
-    }, [])
+    }, [axiosPublic])
 
     useEffect(() => {
-        axios.get(`https://online-tutor-server-web.vercel.app/tutors?search=${search}&limit=10&skip=${skip}`).then(res => setTutorData(res.data)).catch(error => error);
-    }, [search, skip])
+        axiosPublic.get(`/tutors?search=${search}&limit=${limit}&page=${page}`).then(res => setTutorData(res.data)).catch(error => error);
+    }, [axiosPublic, limit, page, search])
 
     useEffect(() => {
-        axios.get('https://online-tutor-server-web.vercel.app/tutorApplication')
+        axiosPublic.get('/tutorApplication')
             .then(res => setAppliedUser(res.data));
-    }, []);
+    }, [axiosPublic]);
 
 
     const signInWithGoogle = () => {
@@ -101,9 +106,9 @@ const AuthProvider = ({ children }) => {
     const notify = (status) => toast(status);
 
     useEffect(() => {
-        axios.get(`https://online-tutor-server-web.vercel.app/addedTutor/${user?.email}`)
-            .then(res => setMyBookedTutor(res.data)).catch(error => error)
-    }, [user?.email, setMyBookedTutor]);
+        if (user?.email)
+            axiosPublic.get(`/addedTutor/${user?.email}`).then(res => setMyBookedTutor(res.data)).catch(error => error)
+    }, [user?.email, setMyBookedTutor, axiosPublic]);
 
 
     useEffect(() => {
@@ -145,11 +150,11 @@ const AuthProvider = ({ children }) => {
         handleToggle,
         appliedUser,
         privateUser,
-        skip,
-        setSkip,
+        page,
+        setPage,
         stats,
-        slide,
-        setSlide
+        limit,
+        setLimit
     }
 
 

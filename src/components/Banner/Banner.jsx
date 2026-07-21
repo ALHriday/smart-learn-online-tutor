@@ -18,7 +18,7 @@ const Banner = () => {
             <div id="slide1" className="carousel-item relative w-full">
                 <img className="w-full object-cover"
                     // eslint-disable-next-line react/no-unknown-property
-                    src={`./images/${image[slide]}`} fetchpriority='high' />
+                    src={`./images/${image[slide]}`} fetchpriority='high' alt={image[slide] || 'SmartLearn online tutor Banner'} />
                 <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
                     <button onClick={handleSlidePrev} className="btn btn-circle">❮</button>
                     <button onClick={handleSlideNext} className="btn btn-circle">❯</button>

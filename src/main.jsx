@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import { HelmetProvider } from 'react-helmet-async';
 
 import {
   createBrowserRouter,
@@ -65,11 +66,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/become_tutor',
-        element: <BecomeTutor />
+        element: <PrivateRoute><BecomeTutor /></PrivateRoute>
       },
       {
         path: '/tutor_details/:id',
-        loader: ({ params }) => fetch(`https://online-tutor-server-web.vercel.app/tutors/tutor/${params.id}`),
+        loader: ({ params }) => fetch(`${import.meta.env.VITE_SERVER_URL}/tutors/tutor/${params.id}`),
         element: <TutorDetails />
       },
       {
@@ -79,7 +80,7 @@ const router = createBrowserRouter([
 
       {
         path: '/update_tutorials/:_id',
-        loader: ({ params }) => fetch(`https://online-tutor-server-web.vercel.app/tutors/tutor/${params._id}`),
+        loader: ({ params }) => fetch(`${import.meta.env.VITE_SERVER_URL}/tutors/tutor/${params._id}`),
         element: <PrivateRoute><UpdateTutorials /></PrivateRoute>
       },
       {
@@ -102,11 +103,11 @@ const router = createBrowserRouter([
         element: <PrivateRoute><Application /></PrivateRoute>
       },
       {
-        path: '/dashboard/add_tutorials',
+        path: '/dashboard/addTutorials',
         element: <PrivateRoute><AddTutorials /></PrivateRoute>
       },
       {
-        path: '/dashboard/my_tutorials',
+        path: '/dashboard/myTutorials',
         element: <PrivateRoute><MyTutorials /></PrivateRoute>
       },
     ]
@@ -116,12 +117,14 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <div className='max-w-7xl mx-auto scroll-smooth'>
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <RouterProvider router={router}>
-          </RouterProvider>
-        </AuthProvider>
-      </QueryClientProvider>
+      <HelmetProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <RouterProvider router={router}>
+            </RouterProvider>
+          </AuthProvider>
+        </QueryClientProvider>
+      </HelmetProvider>
     </div>
   </StrictMode>,
 )

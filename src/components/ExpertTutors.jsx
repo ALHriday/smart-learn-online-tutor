@@ -1,8 +1,15 @@
 import Marquee from "react-fast-marquee";
-import AxiosPublic from "../Hooks/AxiosPublic";
+import { useEffect, useState } from "react";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const ExpertTutors = () => {
-    const { data } = AxiosPublic(`/tutors?limit=10&skip=10`);
+    const [data, setData] = useState([]);
+    const axiosPublic = useAxiosPublic();
+
+    useEffect(() => {
+        axiosPublic.get(`/tutors?limit=10&page=1`).then(res => setData(res.data))
+    }, [axiosPublic])
 
     return (
         <Marquee pauseOnHover={true} direction="left">
@@ -19,6 +26,11 @@ const ExpertTutors = () => {
                             <h1 className="font-bold">{tutor?.name}</h1>
                             <p>{tutor?.details.length < 55 ? tutor?.details.slice(0, 55).concat('...') : tutor?.details}</p>
                         </div>
+
+                        <Helmet>
+                            <meta name={tutor?.name} content={tutor?.details} />
+                            <link rel="canonical" href={`https://smart-learn-online-tutor.netlify.app`} />
+                        </Helmet>
                     </div>
                 )}
             </div>

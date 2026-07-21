@@ -1,11 +1,12 @@
-import axios from "axios";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { toast, ToastContainer } from "react-toastify";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const BecomeTutor = () => {
     const { appliedUser } = useContext(AuthContext);
+    const axiosPublic = useAxiosPublic();
 
     const {
         register,
@@ -25,7 +26,7 @@ const BecomeTutor = () => {
 
         const application = { userName, userEmail, country, experience, teaching_level, short_bio, language, qualification, status: 'pending', role: '' };
 
-        axios.post('https://online-tutor-server-web.vercel.app/tutorApplication', application).then(res => {
+        axiosPublic.post('/tutorApplication', application).then(res => {
             if (res.data.insertedId) {
                 toast('Application Successful.');
             }

@@ -2,9 +2,11 @@ import PropTypes from "prop-types";
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 
 const BookedTutor = ({ tutor }) => {
+    const axiosPublic = useAxiosPublic();
 
     const { myBookedTutor, setMyBookedTutor } = useContext(AuthContext);
     const { _id, name, language, image, price, details, review } = tutor;
@@ -21,11 +23,8 @@ const BookedTutor = ({ tutor }) => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://online-tutor-server-web.vercel.app/bookedTutor/${id}`, {
-                    method: 'DELETE',
-                }).then(res => res.json()).then(result => {
-
-                    if (result.deletedCount > 0) {
+                axiosPublic.delete(`/bookedTutor/${id}`).then(res => {
+                    if (res.data.deletedCount > 0) {
                         Swal.fire({
                             title: "Deleted!",
                             text: "Your file has been deleted.",

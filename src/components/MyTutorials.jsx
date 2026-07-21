@@ -4,19 +4,19 @@ import { MdDeleteForever } from "react-icons/md";
 import { FaPlusSquare } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const MyTutorials = () => {
     const { tutorials, setTutorials, user } = useContext(AuthContext);
-
+    const axiosPublic = useAxiosPublic();
 
     useEffect(() => {
-        fetch(`https://online-tutor-server-web.vercel.app/tutorials/${user?.email}`).then(res => res.json()).then(data => {
+        fetch(`${import.meta.env.VITE_SERVER_URL}/tutorials/${user?.email}`).then(res => res.json()).then(data => {
             setTutorials(data);
         })
     }, [user, setTutorials]);
 
     const handleDeleteTutorials = (id) => {
-
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -27,11 +27,8 @@ const MyTutorials = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://online-tutor-server-web.vercel.app/tutors/${id}`, {
-                    method: 'DELETE',
-                }).then(res => res.json()).then(result => {
-
-                    if (result.deletedCount > 0) {
+                axiosPublic.delete(`/tutors/${id}`).then(res => {
+                    if (res.data.deletedCount > 0) {
                         Swal.fire({
                             title: "Deleted!",
                             text: "Your file has been deleted.",

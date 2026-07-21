@@ -1,0 +1,4 @@
+user-agent: *
+Allow: /
+
+Sitemap: https://smart-learn-online-tutor.netlify.app/sitemap.xml

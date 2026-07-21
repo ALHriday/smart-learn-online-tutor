@@ -2,9 +2,10 @@ import { useContext } from "react";
 import { Navigate, useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const UpdateTutorials = () => {
-
+    const axiosPublic = useAxiosPublic();
     const data = useLoaderData();
     const { privateUser } = useContext(AuthContext);
 
@@ -27,14 +28,8 @@ const UpdateTutorials = () => {
 
         const tutorialsInfo = { name, language, image, price, details };
 
-        fetch(`https://online-tutor-server-web.vercel.app/tutors/${_id}`, {
-            method: 'PUT',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(tutorialsInfo)
-        }).then(res => res.json()
-        ).then(result => {
-            if (result.modifiedCount > 0) {
-
+        axiosPublic.put(`/tutors/${_id}`, tutorialsInfo).then(res => {
+            if (res.data.modifiedCount > 0) {
                 Swal.fire({
                     position: "top-end",
                     icon: "success",

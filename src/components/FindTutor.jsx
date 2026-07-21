@@ -1,28 +1,30 @@
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { useContext, useRef } from "react";
+import { Helmet } from "react-helmet-async";
 
 
 const FindTutor = () => {
-    const { setSearch, setSkip, stats, tutorData, skip, slide, setSlide } = useContext(AuthContext);
+    const { setSearch, stats, tutorData, page, setPage, setLimit, limit } = useContext(AuthContext);
     const langValueRef = useRef();
 
-    const pages = Math.ceil(stats?.tutorLen / 10) || 0;
-    const perPage = 10;
-    const pageNum = skip / perPage;
+    const totalPage = Math.ceil(stats?.tutorLen / limit) || 0;
 
     const handlePagination = (page) => {
-        const skipPage = page * perPage;
-        setSkip(skipPage);
+        setPage(page);
     }
 
     const handlePrev = () => {
-        slide === 0 ? setSlide(pages - 1) : setSlide(slide - 1);
-        setSkip(slide * perPage);
+        1 < page && setPage(page - 1);
     }
     const handleNext = () => {
-        slide === pages - 1 ? setSlide(0) : setSlide(slide + 1);
-        setSkip(slide * perPage);
+        totalPage > page && setPage(page + 1);
+    }
+
+    const handleAllTutors = () => {
+        setSearch('');
+        setPage(1);
+        setLimit(12);
     }
 
 
@@ -32,7 +34,7 @@ const FindTutor = () => {
                 <div className="flex justify-between items-center p-4">
                     <form onChange={(e) => setSearch(e.target.value)} className="w-full flex gap-2 justify-center items-center">
                         <label className="input input-bordered flex items-center gap-2">
-                            <input ref={langValueRef} type="text" className="grow w-full" placeholder="Search by language" />
+                            <input name="search" ref={langValueRef} type="text" className="grow w-full" placeholder="Search by language" autoComplete="on" autoCorrect="on" />
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 16 16"
@@ -46,7 +48,7 @@ const FindTutor = () => {
                         </label>
                     </form>
                     <div className="w-[120px]">
-                        <button onClick={() => setSkip(0)} className="btn">All Tutors</button>
+                        <button onClick={handleAllTutors} className="btn">All Tutors</button>
                     </div>
                 </div>
             </div>
@@ -55,6 +57,9 @@ const FindTutor = () => {
 
                 {tutorData && tutorData.map(tutor =>
                     <div key={tutor?._id} className="bg-base-100 shadow-md grid grid-cols-5 rounded-md mx-2 cursor-pointer hover:scale-105 transition ease-in h-36 sm:h-40 max-h-52">
+                        <Helmet>
+                            <meta name={tutor?.name || 'Tutor'} value={tutor?.details || ''} />
+                        </Helmet>
                         <div className="h-36 sm:h-40 max-h-52 flex justify-center items-center p-2 col-span-2">
                             <img className="rounded-md w-full h-full object-cover"
                                 src={tutor?.image}
@@ -85,14 +90,19 @@ const FindTutor = () => {
                             </div>
 
                         </div>
+                        <Helmet>
+                            <title>SmartLearn | Tutors</title>
+                            <meta name={tutor?.name} content={tutor?.details} />
+                            <link rel="canonical" href={`https://smart-learn-online-tutor.netlify.app/find_tutors`} />
+                        </Helmet>
                     </div>
                 )}
 
             </div>
-            {pages &&
+            {totalPage &&
                 <div className="p-4 flex justify-center items-center gap-2">
                     <button onClick={handlePrev} className="btn">Prev</button>
-                    {Array.from({ length: pages }, (_, i) => <button onClick={() => handlePagination(i)} className={` ${pageNum === i ? 'btn-accent' : ''} btn btn-md`} key={i}>{i + 1}</button>)}
+                    {Array.from({ length: totalPage }, (_, i) => <button onClick={() => handlePagination(i + 1)} className={` ${page === (i + 1) ? 'btn-accent' : ''} btn btn-md`} key={i}>{i + 1}</button>)}
                     <button onClick={handleNext} className="btn">Next</button>
                 </div>
             }

@@ -7,7 +7,7 @@ const Stats = () => {
     const { stats } = useContext(AuthContext);
 
     return (
-        <div className="stats shadow">
+        <div className="stats shadow h-[160px] no-scrollbar">
             <div className="stat place-items-center">
                 <div className="stat-title">Tutors</div>
                 <div className="stat-value">{stats?.tutorLen}+</div>

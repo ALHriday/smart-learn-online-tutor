@@ -41,7 +41,7 @@ const Navbar = () => {
                 <div className="dropdown mx-3 mt-1 dropdown-end">
                     <div onClick={handleToggle}>
                         <label className="swap swap-rotate">
-                            <input type="checkbox"
+                            <input name="checkbox" type="checkbox"
                                 className="theme-controller" value={toggle || ''} />
                             <svg
                                 className="swap-off h-8 w-8 fill-current"

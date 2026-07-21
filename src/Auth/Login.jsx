@@ -1,15 +1,19 @@
 import { useContext, useRef } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 
 const Login = () => {
-    const { signInWithGoogle, setUser, signInWithEmailAndPassWord, errorMessage, setErrorMessage, showPass, togglePassword } = useContext(AuthContext);
+    const { signInWithGoogle, setUser, signInWithEmailAndPassWord, errorMessage, setErrorMessage, showPass, togglePassword, user } = useContext(AuthContext);
     const navigate = useNavigate();
     const showPassRef = useRef();
+
+    if (user) {
+        return <Navigate to={`/dashboard`}></Navigate>
+    }
 
     const handleGoogleSignIn = () => {
         signInWithGoogle()
