@@ -7,7 +7,7 @@ import { Rating, ThinStar } from '@smastrom/react-rating';
 import '@smastrom/react-rating/style.css';
 import { Helmet } from "react-helmet-async";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
-import { FiBookOpen, FiClock, FiHeart, FiMessageCircle, FiStar, FiX } from "react-icons/fi";
+import { FiBookOpen, FiClock, FiMessageCircle, FiStar, FiX } from "react-icons/fi";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 
 const myStyles = {
