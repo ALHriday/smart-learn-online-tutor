@@ -1,13 +1,12 @@
-import { useContext } from "react";
 import { Navigate, useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
-import { AuthContext } from "../AuthProvider/AuthProvider";
+import useAppStore from "../store/useAppStore";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const UpdateTutorials = () => {
     const axiosPublic = useAxiosPublic();
     const data = useLoaderData();
-    const { privateUser } = useContext(AuthContext);
+    const { privateUser } = useAppStore();
 
     if (!privateUser?.role) {
         return <Navigate to='/' replace />

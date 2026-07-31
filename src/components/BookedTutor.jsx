@@ -1,16 +1,13 @@
 import PropTypes from "prop-types";
-import { useContext } from "react";
-import { AuthContext } from "../AuthProvider/AuthProvider";
+import useAppStore from "../store/useAppStore";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
-
+import { FiClock, FiTrash2, FiUser } from "react-icons/fi";
 
 const BookedTutor = ({ tutor }) => {
     const axiosPublic = useAxiosPublic();
-
-    const { myBookedTutor, setMyBookedTutor } = useContext(AuthContext);
+    const { myBookedTutor, setMyBookedTutor } = useAppStore();
     const { _id, name, language, image, price, details, review } = tutor;
-
 
     const handleDeleteBookedTutor = (id) => {
         Swal.fire({
@@ -27,54 +24,68 @@ const BookedTutor = ({ tutor }) => {
                     if (res.data.deletedCount > 0) {
                         Swal.fire({
                             title: "Deleted!",
-                            text: "Your file has been deleted.",
+                            text: "Your booking has been removed.",
                             icon: "success"
                         });
                         const remaining = myBookedTutor.filter(bookedTutor => bookedTutor._id !== id);
                         setMyBookedTutor(remaining);
                     }
-                })
+                });
             }
         });
-    }
-
+    };
 
     return (
+        <div className="mx-auto flex w-full max-w-4xl flex-col overflow-hidden rounded-[1.5rem] border border-base-300 bg-base-100 shadow-sm transition hover:shadow-md lg:flex-row">
+            <div className="relative lg:w-56">
+                <img
+                    className="h-48 w-full object-cover lg:h-full"
+                    src={image}
+                    alt={details}
+                    // eslint-disable-next-line react/no-unknown-property
+                    fetchpriority="high"
+                />
+                <button
+                    onClick={() => handleDeleteBookedTutor(_id)}
+                    className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-error/90 text-white shadow-lg transition hover:scale-105"
+                    aria-label="Remove booking"
+                >
+                    <FiTrash2 className="h-4 w-4" />
+                </button>
+            </div>
 
-        <div className="md:w-9/12 mx-auto grid grid-cols-7 gap-4  justify-center items-center bg-base-100 shadow-md relative p-4 rounded-lg">
-            <div className="max-h-[260px] overflow-hidden rounded-md sm:col-span-2 col-span-7">
-                <div className="sm:w-[160px] sm:h-[160px]">
-                    <img className="rounded-md w-full h-full object-cover"
-                        src={image}
-                        alt={details}
-                        // eslint-disable-next-line react/no-unknown-property
-                        fetchpriority="high"
-                    />
-                </div>
+            <div className="flex flex-1 flex-col justify-between p-5 sm:p-6">
                 <div>
-                    <div onClick={() => handleDeleteBookedTutor(_id)} className="w-10 h-10 bg-red-600 absolute -top-2 -right-2 flex justify-center items-center font-bold text-xl rounded-full text-white cursor-pointer">X</div>
+                    <div className="flex flex-wrap items-center gap-2">
+                        <h2 className="text-xl font-semibold">{name}</h2>
+                        <span className="rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-secondary">
+                            {review || 'Top rated'}
+                        </span>
+                    </div>
+
+                    <div className="mt-3 flex flex-wrap gap-2 text-sm text-base-content/70">
+                        <span className="rounded-full bg-base-200 px-3 py-1">{language}</span>
+                        <span className="rounded-full bg-base-200 px-3 py-1">${price} / hour</span>
+                    </div>
+
+                    <p className="mt-4 text-sm leading-6 text-base-content/70">{details}</p>
+                </div>
+
+                <div className="mt-5 flex flex-wrap items-center gap-4 border-t border-base-300 pt-4 text-sm text-base-content/70">
+                    <span className="flex items-center gap-2">
+                        <FiClock className="text-primary" /> Scheduled session
+                    </span>
+                    <span className="flex items-center gap-2">
+                        <FiUser className="text-accent" /> Personalized lesson
+                    </span>
                 </div>
             </div>
-
-            <div className="col-span-7 sm:col-span-5 flex flex-col justify-between items-start">
-                <div className="flex flex-wrap gap-1">
-                    <h2 className="font-bold">{name}</h2>
-                    <p className="badge badge-secondary ml-1">{review}</p>
-                </div>
-
-                <p className="font-bold">{language}</p>
-                <p><span className="font-bold">${price}</span> per hour</p>
-                <p className="flex flex-wrap">
-                    {details}
-                </p>
-            </div>
-
         </div>
     );
 };
 
 BookedTutor.propTypes = {
     tutor: PropTypes.object
-}
+};
 
 export default BookedTutor;

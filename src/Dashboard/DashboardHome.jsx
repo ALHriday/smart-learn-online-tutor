@@ -1,15 +1,16 @@
-import { useContext } from "react";
 import AdminHome from "./AdminHome";
-import { AuthContext } from "../AuthProvider/AuthProvider";
+import useAppStore from "../store/useAppStore";
 import TutorHome from "./TutorHome";
+import UserHome from "./UserHome";
 
 const DashboardHome = () => {
-    const { privateUser } = useContext(AuthContext);
+    const { privateUser } = useAppStore();
 
     return (
         <div>
             {privateUser?.role === 'admin' && <AdminHome />}
             {privateUser?.role === 'tutor' && <TutorHome />}
+            {!privateUser?.role && <UserHome />}
         </div>
     );
 };

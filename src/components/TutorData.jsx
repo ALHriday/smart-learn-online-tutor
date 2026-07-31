@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../AuthProvider/AuthProvider";
+import useAppStore from "../store/useAppStore";
 
 
 const TutorData = () => {
-    const { tutorData } = useContext(AuthContext);
+    const { tutorData } = useAppStore();
 
     return (
         <div>

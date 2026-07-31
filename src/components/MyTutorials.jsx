@@ -1,5 +1,5 @@
-import { useContext, useEffect } from "react";
-import { AuthContext } from "../AuthProvider/AuthProvider";
+import { useEffect } from "react";
+import useAppStore from "../store/useAppStore";
 import { MdDeleteForever } from "react-icons/md";
 import { FaPlusSquare } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const MyTutorials = () => {
-    const { tutorials, setTutorials, user } = useContext(AuthContext);
+    const { tutorials, setTutorials, user } = useAppStore();
     const axiosPublic = useAxiosPublic();
 
     useEffect(() => {

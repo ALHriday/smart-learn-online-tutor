@@ -1,10 +1,12 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
+import useAppStore from "../../store/useAppStore";
 import Swal from "sweetalert2";
+import { FiMenu, FiMoon, FiSun } from "react-icons/fi";
 
 const Navbar = () => {
-    const { user, signOutUser, setUser, toggle, handleToggle, privateUser } = useContext(AuthContext);
+    const { user, signOutUser, setUser, toggle, handleToggle, privateUser } = useAppStore();
+    const profileName = user?.displayName || privateUser?.userName || 'Guest User';
+    const profileImage = user?.photoURL || 'https://img.icons8.com/?size=100&id=7819&format=png&color=000000';
 
     const handleLogOut = () => {
         signOutUser()
@@ -17,114 +19,98 @@ const Navbar = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-            }
-            ).catch(error => error)
-    }
+            })
+            .catch(error => error);
+    };
+
+    const navLinks = [
+        { to: '/', label: 'Home' },
+        { to: '/find_tutors', label: 'Find Tutors' },
+        { to: '/become_tutor', label: 'Become a Tutor' }
+    ];
 
     return (
-        <div className="navbar bg-base-100 sticky top-0 z-50">
-            <div className="flex-1 justify-start items-center text-3xl font-bold">
-                <Link to='/'> <span className=" bg-clip-text text-transparent bg-gradient-to-r from-secondary to-accent">Smart</span> <span className="bg-clip-text text-transparent bg-gradient-to-l from-secondary to-accent">Learn</span></Link>
-            </div>
-            <div className="flex-none">
-                <div className="dropdown hidden lg:flex gap-2 dropdown-end">
-                    <Link className="btn btn-sm" to='/'>Home</Link>
-                    <Link className="btn btn-sm" to='/find_tutors'>Find Tutors</Link>
-                    <Link className="btn btn-sm" to='/become_tutor'>Become a Tutor</Link>
-                    {user &&
-                        <div className="flex gap-2">
-                            <Link className="btn btn-sm" to='/my_booked_tutor'>My Booked Tutor</Link>
-                        </div>}
-                    {privateUser?.role &&
-                        <Link className="btn btn-sm" to='/dashboard'>Dashboard</Link>}
-                </div>
-                <div className="dropdown mx-3 mt-1 dropdown-end">
-                    <div onClick={handleToggle}>
-                        <label className="swap swap-rotate">
-                            <input name="checkbox" type="checkbox"
-                                className="theme-controller" value={toggle || ''} />
-                            <svg
-                                className="swap-off h-8 w-8 fill-current"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24">
-                                <path
-                                    d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
-                            </svg>
-
-                            {/* moon icon */}
-                            <svg
-                                className="swap-on h-8 w-8  fill-current"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24">
-                                <path
-                                    d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
-                            </svg>
-                        </label>
-                    </div>
+        <header className="sticky top-0 z-50 border-b border-base-300/70 bg-base-100/90 backdrop-blur">
+            <div className="navbar mx-auto max-w-7xl px-3 py-2 sm:px-4 lg:px-6">
+                <div className="flex-1">
+                    <Link to='/' className="flex items-center gap-3 text-xl font-semibold tracking-tight sm:text-2xl">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-secondary to-accent text-sm font-bold text-white shadow-md ring-1 ring-white/20">
+                            SL
+                        </span>
+                        <span className="flex flex-col leading-none">
+                            <span className="text-base font-semibold text-base-content sm:text-lg">SmartLearn</span>
+                            <span className="text-xs font-medium uppercase tracking-[0.3em] text-base-content/60">Online tutoring</span>
+                        </span>
+                    </Link>
                 </div>
 
-                <div className="dropdown dropdown-end flex lg:justify-center lg:items-center gap-2">
-                    <div className="hidden lg:block">
-                        {user ?
-                            <div>
-                                <button onClick={handleLogOut} className="btn btn-sm">LogOut</button>
-                            </div>
-                            :
-                            <div>
-                                {/* <Link to='/register' className="btn btn-sm mr-2">Register</Link> */}
-                                <Link to='/login' className="btn btn-sm">LogIn</Link>
-                            </div>
+                <nav className="hidden items-center gap-2 lg:flex">
+                    {navLinks.map((link) => (
+                        <Link key={link.to} className="btn btn-ghost btn-sm rounded-full" to={link.to}>
+                            {link.label}
+                        </Link>
+                    ))}
+                    {user && <Link className="btn btn-ghost btn-sm rounded-full" to='/my_booked_tutor'>My Bookings</Link>}
+                    {privateUser?.role && <Link className="btn btn-ghost btn-sm rounded-full" to='/dashboard'>Dashboard</Link>}
+                </nav>
 
-                        }
+                <div className="ml-auto flex items-center gap-2">
+                    <button onClick={handleToggle} className="btn btn-ghost btn-circle btn-sm" aria-label="Toggle theme">
+                        {toggle === 'dark' ? <FiSun className="h-5 w-5" /> : <FiMoon className="h-5 w-5" />}
+                    </button>
+                    <div className="hidden lg:flex">
+                        {user ? (
+                            <button onClick={handleLogOut} className="btn btn-sm rounded-full">LogOut</button>
+                        ) : (
+                            <Link to='/login' className="btn btn-sm rounded-full">LogIn</Link>
+                        )}
                     </div>
-                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
 
-                        <div className="w-10 rounded-full">
-                            {user ? <img
-                                src={user?.photoURL}
-                                alt={user?.displayName}
-                                title={user?.displayName}
-                                // eslint-disable-next-line react/no-unknown-property
-                                fetchpriority='high'
-                            />
-                                :
-                                <div>
-                                    <img className={toggle === 'dark' ? 'bg-slate-300' : 'bg-white'} src="https://img.icons8.com/?size=100&id=7819&format=png&color=000000" alt="" />
-                                </div>
-                            }
-
+                    <div className="hidden items-center gap-2 rounded-full border border-base-300 bg-base-200/70 px-2 py-1 lg:flex">
+                        <div className="avatar">
+                            <div className="w-8 rounded-full">
+                                <img src={profileImage} alt={profileName} className="object-cover" />
+                            </div>
                         </div>
-
+                        <div className="pr-1 text-sm">
+                            <p className="font-semibold leading-none">{profileName}</p>
+                            <p className="text-xs text-base-content/70">{user ? 'Signed in' : 'Guest'}</p>
+                        </div>
                     </div>
-                    <ul
-                        tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow lg:hidden">
-                        <li><Link to='/'>Home</Link></li>
-                        <li><Link to='/find_tutors'>Find Tutors</Link></li>
-                        <li><Link to='/become_tutor'>Become a Tutor</Link></li>
-                        {user &&
-                            <li><Link to='/my_booked_tutor'>My Booked Tutor</Link></li>
-                        }
-                        {privateUser?.role &&
-                            <li><Link to='/dashboard'>Dashboard</Link></li>}
 
-                        <li><div>
-                            {user ?
-                                <div>
-                                    <button onClick={handleLogOut} className="btn btn-sm">LogOut</button>
+                    <div className="dropdown dropdown-end lg:hidden">
+                        <label tabIndex={0} className="btn btn-ghost btn-circle btn-sm">
+                            <FiMenu className="h-5 w-5" />
+                        </label>
+                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 w-56 rounded-box border border-base-300 bg-base-100 p-2 shadow-xl">
+                            {navLinks.map((link) => (
+                                <li key={link.to}><Link to={link.to}>{link.label}</Link></li>
+                            ))}
+                            {user && <li><Link to='/my_booked_tutor'>My Bookings</Link></li>}
+                            {privateUser?.role && <li><Link to='/dashboard'>Dashboard</Link></li>}
+                            <li className="mt-2 border-t border-base-300 pt-2">
+                                <div className="mb-2 flex items-center gap-2 rounded-2xl bg-base-200/60 p-2">
+                                    <div className="avatar">
+                                        <div className="w-8 rounded-full">
+                                            <img src={profileImage} alt={profileName} className="object-cover" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p className="text-sm font-semibold">{profileName}</p>
+                                        <p className="text-xs text-base-content/70">{user ? 'Signed in' : 'Guest'}</p>
+                                    </div>
                                 </div>
-                                :
-                                <div>
-                                    <Link to='/register' className="btn btn-sm mr-2">Register</Link>
-                                    <Link to='/login' className="btn btn-sm">LogIn</Link>
-                                </div>
-
-                            }
-                        </div></li>
-                    </ul>
+                                {user ? (
+                                    <button onClick={handleLogOut} className="btn btn-sm w-full">LogOut</button>
+                                ) : (
+                                    <Link to='/login' className="btn btn-sm w-full">LogIn</Link>
+                                )}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        </header>
     );
 };
 

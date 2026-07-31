@@ -1,114 +1,153 @@
 import { Link } from "react-router-dom";
-import { AuthContext } from "../AuthProvider/AuthProvider";
-import { useContext, useRef } from "react";
+import useAppStore from "../store/useAppStore";
+import { useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
-
+import { FiSearch, FiUsers } from "react-icons/fi";
 
 const FindTutor = () => {
-    const { setSearch, stats, tutorData, page, setPage, setLimit, limit } = useContext(AuthContext);
-    const langValueRef = useRef();
+    const { setSearch, stats, tutorData, page, setPage, setLimit, limit } = useAppStore();
+    const langValueRef = useRef(null);
 
-    const totalPage = Math.ceil(stats?.tutorLen / limit) || 0;
+    const totalPage = Math.max(1, Math.ceil((stats?.tutorLen || tutorData?.length || 0) / limit)) || 1;
 
-    const handlePagination = (page) => {
-        setPage(page);
-    }
+    useEffect(() => {
+        if (page > totalPage) {
+            setPage(totalPage);
+        }
+    }, [page, totalPage, setPage]);
+
+    const handlePagination = (nextPage) => {
+        setPage(nextPage);
+    };
 
     const handlePrev = () => {
-        1 < page && setPage(page - 1);
-    }
+        page > 1 && setPage(page - 1);
+    };
+
     const handleNext = () => {
-        totalPage > page && setPage(page + 1);
-    }
+        page < totalPage && setPage(page + 1);
+    };
+
+    const handleSearch = (e) => {
+        setSearch(e.target.value);
+        setPage(1);
+        setLimit(12);
+    };
 
     const handleAllTutors = () => {
         setSearch('');
         setPage(1);
         setLimit(12);
-    }
-
+        if (langValueRef.current) {
+            langValueRef.current.value = '';
+        }
+    };
 
     return (
-        <div>
-            <div>
-                <div className="flex justify-between items-center p-4">
-                    <form onChange={(e) => setSearch(e.target.value)} className="w-full flex gap-2 justify-center items-center">
-                        <label className="input input-bordered flex items-center gap-2">
-                            <input name="search" ref={langValueRef} type="text" className="grow w-full" placeholder="Search by language" autoComplete="on" autoCorrect="on" />
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 16 16"
-                                fill="currentColor"
-                                className="h-4 w-4 opacity-70">
-                                <path
-                                    fillRule="evenodd"
-                                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                    clipRule="evenodd" />
-                            </svg>
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <Helmet>
+                <title>SmartLearn | Tutors</title>
+                <meta name="description" content="Browse and discover expert tutors on SmartLearn." />
+            </Helmet>
+
+            <div className="rounded-[2rem] border border-base-300 bg-gradient-to-br from-primary/10 via-base-100 to-secondary/10 p-6 shadow-sm sm:p-8">
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                    <div>
+                        <p className="text-sm uppercase tracking-[0.3em] text-primary">Find your match</p>
+                        <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">Browse expert tutors</h1>
+                        <p className="mt-2 max-w-2xl text-sm text-base-content/70">
+                            Search by language and explore tutors that are ready to guide your next lesson.
+                        </p>
+                    </div>
+                    <div className="flex items-center gap-2 rounded-full border border-base-300 bg-base-100 px-4 py-2 text-sm font-medium shadow-sm">
+                        <FiUsers className="text-secondary" />
+                        <span>{stats?.tutorLen || tutorData?.length || 0} tutors available</span>
+                    </div>
+                </div>
+
+                <div className="mt-6 flex flex-col gap-3 md:flex-row">
+                    <form onSubmit={(e) => e.preventDefault()} className="flex-1">
+                        <label className="input input-bordered flex items-center gap-2 rounded-full bg-base-100">
+                            <FiSearch className="h-4 w-4 opacity-70" />
+                            <input
+                                name="search"
+                                ref={langValueRef}
+                                type="text"
+                                className="grow"
+                                placeholder="Search by language"
+                                autoComplete="on"
+                                autoCorrect="on"
+                                onChange={handleSearch}
+                            />
                         </label>
                     </form>
-                    <div className="w-[120px]">
-                        <button onClick={handleAllTutors} className="btn">All Tutors</button>
-                    </div>
+                    <button onClick={handleAllTutors} className="btn btn-outline rounded-full">
+                        All Tutors
+                    </button>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 p-4 h-auto sm:h-[900px] lg:h-[800px] place-content-start overflow-auto">
-
-                {tutorData && tutorData.map(tutor =>
-                    <div key={tutor?._id} className="bg-base-100 shadow-md grid grid-cols-5 rounded-md mx-2 cursor-pointer hover:scale-105 transition ease-in h-36 sm:h-40 max-h-52">
-                        <Helmet>
-                            <meta name={tutor?.name || 'Tutor'} value={tutor?.details || ''} />
-                        </Helmet>
-                        <div className="h-36 sm:h-40 max-h-52 flex justify-center items-center p-2 col-span-2">
-                            <img className="rounded-md w-full h-full object-cover"
+            <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {tutorData?.map((tutor) => (
+                    <div
+                        key={tutor?._id}
+                        className="group overflow-hidden rounded-[1.5rem] border border-base-300 bg-base-100 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                    >
+                        <div className="h-48 overflow-hidden">
+                            <img
+                                className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                                 src={tutor?.image}
                                 alt={tutor?.details}
                                 // eslint-disable-next-line react/no-unknown-property
                                 fetchpriority="high"
                             />
                         </div>
-                        <div className="col-span-3 p-2 flex flex-col justify-between">
-                            <div className="font-bold text-sm sm:text-xl">   {tutor?.name}
-                                <div className="badge badge-secondary ml-1">{tutor?.review}
+                        <div className="p-5">
+                            <div className="flex items-start justify-between gap-3">
+                                <div>
+                                    <h2 className="text-lg font-semibold">{tutor?.name}</h2>
+                                    <p className="mt-1 text-sm text-base-content/70">{tutor?.language}</p>
                                 </div>
-                            </div>
-                            <div className=" flex gap-1">
-                                <div className="w-6 h-6">
-                                    <img src="https://img.icons8.com/?size=100&id=9m2yplxz2fr3&format=png&color=000000" alt="" />
-                                </div>
-                                <div>{tutor?.language}</div>
-                            </div>
-
-                            <div className="flex flex-col gap-1 justify-between">
-                                <div className="text-md flex justify-between items-center">
-                                    <div className="font-bold">${tutor?.price}</div>
-                                    <div className="card-actions">
-                                        <Link to={`/tutor_details/${tutor?._id}`} className="btn btn-secondary btn-sm mt-2">Details</Link>
-                                    </div>
-                                </div>
+                                <span className="rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-secondary">
+                                    {tutor?.review || 'Top rated'}
+                                </span>
                             </div>
 
+                            <p className="mt-3 line-clamp-3 text-sm leading-6 text-base-content/70">
+                                {tutor?.details || 'A dedicated tutor ready to help you build confidence and skill.'}
+                            </p>
+
+                            <div className="mt-4 flex items-center justify-between">
+                                <div>
+                                    <p className="text-xs uppercase tracking-[0.2em] text-base-content/50">Starting from</p>
+                                    <p className="text-xl font-semibold">${tutor?.price}</p>
+                                </div>
+                                <Link to={`/tutor_details/${tutor?._id}`} className="btn btn-secondary btn-sm rounded-full">
+                                    View profile
+                                </Link>
+                            </div>
                         </div>
-                        <Helmet>
-                            <title>SmartLearn | Tutors</title>
-                            <meta name={tutor?.name} content={tutor?.details} />
-                            <link rel="canonical" href={`https://smart-learn-online-tutor.netlify.app/find_tutors`} />
-                        </Helmet>
                     </div>
-                )}
-
+                ))}
             </div>
-            {totalPage &&
-                <div className="p-4 flex justify-center items-center gap-2">
-                    <button onClick={handlePrev} className="btn">Prev</button>
-                    {Array.from({ length: totalPage }, (_, i) => <button onClick={() => handlePagination(i + 1)} className={` ${page === (i + 1) ? 'btn-accent' : ''} btn btn-md`} key={i}>{i + 1}</button>)}
-                    <button onClick={handleNext} className="btn">Next</button>
-                </div>
-            }
-        </div>
 
-    )
-}
+            {totalPage > 1 && (
+                <div className="mt-8 flex flex-wrap justify-center items-center gap-2">
+                    <button onClick={handlePrev} className="btn btn-sm rounded-full">Prev</button>
+                    {Array.from({ length: totalPage }, (_, i) => (
+                        <button
+                            onClick={() => handlePagination(i + 1)}
+                            className={`btn btn-sm rounded-full ${page === (i + 1) ? 'btn-accent' : 'btn-outline'}`}
+                            key={i}
+                        >
+                            {i + 1}
+                        </button>
+                    ))}
+                    <button onClick={handleNext} className="btn btn-sm rounded-full">Next</button>
+                </div>
+            )}
+        </div>
+    );
+};
 
 export default FindTutor;

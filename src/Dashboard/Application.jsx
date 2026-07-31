@@ -1,10 +1,9 @@
-import { useContext } from "react";
-import { AuthContext } from "../AuthProvider/AuthProvider";
+import useAppStore from "../store/useAppStore";
 import { toast, ToastContainer } from "react-toastify";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const Application = () => {
-    const { appliedUser } = useContext(AuthContext);
+    const { appliedUser } = useAppStore();
     const axiosPublic = useAxiosPublic();
 
 

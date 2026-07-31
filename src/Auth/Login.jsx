@@ -1,13 +1,15 @@
-import { useContext, useRef } from "react";
-import { AuthContext } from "../AuthProvider/AuthProvider";
+import { useRef } from "react";
+import { motion } from "motion/react";
+import useAppStore from "../store/useAppStore";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import Swal from "sweetalert2";
-
+import AuthLayout from "../components/AuthLayout";
 
 const Login = () => {
-    const { signInWithGoogle, setUser, signInWithEmailAndPassWord, errorMessage, setErrorMessage, showPass, togglePassword, user } = useContext(AuthContext);
+    const { signInWithGoogle, setUser, signInWithEmailAndPassWord, errorMessage, setErrorMessage, showPass, togglePassword, user } = useAppStore();
     const navigate = useNavigate();
     const showPassRef = useRef();
 
@@ -61,54 +63,60 @@ const Login = () => {
     }
 
     return (
-        <div>
-            <div className="hero bg-base-200 min-h-screen">
-                <div className="hero-content flex-col md:flex-row">
-                    <div className="text-center lg:text-left">
-                        <h1 className="text-5xl text-center font-bold">Login now!</h1>
-                        <p className="py-6">Log in now to access your account and explore more!</p>
-                    </div>
-                    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                        <form onSubmit={handleSignInUser} className="card-body">
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Email</span>
-                                </label>
-                                <input type="email" name="email"
-                                    placeholder="email" className="input input-bordered" required />
-                            </div>
-                            <div className="form-control relative">
-                                <label className="label">
-                                    <span className="label-text">Password</span>
-                                </label>
-                                <input ref={showPassRef} type="password" name="password" placeholder="password" className="input input-bordered" required />
-                                <label className="label">
-                                    <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                                </label>
-                                <p onClick={() => togglePassword(showPassRef)} className="absolute top-[45%] right-[5%]">
-                                    {showPass ? <FaEye /> : <FaEyeSlash />}
-
-                                </p>
-                            </div>
-                            <div className="form-control mt-6">
-                                <button className="btn btn-primary">Login</button>
-                                <p className="mt-1 text-center text-red-500">{errorMessage}</p>
-                                <p className="mt-2 text-slate-400 text-center">{`Don't have an account`} <Link className="btn-link" to='/register'>Register</Link></p>
-
-                            </div>
-                        </form>
-                        <div onClick={handleGoogleSignIn} className="mb-3 flex justify-center items-center btn btn-primary mx-8">
-                            <button className="flex justify-center items-center gap-1 text-center text-sm"><div className="w-7">
-                                <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" alt="" />
-                            </div>SignInWithGoogle</button>
-                        </div>
-
-                    </div>
-
+        <AuthLayout title="Welcome back" subtitle="Log in to continue your learning journey with expert tutors and a personalized dashboard." image="✦">
+            <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="rounded-[1.5rem] border border-base-300/70 bg-base-100/90 p-6 shadow-xl"
+            >
+                <div className="mb-6">
+                    <h2 className="text-2xl font-semibold">Sign in</h2>
+                    <p className="mt-1 text-sm text-base-content/70">Access your account and pick up where you left off.</p>
                 </div>
-            </div>
 
-        </div>
+                <form onSubmit={handleSignInUser} className="space-y-4">
+                    <div className="form-control">
+                        <label className="label px-0 pb-2">
+                            <span className="label-text">Email</span>
+                        </label>
+                        <input type="email" name="email" placeholder="Enter your email" className="input input-bordered w-full" required />
+                    </div>
+
+                    <div className="form-control relative">
+                        <label className="label px-0 pb-2">
+                            <span className="label-text">Password</span>
+                        </label>
+                        <input ref={showPassRef} type="password" name="password" placeholder="Enter your password" className="input input-bordered w-full pr-12" required />
+                        <button type="button" onClick={() => togglePassword(showPassRef)} className="absolute right-3 top-[52px] text-base-content/70">
+                            {showPass ? <FaEye /> : <FaEyeSlash />}
+                        </button>
+                    </div>
+
+                    <div className="flex items-center justify-between text-sm">
+                        <label className="label cursor-pointer gap-2 p-0">
+                            <input type="checkbox" className="checkbox checkbox-sm" />
+                            <span className="label-text">Remember me</span>
+                        </label>
+                        <a href="#" className="link link-hover text-primary">Forgot password?</a>
+                    </div>
+
+                    <button className="btn btn-primary w-full">Login</button>
+                    <p className="text-center text-sm text-red-500">{errorMessage}</p>
+                </form>
+
+                <div className="divider my-5">or continue with</div>
+
+                <button onClick={handleGoogleSignIn} className="btn btn-outline w-full gap-2">
+                    <FcGoogle className="text-xl" />
+                    Sign in with Google
+                </button>
+
+                <p className="mt-5 text-center text-sm text-base-content/70">
+                    Don’t have an account? <Link className="font-semibold text-primary hover:underline" to="/register">Create one</Link>
+                </p>
+            </motion.div>
+        </AuthLayout>
     );
 };
 

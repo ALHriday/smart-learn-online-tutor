@@ -1,12 +1,11 @@
-import { useContext } from "react";
-import { AuthContext } from "../AuthProvider/AuthProvider";
+import useAppStore from "../store/useAppStore";
 import Swal from "sweetalert2";
 import { Navigate } from "react-router-dom";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const AddTutorials = () => {
 
-    const { user, privateUser } = useContext(AuthContext);
+    const { user, privateUser } = useAppStore();
     const axiosPublic = useAxiosPublic();
 
     if (!privateUser?.role) {

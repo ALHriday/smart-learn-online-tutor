@@ -15,6 +15,17 @@ import {
 
 const queryClient = new QueryClient();
 
+const preferredTheme = (() => {
+  if (typeof window === 'undefined') return 'light';
+  const storedTheme = localStorage.getItem('theme');
+  if (storedTheme === 'dark' || storedTheme === 'light') {
+    return storedTheme;
+  }
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+})();
+
+document.documentElement.setAttribute('data-theme', preferredTheme);
+document.documentElement.style.colorScheme = preferredTheme;
 
 import AuthProvider from './AuthProvider/AuthProvider';
 import Home from './components/Home/Home';
@@ -22,6 +33,7 @@ import Login from './Auth/Login';
 import Register from './Auth/Register';
 import FindTutor from './components/FindTutor';
 import PrivateRoute from './Routes/PrivateRoute';
+import RoleBasedRoute from './Routes/RoleBasedRoute';
 import ErrorPage from './ErrorPage/ErrorPage';
 import App from './App';
 import AddTutorials from './components/AddTutorials';
@@ -100,15 +112,15 @@ const router = createBrowserRouter([
       },
       {
         path: '/dashboard/application',
-        element: <PrivateRoute><Application /></PrivateRoute>
+        element: <RoleBasedRoute allowedRoles={['admin']}><Application /></RoleBasedRoute>
       },
       {
         path: '/dashboard/addTutorials',
-        element: <PrivateRoute><AddTutorials /></PrivateRoute>
+        element: <RoleBasedRoute allowedRoles={['tutor']}><AddTutorials /></RoleBasedRoute>
       },
       {
         path: '/dashboard/myTutorials',
-        element: <PrivateRoute><MyTutorials /></PrivateRoute>
+        element: <RoleBasedRoute allowedRoles={['tutor']}><MyTutorials /></RoleBasedRoute>
       },
     ]
   }
